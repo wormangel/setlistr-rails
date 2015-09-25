@@ -1,4 +1,4 @@
-module CommonSteps
+module CommonSteps  
   def should_redirect_to_login_page
     expect(page).to have_link("fb_login_btn")
   end

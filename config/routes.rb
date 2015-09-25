@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources 'band'
+
   get 'user/dashboard'
 
   get 'welcome/index'

@@ -21,7 +21,7 @@ shared_examples "a page for authenticated users" do
       should_have_logout_button
     end
     
-    scenario "should logout the user when he clicks on Logout" do
+    scenario "logout the user when he clicks on Logout" do
       click_to_logout
       should_redirect_to_login_page
     end

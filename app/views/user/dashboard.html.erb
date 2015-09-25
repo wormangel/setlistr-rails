@@ -1,2 +1,2 @@
-<h1 id="dashboard">User#dashboard</h1>
-<p>Find me in app/views/user/dashboard.html.erb</p>
+<h1 id="dashboard">Olá, <%= current_user.name %>!</h1>
+<p><%= link_to "Adicionar sua banda!", new_band_path, :id => "create_band_btn" %></p>
