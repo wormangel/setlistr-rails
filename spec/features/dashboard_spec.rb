@@ -16,13 +16,12 @@ feature "The dashboard" do
   context "when the user is authenticated" do  
     before do
       visit("/")
-      prepare_facebook_login_success
-      login_with_facebook
+      click_to_login_and_allow_fb_connection
       visit_dashboard
     end
   
     scenario 'displays a button to create a new band' do
-      should_display_button_to_create_new_band
+      should_see_button_to_create_new_band
     end
   
     context 'when the user doesn\'t have any bands' do

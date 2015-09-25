@@ -19,23 +19,21 @@ feature "Acessing the homepage" do
     context "and clicks \"Login With Facebook\"" do
       context "and authenticates successfully" do
         before do
-          prepare_facebook_login_success
+          click_to_login_and_allow_fb_connection
         end
         
         scenario "redirects to dashboard" do
-          login_with_facebook
-          should_redirect_to_dashboard
+          should_see_dashboard
         end
       end
 
       context "and the authentication fails" do
         before do
-          prepare_facebook_login_failure
+          click_to_login_and_deny_fb_connection
         end
 
         scenario "refreshes displaying the error" do
-          login_with_facebook
-          should_redisplay_login_with_error
+          should_see_login_screen_with_error
         end
       end
     end
@@ -43,12 +41,11 @@ feature "Acessing the homepage" do
 
   context "when the user is logged in" do
     before do
-      prepare_facebook_login_success
-      login_with_facebook
+      click_to_login_and_allow_fb_connection
     end
 
     scenario "redirects to dashboard" do
-      should_redirect_to_dashboard
+      should_see_dashboard
     end
   end
 end

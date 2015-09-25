@@ -7,11 +7,11 @@ module HomepageSteps
     expect(page).to have_link("fb_login_btn")
   end
 
-  def should_redirect_to_dashboard
+  def should_see_dashboard
     expect(page).to have_selector("#dashboard")
   end
 
-  def should_redisplay_login_with_error
+  def should_see_login_screen_with_error
     expect(page).to have_link("fb_login_btn")
     expect(page).to have_selector(".alert-danger")
   end

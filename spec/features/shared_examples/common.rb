@@ -7,14 +7,13 @@ shared_examples "a page for authenticated users" do
   
   context "when accessed by an anonymous user" do
     scenario "redirects to login page" do
-      should_redirect_to_login_page
+      should_see_login_page
     end
   end
   
   context "when acessed by an authenticated user" do
     before do
-      prepare_facebook_login_success
-      login_with_facebook
+      click_to_login_and_allow_fb_connection
     end
   
     scenario "displays a logout button" do
@@ -23,7 +22,7 @@ shared_examples "a page for authenticated users" do
     
     scenario "logout the user when he clicks on Logout" do
       click_to_logout
-      should_redirect_to_login_page
+      should_see_login_page
     end
   end
 
