@@ -21,3 +21,4 @@
 
 en:
   hello: "Hello world"
+  invalid_credentials: "Invalid credentials. Please try again."

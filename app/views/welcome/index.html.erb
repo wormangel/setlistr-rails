@@ -1,3 +1,8 @@
+<% content_for :custom_js do %>
+  <script type="text/javascript">
+    var fbAppId = '<%= ENV['SETLISTR_FB_APP_ID'] %>';
+  </script>
+<% end %>
 <div style="text-align: center;">
   <h1><strong>Setlistr</strong></h1>
     <br/><h2>O roadie virtual das bandas cover! </h2>

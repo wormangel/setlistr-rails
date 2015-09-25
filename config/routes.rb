@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'user/dashboard'
+
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -6,6 +8,10 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+
+  match 'auth/:provider/callback', to: 'session#create', via: [:get, :post]
+  match 'auth/failure', to: 'session#auth_failure', via: [:get, :post]
+  match 'signout', to: 'session#destroy', as: 'signout', via: [:get, :post]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
