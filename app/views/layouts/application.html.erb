@@ -15,6 +15,10 @@
     <div class="alert alert-danger" role="alert"><%=flash[:alert]%></div>
 <% end %>
 
+<% if current_user %>
+  <%= link_to "Sair", signout_path, id: "logout_btn" %>
+<% end %>
+
 <%= yield %>
 
 </body>
