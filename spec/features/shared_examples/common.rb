@@ -1,9 +1,7 @@
-require 'support/common_steps.rb'
-require 'support/auth_steps.rb'
+require 'support/features_steps.rb'
 
 shared_examples "a page for authenticated users" do
-  include CommonSteps
-  include AuthSteps
+  include FeaturesSteps
   
   context "when accessed by an anonymous user" do
     scenario "redirects to login page" do

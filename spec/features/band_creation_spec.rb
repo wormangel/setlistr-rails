@@ -1,9 +1,9 @@
 require "rails_helper"
 require "features/shared_examples/common.rb"
-require "support/auth_steps"
+require "support/features_steps"
 
 feature "Creating a band" do
-  include AuthSteps
+  include FeaturesSteps
   
   it_behaves_like 'a page for authenticated users'
   

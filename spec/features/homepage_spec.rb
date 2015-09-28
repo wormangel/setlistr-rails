@@ -1,10 +1,8 @@
 require "rails_helper"
-require "support/auth_steps"
-require "support/homepage_steps"
+require "support/features_steps"
 
 feature "Acessing the homepage" do
-  include AuthSteps
-  include HomepageSteps
+  include FeaturesSteps
 
   before do
     visit_homepage

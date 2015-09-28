@@ -1,11 +1,9 @@
 require "rails_helper"
 require "features/shared_examples/common.rb"
-require "support/dashboard_steps"
-require "support/auth_steps"
+require "support/features_steps"
 
 feature "The dashboard" do
-  include DashboardSteps
-  include AuthSteps
+  include FeaturesSteps
   
   before do
     visit_dashboard
