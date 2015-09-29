@@ -38,6 +38,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'ZenTest'
+  gem "autotest-rails"
+  gem "rspec-autotest"
+  gem "autotest-fsevent"
+  gem "autotest-growl"
 end
 
 group :development do

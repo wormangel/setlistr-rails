@@ -13,7 +13,7 @@ feature "The dashboard" do
   
   context "when the user is authenticated" do  
     before do
-      visit("/")
+      visit_homepage
       click_to_login_and_allow_fb_connection
       visit_dashboard
     end
@@ -23,12 +23,16 @@ feature "The dashboard" do
     end
   
     context 'when the user doesn\'t have any bands' do
-      pending 'display an empty list of bands'
+      scenario 'display an empty list of bands' do
+        should_see_message_about_not_having_any_bands
+      end
     end
   
     context 'when the user has bands' do
-      pending 'display a list of the bands where the user is a member'    
+      scenario 'display a list of the bands where the user is a member' do
+        
+      end
     end
-  end
+  end 
   
 end

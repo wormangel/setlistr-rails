@@ -69,5 +69,8 @@ module FeaturesSteps
     expect(page).to have_link("create_band_btn")
   end
   
+  def should_see_message_about_not_having_any_bands
+    expect(page).to have_selector("#no_bands_msg")
+  end
   
 end
