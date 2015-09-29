@@ -9,6 +9,10 @@ module FeaturesSteps
     visit('/user/dashboard')
   end
   
+  def visit_band_create_page
+    visit('/band/new')
+  end
+  
   # Homepage UI itens and actions
   
   def should_see_facebook_login_button
@@ -71,6 +75,25 @@ module FeaturesSteps
   
   def should_see_message_about_not_having_any_bands
     expect(page).to have_selector("#no_bands_msg")
+  end
+  
+  def should_see_list_with_band_named(name)
+    expect(page).to have_selector("#band_list")
+    expect(find("#band_list")).to have_text(name)
+  end
+  
+  # Band create page UI and actions
+  
+  def create_band_with_name_and_instrument(name, instrument)
+    pending
+  end
+  
+  def should_see_band_name_field
+    expect(page).to have_field("name")
+  end
+  
+  def should_see_musical_instrument_dropdown
+    expect(page).to have_field("instrument")
   end
   
 end

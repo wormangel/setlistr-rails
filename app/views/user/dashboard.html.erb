@@ -3,8 +3,18 @@
     <h1 >Olá, <%= current_user.name %>!</h1>
   </div>
   
-  <% if true %>
+  <% if @contracts.empty? %>
     <p id="no_bands_msg"> Você ainda não tem nenhuma banda! </p>
+  <% else %>
+    <div id="band_list" class="container">
+    <% @contracts.each do |contract| %>
+      <span class="band_button">
+        <div class="img_placeholder"/>
+        <p><%= contract.band.name %></p>
+        <p><%= contract.instrument %></p>
+      </span>
+    <% end %>
+    </div>
   <% end %>
   
   <p><%= link_to "Adicionar sua banda!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %></p>

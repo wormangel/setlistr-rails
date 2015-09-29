@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources 'band'
+  resources :band
 
   get 'user/dashboard'
 

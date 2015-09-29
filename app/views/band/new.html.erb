@@ -1,2 +1,24 @@
-<h1>Band#new</h1>
-<p>Find me in app/views/band/new.html.erb</p>
+<div class="container" style="padding: 60px 15px 0">
+  <div class="page-header">
+    <h1>Criar banda nova</h1>
+  </div>
+
+  <p class="lead">
+  Para começar, informe o nome da banda e diga qual instrumento você toca nela
+  </p>
+
+  <%= form_for @band, url: band_index_path do |f| %>
+    <div class="form-group form-inline">
+      <%= f.label :name %>:
+      <%= f.text_field :name, class: 'form-control', id: 'name' %><br/>
+    </div>
+    <% for contract in @band.contracts %>
+      <%= fields_for "band[contract_attributes]", contract do |c| %>
+        <div class="form-group form-inline">
+          <%= c.label :instrument %>:
+          <%= c.collection_select :instrument, @instrument_list, :value, :label, {}, {class: 'form-control', id: 'instrument'}%><br/>
+        </div> 
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

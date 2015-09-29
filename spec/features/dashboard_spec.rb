@@ -30,7 +30,10 @@ feature "The dashboard" do
   
     context 'when the user has bands' do
       scenario 'display a list of the bands where the user is a member' do
-        
+        visit_band_create_page
+        create_band_with_name_and_instrument("Iron Maid", "Guitar")
+        visit_dashboard
+        should_see_list_with_band_named("Iron Maid")
       end
     end
   end 
