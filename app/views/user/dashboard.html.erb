@@ -1,10 +1,10 @@
 <div id="dashboard" class="container" style="padding: 60px 15px 0">
   <div class="page-header">
-    <h1 >Olá, <%= current_user.name %>!</h1>
+    <h1 >Hi, <%= current_user.name %>!</h1>
   </div>
   
   <% if @contracts.empty? %>
-    <p id="no_bands_msg"> Você ainda não tem nenhuma banda! </p>
+    <p id="no_bands_msg"> You don't have any bands yet! </p>
   <% else %>
     <div id="band_list" class="container">
     <% @contracts.each do |contract| %>
@@ -17,5 +17,5 @@
     </div>
   <% end %>
   
-  <p><%= link_to "Adicionar sua banda!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %></p>
+  <p><%= link_to "Add your band!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %></p>
 </div>
