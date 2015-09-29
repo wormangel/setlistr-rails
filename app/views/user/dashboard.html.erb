@@ -1,2 +1,4 @@
-<h1 id="dashboard">Olá, <%= current_user.name %>!</h1>
-<p><%= link_to "Adicionar sua banda!", new_band_path, :id => "create_band_btn" %></p>
+<div class="container" style="padding: 60px 15px 0">
+  <h1 id="dashboard">Olá, <%= current_user.name %>!</h1>
+  <p><%= link_to "Adicionar sua banda!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %></p>
+</div>
