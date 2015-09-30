@@ -82,6 +82,14 @@ module FeaturesSteps
     expect(find("#band_list")).to have_text(name)
   end
   
+  def should_see_image_placeholder
+    expect(page).to have_selector(".img_placeholder")
+  end
+  
+  def click_band(name)
+    click_on(name)
+  end
+  
   # Band create page UI and actions
   
   def create_band_with_name_and_instrument(name, instrument)

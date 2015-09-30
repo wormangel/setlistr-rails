@@ -23,17 +23,29 @@ feature "The dashboard" do
     end
   
     context 'and doesn\'t have any bands' do
-      scenario 'display an empty list of bands' do
+      scenario 'displays an empty list of bands' do
         should_see_message_about_not_having_any_bands
       end
     end
   
     context 'and has bands' do
-      scenario 'display a list of the bands where the user is a member' do
+      before do
         visit_band_create_page
         create_band_with_name_and_instrument("Iron Maid", "Guitar")
         visit_dashboard
+      end
+    
+      scenario 'displays a list of the bands where the user is a member' do
         should_see_list_with_band_named("Iron Maid")
+      end
+      
+      scenario 'displays a placeholder for bands with no logos' do
+        should_see_image_placeholder
+      end
+      
+      scenario 'makes the band buttons clickable leading to the band page' do
+        click_band("Iron Maid")
+        should_see_page_for_band("Iron Maid")
       end
     end
   end 

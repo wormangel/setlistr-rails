@@ -1,3 +1,27 @@
 // Place all the styles related to the user controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.band_button {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.band_logo {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+}
+
+.img_placeholder {
+  border: 1px solid #ccc;
+  text-align: center;
+  color: #eee;
+  line-height: 200px;
+}
+
+.img_placeholder_text {
+  vertical-align: middle;
+  line-height: normal;
+  display: inline-block;
+}

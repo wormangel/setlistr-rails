@@ -28,4 +28,8 @@ class Enum
   def each &block
     @items.each &block
   end
+  
+  def [](key)
+    items.select {|i| i.value == key.to_sym }.first.label
+  end
 end

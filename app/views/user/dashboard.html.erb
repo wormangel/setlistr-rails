@@ -4,18 +4,28 @@
   </div>
   
   <% if @contracts.empty? %>
-    <p id="no_bands_msg"> You don't have any bands yet! </p>
-  <% else %>
-    <div id="band_list" class="container">
-    <% @contracts.each do |contract| %>
-      <span class="band_button">
-        <div class="img_placeholder"/>
-        <p><%= contract.band.name %></p>
-        <p><%= contract.instrument %></p>
+    <p id="no_bands_msg" class="lead"> 
+      You don't have any bands yet!
+      <span style="text-align: right">
+        <%= link_to "Add new band!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %>
       </span>
+    </p>
+  <% else %>
+    <p class="lead">
+      Here is a list of your bands. You can also <%= link_to "add a new band!", new_band_path, :id => "create_band_btn" %>
+    </p>
+    <div id="band_list" class="row">
+    <% @contracts.each do |contract| %>
+      <%= link_to contract.band do %>
+      <div class="col-md-3 band_button text-center">
+        <div class="band_logo img_placeholder">
+          <span class="img_placeholder_text">Setlistr</span>
+        </div>
+        <h3><%= contract.band.name %></h3>
+        <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
+      </div>
+      <% end %>
     <% end %>
     </div>
   <% end %>
-  
-  <p><%= link_to "Add your band!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %></p>
 </div>
