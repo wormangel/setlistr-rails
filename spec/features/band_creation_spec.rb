@@ -31,8 +31,10 @@ feature "The band creation page" do
       should_see_validation_message
     end
     
-    pending "creates the band and associates the user to that band"
-
+    scenario "shows the band page after successfully creating the band" do
+      create_band_with_name_and_instrument("Guns n' Lillys", "Guitar")
+      should_see_page_for_band("Guns n' Lillys")
+    end
   end
   
   

@@ -101,4 +101,9 @@ module FeaturesSteps
   def should_see_validation_message
     expect(page).to have_text("can't be blank")
   end
+  
+  def should_see_page_for_band(band_name)
+    expect(page).to have_selector(".band_page") 
+    expect(page).to have_text(band_name)
+  end
 end
