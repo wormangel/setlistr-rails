@@ -4,6 +4,8 @@ class BandController < ApplicationController
   def new
     @band = Band.new
     @band.contracts.build
+    
+    render 'new', layout: 'application'
   end
   
   def create
