@@ -6,8 +6,27 @@ feature "The band page" do
   include FeaturesSteps
   
   before do
+    visit_homepage
+    click_to_login_and_allow_fb_connection
     visit_band_create_page
+    create_band_with_name_and_instrument("Guns n' Lillys", "Guitar")
+    click_to_logout
+    visit_band_page("Guns n' Lillys")
   end
   
   it_behaves_like 'a page for authenticated users'
+  
+  context 'when accessed by an authenticated user' do
+    before do
+      visit_homepage
+      click_to_login_and_allow_fb_connection
+      visit_band_page("Guns n' Lillys")
+    end
+
+    scenario 'displays a link to the setlist page' do
+      should_see_link_to_setlist
+      click_on "Setlist"
+      should_see_setlist
+    end
+  end
 end

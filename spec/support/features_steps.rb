@@ -13,6 +13,11 @@ module FeaturesSteps
     visit('/band/new')
   end
   
+  def visit_band_page(name)
+    id = Band.find_by(:name => name).id.to_s
+    visit('/band/' + id)
+  end
+  
   # Homepage UI itens and actions
   
   def should_see_facebook_login_button
@@ -113,5 +118,15 @@ module FeaturesSteps
   def should_see_page_for_band(band_name)
     expect(page).to have_selector(".band_page") 
     expect(page).to have_text(band_name)
+  end
+  
+  # Band page UI and actions
+  
+  def should_see_link_to_setlist
+    expect(page).to have_selector("#nav_setlist")
+  end
+  
+  def should_see_setlist
+    expect(page).to have_selector("#setlist_page")
   end
 end

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :band
+  resources :band do
+    resource :setlist, only: [:show], controller: 'setlist'
+  end
 
   get 'user/dashboard'
 
