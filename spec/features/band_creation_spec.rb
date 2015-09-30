@@ -25,6 +25,17 @@ feature "The band creation page" do
     scenario "has a select field for instrument the user plays" do
       should_see_musical_instrument_dropdown
     end
+    
+    scenario 'requires the band name to be filled' do
+      click_button "Create band"
+      should_see_validation_message
+    end
+    
+    
+    
+    pending "creates the band and associates the user to that band"
+    
+    pending "creates the band and associates the user to that band"
   end
   
   

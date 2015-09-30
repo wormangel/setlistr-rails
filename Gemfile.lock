@@ -46,6 +46,7 @@ GEM
       ZenTest (~> 4.5)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap_form (2.3.0)
     builder (3.2.2)
     byebug (6.0.2)
     capybara (2.5.0)
@@ -210,6 +211,7 @@ DEPENDENCIES
   autotest-fsevent
   autotest-growl
   autotest-rails
+  bootstrap_form
   bundler (>= 1.8.4)
   byebug
   capybara

@@ -7,18 +7,15 @@
   Tell us the name of your band and what instrument do you play in it.
   </p>
 
-  <%= form_for @band, url: band_index_path do |f| %>
-    <div class="form-group form-inline">
-      <%= f.label :name %>:
-      <%= f.text_field :name, class: 'form-control', id: 'name' %><br/>
-    </div>
+  <%= bootstrap_form_for @band, url: band_index_path do |f| %>
+    <%= f.text_field :name, class: 'form-control', id: 'name' %>
     <% for contract in @band.contracts %>
-      <%= fields_for "band[contract_attributes]", contract do |c| %>
-        <div class="form-group form-inline">
-          <%= c.label :instrument %>:
-          <%= c.collection_select :instrument, @instrument_list, :value, :label, {}, {class: 'form-control', id: 'instrument'}%><br/>
-        </div> 
+      <%= fields_for "band[contract_attributes][]", contract do |c| %>
+          <%= c.label :instrument %>
+          <%= c.collection_select :instrument, Contract::INSTRUMENTS, :value, :label, {}, {class: 'form-control', id: 'instrument'}%>
       <% end %>
     <% end %>
+    <br/>
+    <%= f.button 'Create band', :class=> 'btn btn-primary' %>
   <% end %>
 </div>

@@ -85,7 +85,9 @@ module FeaturesSteps
   # Band create page UI and actions
   
   def create_band_with_name_and_instrument(name, instrument)
-    pending
+    fill_in "name", with: name
+    select instrument, from: 'instrument'
+    click_button "Create band"
   end
   
   def should_see_band_name_field
@@ -96,4 +98,7 @@ module FeaturesSteps
     expect(page).to have_field("instrument")
   end
   
+  def should_see_validation_message
+    expect(page).to have_text("required")
+  end
 end

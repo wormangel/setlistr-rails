@@ -22,13 +22,13 @@ feature "The dashboard" do
       should_see_button_to_create_new_band
     end
   
-    context 'when the user doesn\'t have any bands' do
+    context 'and doesn\'t have any bands' do
       scenario 'display an empty list of bands' do
         should_see_message_about_not_having_any_bands
       end
     end
   
-    context 'when the user has bands' do
+    context 'and has bands' do
       scenario 'display a list of the bands where the user is a member' do
         visit_band_create_page
         create_band_with_name_and_instrument("Iron Maid", "Guitar")
