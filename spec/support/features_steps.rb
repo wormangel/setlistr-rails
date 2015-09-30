@@ -99,6 +99,6 @@ module FeaturesSteps
   end
   
   def should_see_validation_message
-    expect(page).to have_text("required")
+    expect(page).to have_text("can't be blank")
   end
 end

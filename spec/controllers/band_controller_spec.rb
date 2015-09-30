@@ -1,9 +1,28 @@
 require 'rails_helper'
+require 'support/controller_steps'
 
 RSpec.describe BandController, type: :controller do
-  pending "POST #create automatically includes the current user as a member"
-    # Visit new band page
-    # Create new band choosing a random instrument
-    # Verify association
+  include ControllerSteps
+  
+  describe "POST #create"
+    let(:user_with_no_bands) { create(:user) }
+    
+    before do
+      login(user_with_no_bands)
+      
+      # TODO There should be a way to automatize this
+      @band_params = attributes_for(:band)
+      @band_params[:contract_attributes] = [attributes_for(:contract)]
+    end
+    
+    it 'creates band' do
+      expect { post :create, :band => @band_params }.to change(Band, :count).by(1)
+    end
+    
+    it 'associates the logged user with the band' do
+      post :create, :band => @band_params
+      expect(Contract.exists?(band: Band.last, user: user_with_no_bands)).to be_truthy
+    end
+    
 
 end

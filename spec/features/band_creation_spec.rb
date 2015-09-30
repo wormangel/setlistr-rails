@@ -31,11 +31,8 @@ feature "The band creation page" do
       should_see_validation_message
     end
     
-    
-    
     pending "creates the band and associates the user to that band"
-    
-    pending "creates the band and associates the user to that band"
+
   end
   
   
