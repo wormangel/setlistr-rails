@@ -1,10 +1,11 @@
 require 'rails_helper'
+require "controllers/shared_examples/common.rb"
 require 'support/controller_steps'
 
 RSpec.describe BandController, type: :controller do
   include ControllerSteps
   
-  describe "POST #create"
+  describe "POST #create" do
     let(:user_with_no_bands) { create(:user) }
     
     before do
@@ -23,6 +24,10 @@ RSpec.describe BandController, type: :controller do
       post :create, :band => @band_params
       expect(Contract.exists?(band: Band.last, user: user_with_no_bands)).to be_truthy
     end
-    
+  end
+  
+  describe "GET #show" do
+    it_should_behave_like "a band members only page", "show", "id"
+  end  
 
 end

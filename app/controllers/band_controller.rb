@@ -1,5 +1,6 @@
 class BandController < ApplicationController
   before_filter :require_authorization
+  before_filter(except: [:new, :create]) { require_band_member(params[:id]) }
   
   def new
     @band = Band.new

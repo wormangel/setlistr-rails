@@ -8,6 +8,12 @@ class ApplicationController < ActionController::Base
   	redirect_to :root unless current_user
   end
   
+  protected
+  def require_band_member(id)
+    band = Band.find(id)
+    redirect_to dashboard_path unless band.members.include?(current_user)
+  end
+  
   private
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
