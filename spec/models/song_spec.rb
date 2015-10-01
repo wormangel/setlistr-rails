@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "setlist/show.html.erb", type: :view do
+RSpec.describe Song, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

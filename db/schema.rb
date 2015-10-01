@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930081853) do
+ActiveRecord::Schema.define(version: 20150930153828) do
 
   create_table "bands", force: :cascade do |t|
     t.string   "name"
@@ -32,6 +32,18 @@ ActiveRecord::Schema.define(version: 20150930081853) do
   add_index "contracts", ["band_id"], name: "index_contracts_on_band_id"
   add_index "contracts", ["user_id"], name: "index_contracts_on_user_id"
 
+  create_table "setlist_songs", force: :cascade do |t|
+    t.integer  "song_id"
+    t.integer  "setlist_id"
+    t.integer  "pos"
+    t.date     "date_added"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "setlist_songs", ["setlist_id"], name: "index_setlist_songs_on_setlist_id"
+  add_index "setlist_songs", ["song_id"], name: "index_setlist_songs_on_song_id"
+
   create_table "setlists", force: :cascade do |t|
     t.integer  "band_id"
     t.datetime "created_at", null: false
@@ -39,6 +51,14 @@ ActiveRecord::Schema.define(version: 20150930081853) do
   end
 
   add_index "setlists", ["band_id"], name: "index_setlists_on_band_id"
+
+  create_table "songs", force: :cascade do |t|
+    t.string   "author"
+    t.string   "title"
+    t.integer  "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider"

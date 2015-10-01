@@ -8,7 +8,7 @@
   </p>
 
   <%= bootstrap_form_for @band, url: band_index_path do |f| %>
-    <%= f.text_field :name, class: 'form-control', id: 'name' %>
+    <%= f.text_field :name, id: 'name' %>
     <% for contract in @band.contracts %>
       <%= fields_for "band[contract_attributes][]", contract do |c| %>
           <%= c.label :instrument %>

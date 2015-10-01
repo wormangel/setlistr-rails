@@ -1,5 +1,25 @@
 <div id="setlist_page" class="container" style="padding: 60px 15px 0">
   <div class="page-header">
-    <h1><%= @band.name %></h1>
+    <h1>Setlist</h1>
+  </div>
+  
+  <% if @setlist.empty? %>
+    <p class="lead" id="empty_setlist_msg">
+      The setlist is empty! Try adding songs below.
+    </p>
+  <% else %>
+    <ul>
+      <% @setlist.songs.each do |s| %>
+        <li><%= s.author %> - <%= s.title %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <div class="add_new_song_div">
+    <%= bootstrap_form_for @new_song, url: add_song_to_setlist_path, layout: :inline do |f| %>
+      <%= f.text_field :author, id: 'author' %>
+      <%= f.text_field :title, id: 'title' %>
+      <%= f.button 'Add song', :id => 'add_song_button', :class=> 'btn btn-primary' %>
+    <% end %>
   </div>
 </div>

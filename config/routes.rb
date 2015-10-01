@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   end
 
   get 'user/dashboard', as: :dashboard
+  
+  match 'band/:band_id/setlist/add_song', to: 'setlist#add_song', as: :add_song_to_setlist, via: [:post]
 
   get 'welcome/index'
 

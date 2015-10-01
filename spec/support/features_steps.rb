@@ -18,6 +18,11 @@ module FeaturesSteps
     visit('/band/' + id)
   end
   
+  def visit_setlist_for_band(name)
+    id = Band.find_by(:name => name).id.to_s
+    visit('/band/' + id + '/setlist')
+  end
+  
   # Homepage UI itens and actions
   
   def should_see_facebook_login_button
@@ -112,7 +117,7 @@ module FeaturesSteps
   end
   
   def should_see_validation_message
-    expect(page).to have_text("can't be blank")
+    expect(page).to have_selector(".has-error")
   end
   
   def should_see_page_for_band(band_name)
@@ -128,5 +133,26 @@ module FeaturesSteps
   
   def should_see_setlist
     expect(page).to have_selector("#setlist_page")
+  end
+  
+  # Setlist page UI and actions
+  def should_see_new_song_fields
+    expect(page).to have_field("author")
+    expect(page).to have_field("title")
+    expect(page).to have_selector("#add_song_button")
+  end
+  
+  def should_see_message_about_empty_setlist
+    expect(page).to have_selector("#empty_setlist_msg")
+  end
+  
+  def add_song_with_author_and_name(author, title)
+    fill_in "song[author]", with: author
+    fill_in "song[title]", with: title
+    click_button "Add song"
+  end
+  
+  def should_see_song_in_setlist_with_name(name)
+    expect(page).to have_text(name) # TODO
   end
 end

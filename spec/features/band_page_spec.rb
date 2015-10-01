@@ -11,7 +11,7 @@ feature "The band page" do
     visit_band_create_page
     create_band_with_name_and_instrument("Guns n' Lillys", "Guitar")
     click_to_logout
-    visit_band_page("Guns n' Lillys")
+    visit_setlist_for_band("Guns n' Lillys")
   end
   
   it_behaves_like 'a page for authenticated users'
