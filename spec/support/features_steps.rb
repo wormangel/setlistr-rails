@@ -155,4 +155,8 @@ module FeaturesSteps
   def should_see_song_in_setlist_with_name(name)
     expect(page).to have_text(name) # TODO
   end
+  
+  def should_see_setlist_with_song_count(count)
+    expect(page).to have_selector(".setlist_song", count: count)
+  end
 end

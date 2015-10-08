@@ -10,7 +10,7 @@
   <% else %>
     <ul>
       <% @setlist.songs.each do |s| %>
-        <li><%= s.author %> - <%= s.title %></li>
+        <li class="setlist_song"><%= s.author %> - <%= s.title %></li>
       <% end %>
     </ul>
   <% end %>

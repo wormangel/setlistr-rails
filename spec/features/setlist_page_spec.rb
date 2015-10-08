@@ -50,6 +50,29 @@ feature "The setlist page" do
       should_see_validation_message
     end
     
+    context 'and the user fills the form and clicks Add Song' do
+      context 'if the song is not already on the setlist' do
+        scenario 'adds the song to the setlist' do
+          should_see_setlist_with_song_count(0)
+          add_song_with_author_and_name("BC/DC", "Dynamite")
+          should_see_setlist_with_song_count(1)
+          should_see_song_in_setlist_with_name("Dynamite")
+        end
+      end
+      
+      context 'if the song is already on the setlist' do
+        before do
+          add_song_with_author_and_name("BC/DC", "Dynamite")
+        end
+        
+        scenario 'ignores the addition and redisplays the page' do
+          should_see_setlist_with_song_count(1)
+          add_song_with_author_and_name("BC/DC", "Dynamite")
+          should_see_setlist_with_song_count(1)
+        end
+      end
+    end
+    
     
   end
 end

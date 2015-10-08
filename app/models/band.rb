@@ -5,6 +5,10 @@ class Band < ActiveRecord::Base
   
   validates :name, presence: true
   
+  before_create do
+    self.setlist = Setlist.create
+  end
+  
   accepts_nested_attributes_for :contracts
   
   def contract_attributes=(contract_attributes)

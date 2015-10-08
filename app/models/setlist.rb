@@ -6,4 +6,8 @@ class Setlist < ActiveRecord::Base
   def empty?
     songs.count == 0
   end
+  
+  def contains(song)
+    songs.include? song
+  end
 end

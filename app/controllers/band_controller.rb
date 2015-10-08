@@ -11,7 +11,6 @@ class BandController < ApplicationController
   
   def create
     @band = Band.new(band_params)
-    @band.setlist = Setlist.new
     if @band.save
       flash[:notice] = "Band created successfully!"
       redirect_to @band

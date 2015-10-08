@@ -13,17 +13,25 @@ class SetlistController < ApplicationController
   def add_song
     @band = Band.find(params[:band_id])
     @setlist = @band.setlist
-    
-    @song = Song.new(song_params)
-    if @song.save
+
+    if Song.exists?(song_params)
+      @song = Song.where(song_params).first
+    else
+      @song = Song.new(song_params)
+      
+      if not @song.save
+        @new_song = @song
+        render 'show', layout: 'band' and return
+      end
+    end
+
+    unless @setlist.contains(@song)
       @setlist_song = SetlistSong.new(setlist: @setlist, song: @song)
       @setlist_song.save
-      flash[:notice] = "Song created successfully and added to setlist!"
-      redirect_to :action => 'show', layout: 'band'
-    else
-      @new_song = @song
-      render 'show', layout: 'band'
+      flash[:notice] = "Song added successfully!"
     end
+    
+    redirect_to :action => 'show', layout: 'band'
   end
   
   private
