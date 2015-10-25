@@ -56,7 +56,7 @@
   <% else %>
     <div class="setlist_content">
       <ul class="list-unstyled setlist_paper">
-        <% @setlist.songs.each do |s| %>
+        <% @setlist.songs.order(:author, :title).each do |s| %>
           <li class="setlist_song">
             <h3>
               <%= s.author %> - <%= s.title %>
