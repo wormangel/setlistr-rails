@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require noty
+//= require js-routes
 
 // Common code for all pages
 

@@ -64,3 +64,4 @@ end
 gem 'omniauth'
 gem 'omniauth-facebook', '~> 2.0.1'
 gem 'bootstrap_form'
+gem 'js-routes'

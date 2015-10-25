@@ -1,11 +1,11 @@
 <% content_for :custom_js do %>
   <script type="text/javascript">
     $(document).ready(function(){
-      $('.remove-song').hide();
+      $('.remove-song-hook').hide();
     
       $('.setlist_song').hover(
-        function(){ $(this).find('.remove-song').show(); },
-        function(){ $(this).find('.remove-song').hide(); }
+        function(){ $(this).find('.remove-song-hook').show(); },
+        function(){ $(this).find('.remove-song-hook').hide(); }
       );
       
       $('#add_new_song_div').on('show.bs.modal', function (event) {
@@ -15,6 +15,16 @@
       
       $('#add_new_song_div').on('shown.bs.modal', function (event) {
         $('#author').focus();
+      });
+      
+      $('#confirm_delete_song_div').on('show.bs.modal', function(event){
+        var target = $(event.relatedTarget);
+        var bandId = $('#band-id').attr('value');
+        var songId = target.data('song-id');
+        var songTitle = target.data('title');
+
+        $('#songToRemove').text(songTitle);
+        $(this).find('form').attr('action', Routes.remove_song_from_setlist_path(bandId, songId));
       });
       
       var hasError = $('.has-error').length != 0;
@@ -50,7 +60,9 @@
           <li class="setlist_song">
             <h3>
               <%= s.author %> - <%= s.title %>
-              <span class="glyphicon glyphicon-remove remove-song" aria-hidden="true">
+              <span class="glyphicon glyphicon-remove remove-song-hook" data-toggle="modal" 
+                data-target="#confirm_delete_song_div" data-song-id="<%=s.id%>" 
+                data-title="<%=s.title%>" aria-hidden="true">
             </h3>
           </span>
           </li>
@@ -70,16 +82,36 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Add a song</h4>
+          <h4 class="modal-title">Add a song</h4>
         </div>
         <%= bootstrap_form_for @new_song, url: add_song_to_setlist_path do |f| %>
           <div class="modal-body">
-            <%= f.text_field :author, id: 'author' %>
-            <%= f.text_field :title, id: 'title' %>
+            <%= f.text_field :author, id: 'author', tabindex: "1" %>
+            <%= f.text_field :title, id: 'title', tabindex: "2" %>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <%= f.button 'Add song', :class=> 'btn btn-primary' %>
+            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="4">Close</button>
+            <%= f.button 'Add song', :class=> 'btn btn-primary', :tabindex => "3" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div id="confirm_delete_song_div" class="modal">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <%= bootstrap_form_tag do |f| %>
+          <div class="modal-body">
+            <p>Are you sure you want to remove <strong><em id="songToRemove"></em></strong> from the setlist?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="4">Cancel</button>
+            <%= f.button 'Remove song', :class=> 'btn btn-danger', :id => 'btn-remove-song', :tabindex => "3" %>
           </div>
         <% end %>
       </div>

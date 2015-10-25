@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'user/dashboard', as: :dashboard
   
   match 'band/:band_id/setlist/add_song', to: 'setlist#add_song', as: :add_song_to_setlist, via: [:post]
+  match 'band/:band_id/setlist/remove_song/:song_id', to: 'setlist#remove_song', as: :remove_song_from_setlist, via: [:post]
 
   get 'welcome/index'
 
