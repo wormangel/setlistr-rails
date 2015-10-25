@@ -41,7 +41,10 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><p class="navbar-text">Hi, <%= current_user.name %></p></li>
+                <li>
+                  <p class="navbar-text">Hi, <%= current_user.name %></p>
+                  <%= image_tag profile_pic, :class => 'profile_pic' %>
+                </li>
                 <li>
                   <%= link_to signout_path, id: "logout_btn" do %>
                     Logout
