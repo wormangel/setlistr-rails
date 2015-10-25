@@ -17,6 +17,14 @@
         $('#artist').focus();
       });
       
+      $('#add_batch_div').on('show.bs.modal', function (event) {
+        $('#batch').val('');
+      });
+      
+      $('#add_batch_div').on('shown.bs.modal', function (event) {
+        $('#batch').focus();
+      });
+      
       $('#confirm_delete_song_div').on('show.bs.modal', function(event){
         var target = $(event.relatedTarget);
         var bandId = $('#band-id').attr('value');
