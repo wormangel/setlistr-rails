@@ -40,3 +40,37 @@
   color: #fff;
   background-color: #19ab5d;
 }
+
+.member_pic img, .member_pic img {
+  border-radius: 30px;
+  line-height: 200px;
+}
+
+.member_box {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 8px;
+  height: 146px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.band_summary {
+  margin-top: 40px;
+}
+
+.invite_member_hook {
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+.invite_member_text {
+  position: absolute;
+  bottom: 0px;
+  color: #337ab7;
+}
+
+.invite_box {
+  border: 1px solid #ddd;
+}
