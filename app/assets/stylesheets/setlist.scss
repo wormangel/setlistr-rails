@@ -17,10 +17,12 @@
   border: 1px solid rgba(0,0,0,0.1);
   width: 60%;
   padding: 15px;
-  min-height: 500px;
+  height: 600px;
   position:relative;
+  overflow-y: auto;
 }
 
+/* 
 .setlist_content:before, .setlist_content:after
 {
 	position: absolute;
@@ -51,6 +53,7 @@
 	-o-transform: skew(5deg) rotate(5deg);
 	transform: skew(5deg) rotate(5deg);
 }
+ */
 
 .remove-song {
   color: red;

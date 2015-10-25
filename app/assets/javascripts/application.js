@@ -14,3 +14,31 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require noty
+
+// Common code for all pages
+
+$(document).ready(function() {
+  displayFlash = function(msg, type) {
+    n = noty({
+      text: msg,
+      animation: {
+        open: 'animated fadeIn',
+        close: 'animated fadeOut'
+      },
+      timeout: 3000,
+      type: type,
+      layout: 'topCenter'
+    });
+  };
+  
+  flash_alert = $('#flash-alert-msg').attr('value');
+  if (flash_alert && flash_alert !== '') {
+    displayFlash(flash_alert, 'error');
+  }
+  
+  flash_notice = $('#flash-notice-msg').attr('value');
+  if (flash_notice && flash_notice !== '') {
+    displayFlash(flash_notice, 'success');
+  }
+});

@@ -15,10 +15,10 @@
 
 <body role="document">
   <% if flash[:alert] %>
-      <div class="alert alert-danger" role="alert"><%=flash[:alert]%></div>
+    <input type="hidden" id="flash-alert-msg" value="<%=flash[:alert]%>">
   <% end %>
   <% if flash[:notice] %>
-      <div class="alert alert-success" role="alert"><%=flash[:notice]%></div>
+    <input type="hidden" id="flash-notice-msg" value="<%=flash[:notice]%>">
   <% end %>
   
   <% if current_user %>

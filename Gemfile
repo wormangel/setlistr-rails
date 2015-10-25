@@ -57,6 +57,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery'
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-css-social-buttons'
+  gem 'rails-assets-noty'
+  gem 'rails-assets-animate.css'
 end
 
 gem 'omniauth'

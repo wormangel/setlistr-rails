@@ -128,10 +128,12 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.4)
       sprockets-rails
+    rails-assets-animate.css (3.1.1)
     rails-assets-bootstrap (3.3.5)
       rails-assets-jquery (>= 1.9.1)
     rails-assets-css-social-buttons (1.1.1)
     rails-assets-jquery (2.1.4)
+    rails-assets-noty (2.3.7)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -223,9 +225,11 @@ DEPENDENCIES
   omniauth-facebook (~> 2.0.1)
   pg
   rails (= 4.2.4)
+  rails-assets-animate.css!
   rails-assets-bootstrap!
   rails-assets-css-social-buttons!
   rails-assets-jquery!
+  rails-assets-noty!
   rspec-autotest
   rspec-rails
   sass-rails (~> 5.0)
