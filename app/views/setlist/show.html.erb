@@ -50,7 +50,7 @@
     
     <h3 style="margin-top: 25px;">
       <em>
-        <strong style="color: rgb(51, 122, 183)"><%= @setlist.count %></strong> songs.
+        <strong style="color: rgb(51, 122, 183)"><%= @setlist.count %></strong> <%= @setlist.count > 1 ? 'songs' : 'song' %>.
       </em>
     </h3>
   <% end %>  
