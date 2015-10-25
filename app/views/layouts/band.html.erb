@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
       <div class="col-md-2 sidebar">
-          <h4 class="text-center"><%= @band.name %></h4>
+          <h4 class="text-center"><%= link_to @band.name, @band %></h4>
           <ul class="nav nav-sidebar">
               <li id="nav_setlist"><%= link_to "Setlist", band_setlist_path(@band) %></li>
           </ul>
