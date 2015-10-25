@@ -60,11 +60,6 @@
   margin-top: 40px;
 }
 
-.invite_member_hook {
-  font-size: 30px;
-  margin-top: 20px;
-}
-
 .invite_member_text {
   position: absolute;
   bottom: 0px;
@@ -73,4 +68,25 @@
 
 .invite_box {
   border: 1px solid #ddd;
+}
+
+.invite_box_hover {
+  border: 1px solid #337ab7;
+  color: #337ab7;
+  cursor: pointer;
+}
+
+.invite_mouse_on {
+  line-height: 120px;
+}
+
+.invite_member_hook {
+  font-size: 30px;
+
+  line-height: normal;
+  vertical-align: middle;
+}
+
+.invite_mouse_off .invite_member_hook {
+  margin-top: 10px;
 }

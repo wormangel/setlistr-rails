@@ -1,3 +1,24 @@
+<% content_for :custom_js do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.invite_mouse_on').hide();
+      
+      $('.invite_box').hover(
+        function(){ 
+          $(this).addClass('invite_box_hover'); 
+          $('.invite_mouse_off').hide();
+          $('.invite_mouse_on').show();
+        },
+        function(){
+          $(this).removeClass('invite_box_hover'); 
+          $('.invite_mouse_off').show();
+          $('.invite_mouse_on').hide();
+        }
+      );
+    });
+  </script>
+<% end %>
+
 <div class="container band_page" style="padding: 60px 15px 0">
   <div class="page-header text-center">
     <h1><%= @band.name %></h1>
@@ -15,12 +36,16 @@
     <% end %>
       <div class="member_box invite_box col-md-2 text-center">
         <div class="member_pic text-center">
-          <span class="glyphicon glyphicon-user invite_member_hook" aria-hidden="true"></span>
-          <span class="glyphicon glyphicon-plus invite_member_hook" aria-hidden="true"></span>
-        </div>
-        <div class="invite_member_text">
-          <p><em>Missing someone?
-          <p>Invite them to join the band!</em></p>
+          <div class="invite_mouse_off">
+            <span class="glyphicon glyphicon-user invite_member_hook" aria-hidden="true"></span>
+            <div class="invite_member_text">
+              <p><em>Missing someone?
+              <p>Invite them to join the band!</em></p>
+            </div>
+          </div>
+          <div class="invite_mouse_on">
+            <span class="glyphicon glyphicon-plus invite_member_hook" aria-hidden="true"></span>
+          </div>
         </div>
       </div>
   </div>
