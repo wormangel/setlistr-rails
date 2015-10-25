@@ -46,7 +46,7 @@
     </p>
     <button id="add_song_hook" class="btn btn-primary" data-toggle="modal" data-target="#add_new_song_div">Add a song</button>
     <p style="margin-top:10px;">or</p>
-    <button id="add_batch_hook" class="btn btn-success">Add a batch of songs</button>
+    <button id="add_batch_hook" class="btn btn-success" data-toggle="modal" data-target="#add_batch_div">Add a batch of songs</button>
   </div>
   
   <% if @setlist.empty? %>
@@ -110,8 +110,34 @@
             <p>Are you sure you want to remove <strong><em id="songToRemove"></em></strong> from the setlist?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="4">Cancel</button>
-            <%= f.button 'Remove song', :class=> 'btn btn-danger', :id => 'btn-remove-song', :tabindex => "3" %>
+            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="2">Cancel</button>
+            <%= f.button 'Remove song', :class=> 'btn btn-danger', :id => 'btn-remove-song', :tabindex => "1" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div id="add_batch_div" class="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add a batch of songs</h4>
+        </div>
+        <%= bootstrap_form_tag url: add_batch_to_setlist_path do |f| %>
+          <div class="modal-body">
+            <p>With this tool you can add a lot of songs with just one click!</p>
+            <p>Insert below the list of songs. Please follow the following rules:</p>
+            <ul>
+              <li>One song per line</li>
+              <li>Format: <strong>Artist - Title</strong> (don't forget the spaces before and after the dash)</li>
+            </ul>
+            <%= f.text_area :batch, rows: "10", tabindex: "1" %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="2">Cancel</button>
+            <%= f.button 'Add batch', :class=> 'btn btn-primary', :id => 'btn-add-batch', :tabindex => "1" %>
           </div>
         <% end %>
       </div>

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   match 'band/:band_id/setlist/add_song', to: 'setlist#add_song', as: :add_song_to_setlist, via: [:post]
   match 'band/:band_id/setlist/remove_song/:song_id', to: 'setlist#remove_song', as: :remove_song_from_setlist, via: [:post]
-
+  match 'band/:band_id/setlist/add_batch', to: 'setlist#add_batch', as: :add_batch_to_setlist, via: [:post]
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.

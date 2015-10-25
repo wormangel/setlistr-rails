@@ -34,6 +34,10 @@ class SetlistController < ApplicationController
     redirect_to :action => 'show', layout: 'band'
   end
   
+  def add_batch
+    redirect_to :action => 'show', layout: 'band'
+  end
+  
   def remove_song
     @band = Band.find(params[:band_id])
     @song = Song.find(params[:song_id])
