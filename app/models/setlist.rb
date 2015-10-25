@@ -14,4 +14,13 @@ class Setlist < ActiveRecord::Base
   def contains(song)
     songs.include? song
   end
+  
+  def add_song(song)
+    if self.contains(song)
+      false
+    else
+      SetlistSong.create(setlist: self, song: song)
+      true
+    end
+  end
 end

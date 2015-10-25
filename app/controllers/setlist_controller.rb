@@ -14,27 +14,41 @@ class SetlistController < ApplicationController
     @band = Band.find(params[:band_id])
     @setlist = @band.setlist
 
-    if Song.exists?(song_params)
-      @song = Song.where(song_params).first
-    else
-      @song = Song.new(song_params)
-      
-      if not @song.save
-        @new_song = @song
-        render 'show', layout: 'band' and return
-      end
-    end
+    puts song_params
+    @song = Song.get_or_create(song_params)
 
-    unless @setlist.contains(@song)
-      @setlist_song = SetlistSong.new(setlist: @setlist, song: @song)
-      @setlist_song.save
+    if @setlist.add_song(@song)
       flash[:notice] = "Song added successfully!"
+    else
+      flash[:alert] = "The song was not added to the setlist!"
     end
     
     redirect_to :action => 'show', layout: 'band'
   end
   
   def add_batch
+    @band = Band.find(params[:band_id])
+    @setlist = @band.setlist
+    @batch = params[:batch]
+    
+    total = @batch.lines.size
+    success = 0
+    @batch.each_line do |line|
+      artist = line.split(' - ')[0]
+      title = line.split(' - ')[1]
+      
+      song = Song.get_or_create({"artist"=>artist, "title"=>title})
+      if @setlist.add_song(song)
+        success = success + 1
+      end
+    end
+    
+    if success > 0
+      flash[:notice] = success.to_s + " songs out of " + total.to_s + " were added successfully!"
+    else
+      flash[:alert] = "None of the songs were added to the setlist"
+    end
+  
     redirect_to :action => 'show', layout: 'band'
   end
   
@@ -56,4 +70,5 @@ class SetlistController < ApplicationController
   def song_params
     params.require(:song).permit(:artist, :title)
   end
+  
 end
