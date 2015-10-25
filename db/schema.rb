@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150930153828) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bands", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -29,8 +32,8 @@ ActiveRecord::Schema.define(version: 20150930153828) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "contracts", ["band_id"], name: "index_contracts_on_band_id"
-  add_index "contracts", ["user_id"], name: "index_contracts_on_user_id"
+  add_index "contracts", ["band_id"], name: "index_contracts_on_band_id", using: :btree
+  add_index "contracts", ["user_id"], name: "index_contracts_on_user_id", using: :btree
 
   create_table "setlist_songs", force: :cascade do |t|
     t.integer  "song_id"
@@ -41,8 +44,8 @@ ActiveRecord::Schema.define(version: 20150930153828) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "setlist_songs", ["setlist_id"], name: "index_setlist_songs_on_setlist_id"
-  add_index "setlist_songs", ["song_id"], name: "index_setlist_songs_on_song_id"
+  add_index "setlist_songs", ["setlist_id"], name: "index_setlist_songs_on_setlist_id", using: :btree
+  add_index "setlist_songs", ["song_id"], name: "index_setlist_songs_on_song_id", using: :btree
 
   create_table "setlists", force: :cascade do |t|
     t.integer  "band_id"
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150930153828) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "setlists", ["band_id"], name: "index_setlists_on_band_id"
+  add_index "setlists", ["band_id"], name: "index_setlists_on_band_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.string   "author"
@@ -70,4 +73,7 @@ ActiveRecord::Schema.define(version: 20150930153828) do
     t.datetime "updated_at",       null: false
   end
 
+  add_foreign_key "setlist_songs", "setlists"
+  add_foreign_key "setlist_songs", "songs"
+  add_foreign_key "setlists", "bands"
 end
