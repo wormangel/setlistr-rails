@@ -16,6 +16,11 @@
       $('#add_new_song_div').on('shown.bs.modal', function (event) {
         $('#author').focus();
       });
+      
+      var hasError = $('.has-error').length != 0;
+      if (hasError) {
+        $('#add_new_song_div').modal();
+      }
     });
   </script>
 <% end %>
@@ -67,7 +72,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Add a song</h4>
         </div>
-        <%= bootstrap_form_for @new_song, url: add_song_to_setlist_path, layout: :inline do |f| %>
+        <%= bootstrap_form_for @new_song, url: add_song_to_setlist_path do |f| %>
           <div class="modal-body">
             <%= f.text_field :author, id: 'author' %>
             <%= f.text_field :title, id: 'title' %>

@@ -11,10 +11,6 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   
   <%= csrf_meta_tags %>
-  
-  <% if content_for?(:custom_js) %>
-    <%= yield(:custom_js) %>
-  <% end %>  
 </head>
 
 <body role="document">
@@ -59,6 +55,10 @@
   <% end %>
 
   <%= content_for?(:content) ? yield(:content) : yield %>
+  
+  <% if content_for?(:custom_js) %>
+    <%= yield(:custom_js) %>
+  <% end %>  
 </body>
 
 </html>
