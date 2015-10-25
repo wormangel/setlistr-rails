@@ -59,9 +59,11 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-css-social-buttons'
   gem 'rails-assets-noty'
   gem 'rails-assets-animate.css'
+  gem 'rails-assets-bootstrap-tokenfield', '~> 0.10.0'
 end
 
 gem 'omniauth'
 gem 'omniauth-facebook', '~> 2.0.1'
+gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'bootstrap_form'
 gem 'js-routes'

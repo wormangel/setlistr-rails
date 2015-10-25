@@ -15,6 +15,18 @@
           $('.invite_mouse_on').hide();
         }
       );
+      
+      $('#invite_member_div').on('show.bs.modal', function (event) {
+        $('#emails-tokenfield').val('');
+        $('.token').remove();
+      });
+      
+      $('#invite_member_div').on('shown.bs.modal', function (event) {
+        $('#emails-tokenfield').focus();
+      });
+      
+      $('#emails').tokenfield();
+      $('#emails').css('width', '100%');
     });
   </script>
 <% end %>
@@ -34,7 +46,7 @@
         <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
       </div>
     <% end %>
-      <div class="member_box invite_box col-md-2 text-center">
+      <div class="member_box invite_box col-md-2 text-center" data-toggle="modal" data-target="#invite_member_div">
         <div class="member_pic text-center">
           <div class="invite_mouse_off">
             <span class="glyphicon glyphicon-user invite_member_hook" aria-hidden="true"></span>
@@ -48,6 +60,28 @@
           </div>
         </div>
       </div>
+  </div>
+  
+  <div id="invite_member_div" class="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Invite members</h4>
+        </div>
+        <%= bootstrap_form_tag url: invite_path(:id => @band.id) do |f| %>
+          <div class="modal-body">
+            <p>Invite the other members of the band to join Setlistr!</p>
+            <p>Please enter their email addresses and they will be invited to join your band.</p>
+            <%= f.text_field :emails, id: 'emails', tabindex: "1" %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="3">Close</button>
+            <%= f.button 'Invite members', :class=> 'btn btn-primary', :tabindex => "2" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
   
   <div class="band_summary container">

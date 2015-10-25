@@ -13,6 +13,7 @@
  *= require bootstrap
  *= require css-social-buttons/zocial
  *= require animate.css
+ *= require bootstrap-tokenfield
  *= require_tree .
  *= require_self
  */

@@ -23,6 +23,10 @@ class BandController < ApplicationController
     @band = Band.find(params[:id])
   end
   
+  def invite
+    redirect_to :action => 'show'
+  end
+  
   private
   def band_params
     #params.require(:band).permit(:name, :contract_attributes => [:instrument, :user_id])
