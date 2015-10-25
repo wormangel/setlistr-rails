@@ -9,12 +9,12 @@
       );
       
       $('#add_new_song_div').on('show.bs.modal', function (event) {
-        $('#author').val('');
+        $('#artist').val('');
         $('#title').val('');
       });
       
       $('#add_new_song_div').on('shown.bs.modal', function (event) {
-        $('#author').focus();
+        $('#artist').focus();
       });
       
       $('#confirm_delete_song_div').on('show.bs.modal', function(event){
@@ -56,10 +56,10 @@
   <% else %>
     <div class="setlist_content">
       <ul class="list-unstyled setlist_paper">
-        <% @setlist.songs.order(:author, :title).each do |s| %>
+        <% @setlist.songs.order(:artist, :title).each do |s| %>
           <li class="setlist_song">
             <h3>
-              <%= s.author %> - <%= s.title %>
+              <%= s.artist %> - <%= s.title %>
               <span class="glyphicon glyphicon-remove remove-song-hook" data-toggle="modal" 
                 data-target="#confirm_delete_song_div" data-song-id="<%=s.id%>" 
                 data-title="<%=s.title%>" aria-hidden="true">
@@ -86,7 +86,7 @@
         </div>
         <%= bootstrap_form_for @new_song, url: add_song_to_setlist_path do |f| %>
           <div class="modal-body">
-            <%= f.text_field :author, id: 'author', tabindex: "1" %>
+            <%= f.text_field :artist, id: 'artist', tabindex: "1" %>
             <%= f.text_field :title, id: 'title', tabindex: "2" %>
           </div>
           <div class="modal-footer">

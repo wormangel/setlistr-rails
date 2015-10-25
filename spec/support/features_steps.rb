@@ -145,7 +145,7 @@ module FeaturesSteps
   
   # Setlist page UI and actions
   def should_see_new_song_fields
-    expect(page).to have_field("author")
+    expect(page).to have_field("artist")
     expect(page).to have_field("title")
     expect(page).to have_selector("#add_song_button")
   end
@@ -154,8 +154,8 @@ module FeaturesSteps
     expect(page).to have_selector("#empty_setlist_msg")
   end
   
-  def add_song_with_author_and_name(author, title)
-    fill_in "song[author]", with: author
+  def add_song_with_author_and_name(artist, title)
+    fill_in "song[artist]", with: artist
     fill_in "song[title]", with: title
     click_button "Add song"
   end

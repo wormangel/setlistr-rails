@@ -54,6 +54,6 @@ class SetlistController < ApplicationController
   
   private
   def song_params
-    params.require(:song).permit(:author, :title)
+    params.require(:song).permit(:artist, :title)
   end
 end

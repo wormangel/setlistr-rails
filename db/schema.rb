@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930153828) do
+ActiveRecord::Schema.define(version: 20151025075841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150930153828) do
   add_index "setlists", ["band_id"], name: "index_setlists_on_band_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
-    t.string   "author"
+    t.string   "artist"
     t.string   "title"
     t.integer  "duration"
     t.datetime "created_at", null: false
