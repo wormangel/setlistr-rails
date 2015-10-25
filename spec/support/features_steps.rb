@@ -135,6 +135,14 @@ module FeaturesSteps
     expect(page).to have_selector("#setlist_page")
   end
   
+  def should_see_link_to_concerts
+    expect(page).to have_selector("#nav_concerts")
+  end
+  
+  def should_see_concert_list
+    expect(page).to have_selector("#concerts_page")
+  end
+  
   # Setlist page UI and actions
   def should_see_new_song_fields
     expect(page).to have_field("author")

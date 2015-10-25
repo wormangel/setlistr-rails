@@ -1,3 +1,24 @@
 // Place all the styles related to the setlist controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.setlist_actions {
+  border: 1px solid;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10px;
+}
+
+.setlist_container {
+  background: transparent url('setlist-paper.jpg') repeat 0 0;
+  box-shadow: 1px 1px 7px #ccc;
+  border: 1px solid rgba(0,0,0,0.1);
+  z-index: 100;
+  width: 60%;
+  padding: 15px;
+  min-height: 500px;
+}
+
+.remove-song {
+  color: red;
+}

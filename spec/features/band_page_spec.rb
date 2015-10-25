@@ -28,5 +28,13 @@ feature "The band page" do
       click_on "Setlist"
       should_see_setlist
     end
+    
+    scenario 'displays a link to the concerts page' do
+      should_see_link_to_concerts
+      click_on "Concerts"
+      should_see_concert_list
+    end
+    
+    pending 'displays number of songs in the setlist'
   end
 end
