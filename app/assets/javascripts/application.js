@@ -17,6 +17,7 @@
 //= require noty
 //= require js-routes
 //= require bootstrap-tokenfield
+//= require routes
 
 // Common code for all pages
 
