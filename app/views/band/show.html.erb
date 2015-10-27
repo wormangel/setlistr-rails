@@ -15,18 +15,6 @@
           $('.invite_mouse_on').hide();
         }
       );
-      
-      $('#invite_member_div').on('show.bs.modal', function (event) {
-        $('#emails-tokenfield').val('');
-        $('.token').remove();
-      });
-      
-      $('#invite_member_div').on('shown.bs.modal', function (event) {
-        $('#emails-tokenfield').focus();
-      });
-      
-      $('#emails').tokenfield();
-      $('#emails').css('width', '100%');
     });
   </script>
 <% end %>
@@ -69,17 +57,15 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Invite members</h4>
         </div>
-        <%= bootstrap_form_tag url: invite_path(:id => @band.id) do |f| %>
-          <div class="modal-body">
-            <p>Invite the other members of the band to join Setlistr!</p>
-            <p>Please enter their email addresses and they will be invited to join your band.</p>
-            <%= f.text_field :emails, id: 'emails', tabindex: "1" %>
+          <div class="modal-body text-center">
+            <p class="lead">This your band's invite link:</p>
+            <h3 style="margin-bottom: 20px;"><%= link_to invite_url(@band.invite_token), invite_url(@band.invite_token) %></h3>
+            <p class="lead">Tell the other members to visit it.</p>
+            <p><em> Keep it secret! Anyone with that link will be able to join the band.</em></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="3">Close</button>
-            <%= f.button 'Invite members', :class=> 'btn btn-primary', :tabindex => "2" %>
           </div>
-        <% end %>
       </div>
     </div>
   </div>

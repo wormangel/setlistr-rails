@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   match 'band/:band_id/setlist/remove_song/:song_id', to: 'setlist#remove_song', as: :remove_song_from_setlist, via: [:post]
   match 'band/:band_id/setlist/add_batch', to: 'setlist#add_batch', as: :add_batch_to_setlist, via: [:post]
   
-  match 'band/:id/members/invite', to: 'band#invite', as: :invite, via: [:post]
+  match 'invite/:invite_code', to: 'band#invite', as: :invite, via: [:get]
 
   get 'welcome/index'
 

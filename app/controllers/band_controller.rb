@@ -24,6 +24,7 @@ class BandController < ApplicationController
   end
   
   def invite
+    puts params[:emails].split(', ')
     redirect_to :action => 'show'
   end
   

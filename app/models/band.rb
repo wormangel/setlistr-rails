@@ -16,4 +16,11 @@ class Band < ActiveRecord::Base
       contracts.build(attributes)
     end
   end
+  
+  def invite_token
+    base = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    cipher = "UCHAMhyuToiPwqQGr1c6ej48bKI3WYszvXF0LnOt7J2SBpRkadDf5N9EZxVmlg"
+    
+    return self.name.tr(base, cipher)
+  end
 end
