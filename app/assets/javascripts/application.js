@@ -18,6 +18,7 @@
 //= require js-routes
 //= require bootstrap-tokenfield
 //= require routes
+//= require_tree .
 
 // Common code for all pages
 

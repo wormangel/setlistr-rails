@@ -5,5 +5,6 @@ OmniAuth.config.on_failure = Proc.new { |env|
 }
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, ENV['SETLISTR_FB_APP_ID'], ENV['SETLISTR_FB_APP_SECRET']
+  provider :facebook, ENV['SETLISTR_FB_APP_ID'], ENV['SETLISTR_FB_APP_SECRET'],
+           :callback_url => ENV['SETLISTR_FB_REDIRECT_URL']
 end
