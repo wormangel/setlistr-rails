@@ -18,9 +18,9 @@ class Band < ActiveRecord::Base
   end
   
   def invite_token
-    base = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    cipher = "UCHAMhyuToiPwqQGr1c6ej48bKI3WYszvXF0LnOt7J2SBpRkadDf5N9EZxVmlg"
+    puts Rails.application.config.invite_salt
+    hashids = Hashids.new Rails.application.config.invite_salt
     
-    return self.name.tr(base, cipher)
+    return hashids.encode(self.id)
   end
 end

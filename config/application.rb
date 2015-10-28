@@ -25,5 +25,6 @@ module SetlistrRails
     
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.invite_salt = ENV['SETLISTR_INVITE_SALT']
   end
 end
