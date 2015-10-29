@@ -1,5 +1,5 @@
 class Contract < ActiveRecord::Base
-  
+  audited
   belongs_to :user
   belongs_to :band
   

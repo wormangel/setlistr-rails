@@ -1,4 +1,5 @@
 class Song < ActiveRecord::Base
+  audited
 
   validates :artist, presence: true
   validates :title, presence: true

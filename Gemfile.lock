@@ -39,6 +39,11 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
+    audited (4.2.0)
+      rails-observers (~> 0.1.2)
+    audited-activerecord (4.2.0)
+      activerecord (~> 4.0)
+      audited (= 4.2.0)
     autotest-fsevent (0.2.11)
       sys-uname
     autotest-growl (0.2.16)
@@ -148,6 +153,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
@@ -222,6 +229,7 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest
+  audited-activerecord (~> 4.0)
   autotest-fsevent
   autotest-growl
   autotest-rails

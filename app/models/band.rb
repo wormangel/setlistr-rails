@@ -1,4 +1,5 @@
 class Band < ActiveRecord::Base
+  audited
   has_many :contracts
   has_many :members, :class_name => "User", :through => :contracts, :source => :user
   has_one :setlist

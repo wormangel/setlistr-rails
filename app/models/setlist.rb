@@ -1,4 +1,5 @@
 class Setlist < ActiveRecord::Base
+  audited
   belongs_to :band
   has_many :setlist_songs
   has_many :songs, :class_name => "Song", :through => :setlist_songs

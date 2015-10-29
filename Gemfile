@@ -72,3 +72,4 @@ gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'bootstrap_form'
 gem 'js-routes'
 gem 'hashids', '~> 1.0.2'
+gem "audited-activerecord", "~> 4.0"

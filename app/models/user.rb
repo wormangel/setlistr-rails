@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  audited
   has_many :contracts
   has_many :bands, :through => :contracts
 
