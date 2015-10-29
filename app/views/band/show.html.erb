@@ -53,7 +53,7 @@
       <div class="member_box pending_box col-md-2 text-center">
         <div class="pending_mouse_off">
           <div class="member_pic text-center">
-            <%= image_tag profile_pic('small', contract.user.uid) %>
+            <%= image_tag profile_pic('square', contract.user.uid) %>
           </div>
           <h3><%= contract.user.first_name %></h3>
           <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
