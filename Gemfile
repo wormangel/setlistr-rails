@@ -74,3 +74,4 @@ gem 'js-routes'
 gem 'hashids', '~> 1.0.2'
 gem "audited-activerecord", "~> 4.0"
 gem 'carrierwave'
+gem "mini_magick"

@@ -1,5 +1,13 @@
 <% if band.logo.url != nil %>
-  <%= image_tag band.logo.url %>
+  <% if size == '200' %>
+    <%= image_tag band.logo.small.url %>
+  <% elsif size == '100' %>
+    <% puts 'piaa' %>
+    <%= image_tag band.logo.smaller.url %>
+  <% else %>
+    <% puts size %>
+    <%= image_tag band.logo.url %>
+  <% end %>
 <% else %>
   <% if size == '200' %>
     <%= image_tag 'band_logo_placeholder200.png' %>

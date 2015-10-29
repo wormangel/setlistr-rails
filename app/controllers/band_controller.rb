@@ -28,6 +28,17 @@ class BandController < ApplicationController
     @band = Band.find(params[:id])
   end
   
+  def update
+    @band = Band.find(params[:id])
+    
+    if @band.update(band_update_params)
+      flash[:notice] = "Band updated successfully!"
+      redirect_to @band and return
+    else
+      render 'edit', layout: 'band'
+    end
+  end
+  
   def invite
     @band = Band.from_invite_token(params[:invite_code])
      
@@ -80,6 +91,11 @@ class BandController < ApplicationController
       cont.merge!({:user_id=>current_user.id})
     end
     params.require(:band).permit(:name, :contract_attributes => [:instrument, :user_id])
+  end
+  
+  private
+  def band_update_params
+    params.require(:band).permit(:name, :genre, :release, :logo)
   end
   
   private

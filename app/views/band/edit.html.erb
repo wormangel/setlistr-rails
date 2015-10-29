@@ -1,0 +1,18 @@
+<div class="container" style="padding: 60px 15px 0">
+  <div class="page-header">
+    <h1>Edit band details</h1>
+  </div>
+
+  <p class="lead">
+  Here you can edit some basic info about the band, and also upload your cool logo!
+  </p>
+
+  <%= bootstrap_form_for @band, url: band_path, method: :patch, html: { multipart: true } do |f| %>
+    <%= f.text_field :name, id: 'name' %>
+    <%= f.text_field :genre, id: 'genre' %>
+    <%= f.text_area :release, id: 'release', rows: 8 %>
+    <%= f.file_field :logo, id: 'logo' %>
+    <br/>
+    <%= f.button 'Save', :class=> 'btn btn-primary' %>
+  <% end %>
+</div>
