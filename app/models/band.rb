@@ -18,9 +18,14 @@ class Band < ActiveRecord::Base
   end
   
   def invite_token
-    puts Rails.application.config.invite_salt
     hashids = Hashids.new Rails.application.config.invite_salt
     
-    return hashids.encode(self.id)
+    hashids.encode(self.id)
+  end
+  
+  def self.from_invite_token(token)
+    hashids = Hashids.new Rails.application.config.invite_salt
+    
+    Band.find(hashids.decode(token).first)
   end
 end

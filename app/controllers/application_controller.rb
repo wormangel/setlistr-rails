@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   protected
   def require_authorization
-  	redirect_to :root unless current_user
+  	redirect_to (root_url + '?return=' + request.original_url) unless current_user
   end
   
   protected

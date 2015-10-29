@@ -1,6 +1,7 @@
 <% content_for :custom_js do %>
   <script type="text/javascript">
     var fbAppId = '<%= ENV['SETLISTR_FB_APP_ID'] %>';
+    var original_url = '<%= params["return"] %>';
   </script>
 <% end %>
 
@@ -13,7 +14,7 @@
     <p>To begin, please login by using your Facebook account</p>
     
     <p style="text-align:center">
-      <a href="/auth/facebook" id="fb_login_btn" class="zocial facebook">Login with Facebook</a>
+      <a href="#" id="fb_login_btn" class="zocial facebook">Login with Facebook</a>
     </p>
   </p>
 </div>

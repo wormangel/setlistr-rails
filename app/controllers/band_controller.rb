@@ -1,6 +1,6 @@
 class BandController < ApplicationController
   before_filter :require_authorization
-  before_filter(except: [:new, :create]) { require_band_member(params[:id]) }
+  before_filter(except: [:new, :create, :invite]) { require_band_member(params[:id]) }
   
   def new
     @band = Band.new
@@ -24,8 +24,9 @@ class BandController < ApplicationController
   end
   
   def invite
-    puts params[:emails].split(', ')
-    redirect_to :action => 'show'
+    @band = Band.from_invite_token(params[:invite_code])
+    
+    redirect_to :action => 'show', :id => @band.id
   end
   
   private

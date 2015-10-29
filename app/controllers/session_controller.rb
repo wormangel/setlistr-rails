@@ -1,8 +1,9 @@
 class SessionController < ApplicationController
+
   def create
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
-    redirect_to :controller => 'user', :action => 'dashboard'
+    redirect_to request.params['return'] || :dashboard
   end
 
   def destroy
