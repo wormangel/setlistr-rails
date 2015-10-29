@@ -3,8 +3,8 @@
   <input type="hidden" id="band-id" value="<%=@band.id%>">
   <div class="row">
       <div class="col-md-2 sidebar text-center">
-          <div class="band_logo_left img_placeholder_left">
-            <span class="img_placeholder_text">Setlistr</span>
+          <div class="band_logo_left">
+            <%= render partial: 'band/logo', locals: { band: @band, size: 100 } %>
           </div>
           <ul class="nav nav-sidebar">
               <hr>

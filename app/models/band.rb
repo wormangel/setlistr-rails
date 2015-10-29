@@ -4,6 +4,8 @@ class Band < ActiveRecord::Base
   has_many :members, :class_name => "User", :through => :contracts, :source => :user
   has_many :setlists
   
+  mount_uploader :logo, LogoUploader
+  
   validates :name, presence: true
   
   before_create do

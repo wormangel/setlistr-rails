@@ -3,8 +3,8 @@
     <h1><%= @band.name %></h1>
   </div>
   <div class="text-center">
-    <div class="band_logo img_placeholder">
-      <span class="img_placeholder_text">Setlistr</span>
+    <div class="band_logo">
+      <%= render partial: 'band/logo', locals: { band: @band, size: '200' } %>
     </div>
   </div>
   

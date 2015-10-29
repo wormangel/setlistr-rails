@@ -1,0 +1,9 @@
+<% if band.logo.url != nil %>
+  <%= image_tag band.logo.url %>
+<% else %>
+  <% if size == '200' %>
+    <%= image_tag 'band_logo_placeholder200.png' %>
+  <% else %>
+    <%= image_tag 'band_logo_placeholder100.png' %>
+  <% end %>
+<% end %>
