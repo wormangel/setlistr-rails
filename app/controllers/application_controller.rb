@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   protected
   def require_band_member(id)
     band = Band.find(id)
-    redirect_to dashboard_path unless band.members.include?(current_user)
+    redirect_to dashboard_path unless band.active_members.include?(current_user)
   end
   
   private

@@ -17,6 +17,10 @@ class Band < ActiveRecord::Base
     end
   end
   
+  def active_members
+    self.members.where(:contracts=> {:approved => true})
+  end
+  
   def invite_token
     hashids = Hashids.new Rails.application.config.invite_salt
     

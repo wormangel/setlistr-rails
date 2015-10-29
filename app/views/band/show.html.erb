@@ -15,6 +15,21 @@
           $('.invite_mouse_on').hide();
         }
       );
+      
+      $('.pending_mouse_on').hide();
+      
+      $('.pending_box').hover(
+        function(){ 
+          $(this).addClass('pending_box_hover'); 
+          $('.pending_mouse_off').hide();
+          $('.pending_mouse_on').show();
+        },
+        function(){
+          $(this).removeClass('pending_box_hover'); 
+          $('.pending_mouse_off').show();
+          $('.pending_mouse_on').hide();
+        }
+      );
     });
   </script>
 <% end %>
@@ -25,15 +40,37 @@
   </div>
   
   <div class="band_members container row">
-    <% @band.contracts.each do |contract| %>
+  <% @band.contracts.each do |contract| %>
+    <% if contract.approved %>
       <div class="member_box col-md-2 text-center">
         <div class="member_pic text-center">
           <%= image_tag profile_pic('small', contract.user.uid) %>
         </div>
-        <h3><%= contract.user.name %></h3>
+        <h3><%= contract.user.first_name %></h3>
         <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
       </div>
+    <% else %>
+      <div class="member_box pending_box col-md-2 text-center">
+        <div class="pending_mouse_off">
+          <div class="member_pic text-center">
+            <%= image_tag profile_pic('small', contract.user.uid) %>
+          </div>
+          <h3><%= contract.user.first_name %></h3>
+          <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
+        </div>
+        <div class="pending_mouse_on">
+          <div class="pending_box_actions">
+            <%= bootstrap_form_tag url: band_grant_access_path(@band.id) do |f| %>
+              <input type="hidden" name="contract_id" value="<%= contract.id %>">
+              <%= f.button 'Approve', :name => 'decision', :value=>'approve', :class=> 'btn btn-success', :id => 'btn-add-batch' %>
+              <%= f.button 'Reject', :name => 'decision', :value=>'reject', :class=> 'btn btn-danger', :id => 'btn-add-batch' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     <% end %>
+  <% end %>
+    
       <div class="member_box invite_box col-md-2 text-center" data-toggle="modal" data-target="#invite_member_div">
         <div class="member_pic text-center">
           <div class="invite_mouse_off">

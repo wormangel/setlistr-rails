@@ -1,6 +1,6 @@
 class BandController < ApplicationController
   before_filter :require_authorization
-  before_filter(except: [:new, :create, :invite]) { require_band_member(params[:id]) }
+  before_filter(except: [:new, :create, :invite, :request_access]) { require_band_member(params[:id]) }
   
   def new
     @band = Band.new
@@ -11,6 +11,7 @@ class BandController < ApplicationController
   
   def create
     @band = Band.new(band_params)
+    @band.contracts.first.approved = true # Hackish
     if @band.save
       flash[:notice] = "Band created successfully!"
       redirect_to @band
@@ -25,8 +26,47 @@ class BandController < ApplicationController
   
   def invite
     @band = Band.from_invite_token(params[:invite_code])
+     
+    if @band.members.include?(current_user)
+      flash[:alert] = "You're already a member of #{@band.name} or your invitation is still pending."
+      redirect_to :dashboard and return
+    end
     
-    redirect_to :action => 'show', :id => @band.id
+    @contract = Contract.new
+    
+    render 'invite', layout: 'application'
+  end
+  
+  def request_access
+    @band = Band.find(params[:band_id])
+    
+    @contract = Contract.new(request_access_params)
+    @contract.band = @band
+    @contract.approved = false
+    if @contract.save
+      flash[:notice] = "Access requested! You'll have access once some bandmate approves you!"
+    else
+      flash[:alert] = "Something went wrong :("
+    end
+    
+    redirect_to :dashboard
+  end
+  
+  def grant_access
+    @band = Band.find(params[:id])
+    
+    approve = params[:decision] == 'approve'
+    contract = Contract.find(params[:contract_id])
+    if approve
+      contract.approved = true
+      contract.save
+      flash[:notice] = contract.user.first_name + ' is now part of the band!' 
+    else
+      contract.destroy
+      flash[:notice] = contract.user.first_name + ' was rejected.' 
+    end
+    
+    redirect_to @band
   end
   
   private
@@ -36,5 +76,11 @@ class BandController < ApplicationController
       cont.merge!({:user_id=>current_user.id})
     end
     params.require(:band).permit(:name, :contract_attributes => [:instrument, :user_id])
+  end
+  
+  private
+  def request_access_params
+    params[:contract][:user_id] = current_user.id
+    params.require(:contract).permit(:instrument, :user_id)
   end
 end

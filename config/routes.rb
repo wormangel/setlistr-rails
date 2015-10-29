@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   match 'band/:band_id/setlist/add_batch', to: 'setlist#add_batch', as: :add_batch_to_setlist, via: [:post]
   
   match 'invite/:invite_code', to: 'band#invite', as: :invite, via: [:get]
+  match 'band/:band_id/invite/request_access', to: 'band#request_access', as: :band_request_access, via: [:post]
+  match 'band/:id/invite/grant_access', to: 'band#grant_access', as: :band_grant_access, via: [:post]
 
   get 'welcome/index'
 

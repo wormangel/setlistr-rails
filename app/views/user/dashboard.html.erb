@@ -16,14 +16,24 @@
     </p>
     <div id="band_list" class="row">
     <% @contracts.each do |contract| %>
-      <%= link_to contract.band do %>
-      <div class="col-md-3 band_button text-center">
-        <div class="band_logo img_placeholder">
-          <span class="img_placeholder_text">Setlistr</span>
+      <% if contract.approved %>
+        <%= link_to contract.band do %>
+          <div class="col-md-3 band_button text-center">
+            <div class="band_logo img_placeholder">
+              <span class="img_placeholder_text">Setlistr</span>
+            </div>
+            <h3><%= contract.band.name %></h3>
+            <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="col-md-3 band_button text-center pending_approval">
+          <div class="band_logo img_placeholder">
+            <span class="img_placeholder_text">Setlistr</span>
+          </div>
+          <h3><%= contract.band.name %></h3>
+          <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
         </div>
-        <h3><%= contract.band.name %></h3>
-        <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
-      </div>
       <% end %>
     <% end %>
     </div>

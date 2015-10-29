@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
+  
+  def first_name
+    self.name.split(' ')[0]
+  end
 end

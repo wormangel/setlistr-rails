@@ -1,0 +1,26 @@
+<div class="container band_invite" style="padding: 60px 15px 0">
+  <div class="page-header text-center">
+    <h1><%= @band.name %></h1>
+  </div>
+  <div class="text-center">
+    <div class="band_logo img_placeholder">
+      <span class="img_placeholder_text">Setlistr</span>
+    </div>
+  </div>
+  
+  <div class="invite_content text-center">
+    <p></p>
+    <p class="lead">You have been invited to join <strong><%=@band.name%></strong>!</p>
+    <p class="lead">Select your role below and press the button below to confirm you're a member.</p>
+    <p class="role_select text-center">
+      <%= bootstrap_form_for @contract, url: band_request_access_path(@band.id) do |f| %>
+          <%= f.collection_select :instrument, Contract::INSTRUMENTS, :value, :label, {hide_label: true}, {class: 'form-control', id: 'instrument', style: "width:auto; display: inline-block;"}%>
+        <br/>
+        <%= f.button 'Request access', :class=> 'btn btn-success btn-lg' %>
+      <% end %>
+    </p>
+    
+    <p class="lead">Your access will be granted once some other member approves you.</p>
+  </div>  
+  
+</div>

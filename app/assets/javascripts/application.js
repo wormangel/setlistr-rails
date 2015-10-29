@@ -18,11 +18,10 @@
 //= require js-routes
 //= require bootstrap-tokenfield
 //= require routes
-//= require_tree .
 
 // Common code for all pages
 
-$(document).ready(function() {
+$(document).on('page:load ready', function() {
   displayFlash = function(msg, type) {
     n = noty({
       text: msg,

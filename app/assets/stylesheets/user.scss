@@ -25,3 +25,23 @@
   line-height: normal;
   display: inline-block;
 }
+
+.pending_approval {
+  position: relative;
+}
+
+.pending_approval:after {
+  content:'pending approval!';
+  position:absolute;
+  padding-left: 5px;
+  padding-right: 5px;
+  top:-10px;
+  right:10px;
+  font-size:.7em;
+  background:yellow;
+  color:black;
+  text-align:center;
+  border-radius: 10px;
+  border: 1px solid gold;
+  line-height:18px;
+}
