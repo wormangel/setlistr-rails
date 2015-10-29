@@ -2,12 +2,16 @@ class Band < ActiveRecord::Base
   audited
   has_many :contracts
   has_many :members, :class_name => "User", :through => :contracts, :source => :user
-  has_one :setlist
+  has_many :setlists
   
   validates :name, presence: true
   
   before_create do
-    self.setlist = Setlist.create
+    self.setlists << Setlist.create(master: true)
+  end
+  
+  def setlist
+    self.setlists.where(master: true).first
   end
   
   accepts_nested_attributes_for :contracts
