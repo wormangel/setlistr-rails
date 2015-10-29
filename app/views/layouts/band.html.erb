@@ -2,16 +2,19 @@
 <div class="container">
   <input type="hidden" id="band-id" value="<%=@band.id%>">
   <div class="row">
-      <div class="col-md-2 sidebar">
-          <h4 class="text-center"><%= link_to @band.name, @band %></h4>
+      <div class="col-md-2 sidebar text-center">
+          <div class="band_logo_left img_placeholder_left">
+            <span class="img_placeholder_text">Setlistr</span>
+          </div>
           <ul class="nav nav-sidebar">
+              <hr>
               <li id="nav_setlist"><%= link_to "Setlist", band_setlist_path(@band) %></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-              <li id="navUsuarios"></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-              <li id="navSobre"></li>
+<!--              <li id="nav_concerts"><%= link_to "Concerts", '#' %></li>
+              <li id="nav_concerts"><%= link_to "Rehearsals", '#' %></li>
+              <li id="nav_concerts"><%= link_to "Members", '#' %></li>
+              <li id="nav_concerts"><%= link_to "Stats", '#' %></li>-->
+              <hr>
+              <li id="nav_band_details"><%= link_to "Edit Band Details", edit_band_path(@band) %></li>
           </ul>
       </div>
       

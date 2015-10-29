@@ -24,6 +24,10 @@ class BandController < ApplicationController
     @band = Band.find(params[:id])
   end
   
+  def edit
+    @band = Band.find(params[:id])
+  end
+  
   def invite
     @band = Band.from_invite_token(params[:invite_code])
      
