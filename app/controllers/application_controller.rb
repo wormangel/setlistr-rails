@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
   
   def profile_pic(size = 'square', uid = current_user.uid)
-  @profile_pic = 'http://graph.facebook.com/'+ uid + "/picture?type=" + size
+  @profile_pic = 'https://graph.facebook.com/'+ uid + "/picture?type=" + size
   end
 
   helper_method :profile_pic
