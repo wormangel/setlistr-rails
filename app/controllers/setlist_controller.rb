@@ -66,6 +66,18 @@ class SetlistController < ApplicationController
     redirect_to :action => 'show', layout: 'band'
   end
   
+  def export
+    band = Band.find(params[:band_id])
+    setlist = band.setlist
+    
+    result = ''
+    setlist.songs.each do |song|
+      result += song.artist + ' - ' + song.title
+    end
+    
+    send_data result, :filename => (band.name + ' - Setlist (' + Time.now.strftime('%Y%m%d') + ').txt')
+  end
+  
   private
   def song_params
     params.require(:song).permit(:artist, :title)

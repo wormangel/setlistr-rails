@@ -48,13 +48,22 @@
     <h1>Setlist</h1>
   </div>
 
-  <div class="setlist_actions pull-right text-center">
-    <p>
-      <em>Missing something? Use the buttons below!</em>
-    </p>
-    <button id="add_song_hook" class="btn btn-primary" data-toggle="modal" data-target="#add_new_song_div">Add a song</button>
-    <p style="margin-top:10px;">or</p>
-    <button id="add_batch_hook" class="btn btn-success" data-toggle="modal" data-target="#add_batch_div">Add a batch of songs</button>
+  <div class="pull-right text-center">
+    <div class="setlist_actions">
+      <p>
+        <em>Missing something? Use the buttons below!</em>
+      </p>
+      <button id="add_song_hook" class="btn btn-primary" data-toggle="modal" data-target="#add_new_song_div">Add a song</button>
+      <p style="margin-top:10px;">or</p>
+      <button id="add_batch_hook" class="btn btn-success" data-toggle="modal" data-target="#add_batch_div">Add a batch of songs</button>
+    </div>
+    <% if not @setlist.empty? %>
+      <div class="export_div">
+        <%= link_to setlist_export_txt_path(@band) do %>
+          <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export as TXT</p>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   
   <% if @setlist.empty? %>
