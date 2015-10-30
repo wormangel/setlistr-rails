@@ -71,7 +71,7 @@ class SetlistController < ApplicationController
     setlist = band.setlist
     
     result = ''
-    setlist.songs.each do |song|
+    setlist.songs.order(:artist, :title).each do |song|
       result += song.artist + ' - ' + song.title
     end
     
