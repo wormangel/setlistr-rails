@@ -13,14 +13,13 @@ class SetlistController < ApplicationController
   def add_song
     @band = Band.find(params[:band_id])
     @setlist = @band.setlist
-
-    puts song_params
-    @song = Song.get_or_create(song_params)
+    
+    @song = Song.where(song_params).first_or_create
 
     if @setlist.add_song(@song)
       flash[:notice] = "Song added successfully!"
     else
-      flash[:alert] = "The song was not added to the setlist!"
+      flash[:alert] = "The song was not added to the setlist! Maybe it was already there?"
     end
     
     redirect_to :action => 'show', layout: 'band'
@@ -34,10 +33,10 @@ class SetlistController < ApplicationController
     total = @batch.lines.size
     success = 0
     @batch.each_line do |line|
-      artist = line.split(' - ')[0]
-      title = line.split(' - ')[1]
+      artist = line.split(' - ')[0].strip
+      title = line.split(' - ')[1].strip
       
-      song = Song.get_or_create({"artist"=>artist, "title"=>title})
+      song = Song.where({"artist"=>artist, "title"=>title, "band_id"=>@band.id}).first_or_create
       if @setlist.add_song(song)
         success = success + 1
       end
@@ -46,7 +45,7 @@ class SetlistController < ApplicationController
     if success > 0
       flash[:notice] = success.to_s + " songs out of " + total.to_s + " were added successfully!"
     else
-      flash[:alert] = "None of the songs were added to the setlist"
+      flash[:alert] = "None of the songs were added to the setlist. Maybe they were all added before?"
     end
   
     redirect_to :action => 'show', layout: 'band'
@@ -80,7 +79,12 @@ class SetlistController < ApplicationController
   
   private
   def song_params
-    params.require(:song).permit(:artist, :title)
+    # Add the band id
+    params[:song][:band_id] = params[:band_id]
+    # Trim the artist and title
+    params[:song][:artist] = params[:song][:artist].strip
+    params[:song][:title] = params[:song][:title].strip
+    params.require(:song).permit(:artist, :title, :band_id)
   end
   
 end
