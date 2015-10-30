@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029195209) do
+ActiveRecord::Schema.define(version: 20151030044713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,24 @@ ActiveRecord::Schema.define(version: 20151029195209) do
     t.string   "genre"
     t.string   "logo"
   end
+
+  create_table "concerts", force: :cascade do |t|
+    t.integer  "band_id"
+    t.string   "name"
+    t.date     "date"
+    t.time     "time"
+    t.string   "venue"
+    t.integer  "duration"
+    t.string   "description"
+    t.decimal  "ticket_price"
+    t.string   "payment_type"
+    t.decimal  "payment"
+    t.string   "flyer"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "concerts", ["band_id"], name: "index_concerts_on_band_id", using: :btree
 
   create_table "contracts", force: :cascade do |t|
     t.integer  "user_id"

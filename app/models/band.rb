@@ -3,6 +3,7 @@ class Band < ActiveRecord::Base
   has_many :contracts
   has_many :members, :class_name => "User", :through => :contracts, :source => :user
   has_many :setlists
+  has_many :concerts
   
   mount_uploader :logo, LogoUploader
   
@@ -14,6 +15,14 @@ class Band < ActiveRecord::Base
   
   def setlist
     self.setlists.where(master: true).first
+  end
+  
+  def past_concerts
+    self.concerts.where("date > ?", DateTime.now)
+  end
+  
+  def next_concerts
+    self.concerts.where("date < ?", DateTime.now)
   end
   
   accepts_nested_attributes_for :contracts

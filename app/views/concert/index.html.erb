@@ -1,0 +1,33 @@
+<div id="concerts" class="container" style="padding: 60px 15px 0">
+  <div class="page-header">
+    <h1 >Concerts</h1>
+  </div>
+  
+  <p class="lead">New gig coming up? <%= link_to 'Click here', new_band_concert_path(@band) %> to add a new concert!</p>
+  
+  <h2>Upcoming concerts</h2>
+  <% if @band.next_concerts.empty? %>
+    <p>No upcoming concerts.</p>
+  <% else %>
+    <ul>
+    <% @band.next_concerts.each do |concert| %>
+      <%= link_to concert do %>
+        <li><%= concert.date %> <%= concert.time %> - <%= concert.name %> at <%= concert.venue %></li>
+      <% end %>
+    <% end %>  
+    </ul>
+  <% end %>
+  
+  <h2>Past concerts</h2>
+  <% if @band.past_concerts.empty? %>
+    <p>No previous concerts.</p>
+  <% else %>
+    <ul>
+    <% @band.past_concerts.each do |concert| %>
+      <%= link_to concert do %>
+        <li><%= concert.date %> <%= concert.time %> - <%= concert.name %> at <%= concert.venue %></li>
+      <% end %>
+    <% end %>  
+    </ul>
+  <% end %>
+</div>
