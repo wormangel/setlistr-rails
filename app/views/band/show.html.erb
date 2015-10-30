@@ -109,7 +109,11 @@
   
   <div class="band_summary container">
       <p class="lead"><strong><%= @band.setlist.count %></strong> songs in the <%= link_to 'setlist.', band_setlist_path(@band) %></p>
-      <p class="lead">No upcoming concerts.</p>
+    <% if @band.next_concerts.empty? %>
+      <p class="lead">No upcoming <%= link_to 'concerts.', band_concerts_path(@band) %></p>
+    <% else %>
+      <p class="lead">Next concert: <%= link_to @band.next_concerts.first.name, @band.next_concerts.first %></p>
+    <% end %>
       <p class="lead">No upcoming rehearsals.</p>
   </div>
 </div>
