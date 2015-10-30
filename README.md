@@ -12,8 +12,27 @@ Dependencies are managed by Bundler. Among the great stuff used there's [rails-a
 
 This project was done so I could get a grasp in BDD in Rails. I've used [rspec-rails](https://github.com/rspec/rspec-rails), [factory-girl](https://github.com/thoughtbot/factory_girl), [rspec-autotest](https://github.com/rspec/rspec-autotest) and [capybara](https://github.com/jnicklas/capybara).
 
-### Configuration
-Login is done via Facebook so you need to have a FB app properly configured and export two environment variables: `SETLISTR_FB_APP_ID` and `SETLISTR_FB_APP_SECRET`.
+### Installation
+1. Clone the repository. `git clone git@github.com:wormangel/setlistr-rails.git`
+2. Install dependencies. `bundle install`
+3. Configure a Facebook app (for login). Don't forget to allow the app root URL under OAuth authorized callbacks (for example, `http://localhost:3000/` for DEV environment)
+4. Configure a Amazon S3 bucket (for file uploads store - if you don't want to use that the changes you'll need should be simple enough thanks to [carrierwave](https://github.com/carrierwaveuploader/carrierwave)). 
+5. Create a `.env` file in the root of the app with the following variables:
+
+        SETLISTR_FB_APP_ID="" # Self-explanatory
+        SETLISTR_FB_APP_SECRET="" # Self-explanatory
+        SETLISTR_FB_REDIRECT_URL="" # This should be the rails root path of the application
+        SETLISTR_INVITE_SALT="" # Any string you want, to make the band invite codes unique to your setup
+        SETLISTR_S3_BUCKET="" # Self-explanatory
+        SETLISTR_S3_ACCESS_KEY="" # Self-explanatory
+        SETLISTR_S3_SECRET_KEY="" # Self-explanatory
+        SETLISTR_S3_REGION="" # Self-explanatory
+        SETLISTR_S3_ENDPOINT="" # Self-explanatory - Make sure it matches the S3 region
+
+6. Install Postgres if you don't have it (or change the db settings to use sqlite3)
+7. Create the db `rake db:create`
+8. Run migrations `rake db:migrate`
+9. Start app `rails server`
 
 ### Tests
 Expect tons of feature tests using rspec! Try running ```bundle exec rspec```
