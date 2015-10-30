@@ -71,7 +71,7 @@ class SetlistController < ApplicationController
     
     result = ''
     setlist.songs.order(:artist, :title).each do |song|
-      result += song.artist + ' - ' + song.title
+      result += song.artist + ' - ' + song.title + "\n"
     end
     
     send_data result, :filename => (band.name + ' - Setlist (' + Time.now.strftime('%Y%m%d') + ').txt')
