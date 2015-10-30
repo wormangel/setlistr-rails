@@ -7,4 +7,11 @@ class ConcertController < ApplicationController
 
     render 'index', layout: 'band'
   end
+  
+  def new
+    @band = Band.find(params[:band_id])
+    @concert = Concert.new
+    
+    render 'new', layout: 'band'
+  end
 end
