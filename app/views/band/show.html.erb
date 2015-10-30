@@ -112,7 +112,12 @@
     <% if @band.next_concerts.empty? %>
       <p class="lead">No upcoming <%= link_to 'concerts.', band_concerts_path(@band) %></p>
     <% else %>
-      <p class="lead">Next concert: <%= link_to @band.next_concerts.first.name, @band.next_concerts.first %></p>
+      <p class="lead">
+        Next concert: 
+        <%= link_to band_concert_path(@band, @band.next_concerts.first) do %>
+          <strong><%= @band.next_concerts.first.date %></strong> - <%= @band.next_concerts.first.name %> at <%= @band.next_concerts.first.venue %>.
+        <% end %>
+      </p>
     <% end %>
       <p class="lead">No upcoming rehearsals.</p>
   </div>

@@ -17,12 +17,12 @@ class Band < ActiveRecord::Base
     self.setlists.where(master: true).first
   end
   
-  def past_concerts
-    self.concerts.where("date > ?", DateTime.now)
+  def next_concerts
+    self.concerts.where("date > ?", DateTime.now).order("date asc")
   end
   
-  def next_concerts
-    self.concerts.where("date < ?", DateTime.now)
+  def past_concerts
+    self.concerts.where("date < ?", DateTime.now).order("date desc")
   end
   
   accepts_nested_attributes_for :contracts

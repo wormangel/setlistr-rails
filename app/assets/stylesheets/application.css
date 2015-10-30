@@ -13,7 +13,8 @@
  *= require bootstrap
  *= require css-social-buttons/zocial
  *= require animate.css
- *= require bootstrap-tokenfield
+ *= require bootstrap-datepicker
+ *= require jquery-timepicker-jt
  *= require_tree .
  *= require_self
  */
@@ -21,4 +22,8 @@
 .profile_pic {
   max-height: 100%;
   width: auto;
+}
+
+.spacer { 
+  margin-top: 40px;
 }

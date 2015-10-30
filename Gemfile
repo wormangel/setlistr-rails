@@ -63,7 +63,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-css-social-buttons'
   gem 'rails-assets-noty'
   gem 'rails-assets-animate.css'
-  gem 'rails-assets-bootstrap-tokenfield', '~> 0.10.0'
+  gem 'rails-assets-bootstrap-datepicker'
+  gem 'rails-assets-jquery-timepicker-jt'
 end
 
 gem 'omniauth'

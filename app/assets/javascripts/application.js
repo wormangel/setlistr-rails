@@ -16,8 +16,9 @@
 //= require turbolinks
 //= require noty
 //= require js-routes
-//= require bootstrap-tokenfield
 //= require routes
+//= require bootstrap-datepicker
+//= require jquery-timepicker-jt
 
 // Common code for all pages
 
