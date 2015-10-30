@@ -3,9 +3,11 @@
   <input type="hidden" id="band-id" value="<%=@band.id%>">
   <div class="row">
       <div class="col-md-2 sidebar text-center">
-          <div class="band_logo">
-            <%= render partial: 'band/logo', locals: { band: @band, size: '200' } %>
-          </div>
+          <%= link_to @band do %>
+            <div class="band_logo">
+              <%= render partial: 'band/logo', locals: { band: @band, size: '200' } %>
+            </div>
+          <% end %>
           <ul class="nav nav-sidebar">
               <hr>
               <li id="nav_setlist"><%= link_to "Setlist", band_setlist_path(@band) %></li>
