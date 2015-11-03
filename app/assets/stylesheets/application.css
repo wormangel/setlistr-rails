@@ -19,6 +19,10 @@
  *= require_self
  */
 
+body {
+  padding-top: 50px;
+}
+
 .profile_pic {
   max-height: 100%;
   width: auto;
@@ -26,4 +30,21 @@
 
 .spacer { 
   margin-top: 40px;
+}
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
 }

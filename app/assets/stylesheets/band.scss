@@ -55,9 +55,9 @@
   border-radius: 5px;
   display: inline-block;
   padding: 8px;
-  height: 146px;
   margin-left: 10px;
   margin-right: 10px;
+  margin-bottom: 20px;
 }
 
 .band_summary {
@@ -65,13 +65,11 @@
 }
 
 .invite_member_text {
-  position: absolute;
-  bottom: 0px;
   color: #337ab7;
 }
 
 .invite_box {
-  border: 1px solid #ddd;
+  min-height: 154px;
 }
 
 .invite_box_hover {
@@ -98,6 +96,7 @@
 
 .pending_box {
   position:relative;
+  min-height: 154px;
 }
 
 .pending_box_hover {
