@@ -48,3 +48,8 @@ body {
 .main .page-header {
   margin-top: 0;
 }
+
+/* centered columns styles */
+.center-block {
+  float: none;  
+}

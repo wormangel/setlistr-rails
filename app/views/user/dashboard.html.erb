@@ -1,41 +1,48 @@
-<div id="dashboard" class="container" style="padding: 60px 15px 0">
-  <div class="page-header">
-    <h1 >Hi, <%= current_user.name %>!</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h1 class="page-header">Hi, <%= current_user.name %>!</h1>
+    </div>
   </div>
-  
-  <% if @contracts.empty? %>
-    <p id="no_bands_msg" class="lead"> 
-      You don't have any bands yet!
-      <span style="text-align: right">
-        <%= link_to "Add new band!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %>
-      </span>
-    </p>
-  <% else %>
-    <p class="lead">
-      Here is a list of your bands. You can also <%= link_to "add a new band!", new_band_path, :id => "create_band_btn" %>
-    </p>
-    <div id="band_list" class="row">
-    <% @contracts.each do |contract| %>
-      <% if contract.approved %>
-        <%= link_to contract.band do %>
-          <div class="col-md-3 band_button text-center">
-            <div class="band_logo">
-              <%= render partial: 'band/logo', locals: { band: contract.band, size: '200' } %>
-            </div>
-            <h3><%= contract.band.name %></h3>
-            <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <div id="dashboard text-center">
+        <% if @contracts.empty? %>
+          <p id="no_bands_msg" class="lead"> 
+            You don't have any bands yet!
+            <span style="text-align: right">
+              <%= link_to "Add new band!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %>
+            </span>
+          </p>
+        <% else %>
+          <p class="lead">
+            Here is a list of your bands. You can also <%= link_to "add a new band!", new_band_path, :id => "create_band_btn" %>
+          </p>
+          <div id="band_list" class="row">
+          <% @contracts.each do |contract| %>
+            <% if contract.approved %>
+              <%= link_to contract.band do %>
+                <div class="col-sm-6 col-lg-2 band_button text-center">
+                  <div class="band_logo">
+                    <%= render partial: 'band/logo', locals: { band: contract.band, size: '200' } %>
+                  </div>
+                  <h3><%= contract.band.name %></h3>
+                  <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="col-sm-6 col-lg-2 band_button text-center pending_approval">
+                <div class="band_logo">
+                  <%= render partial: 'band/logo', locals: { band: contract.band, size: '200' } %>
+                </div>
+                <h3><%= contract.band.name %></h3>
+                <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
+              </div>
+            <% end %>
+          <% end %>
           </div>
         <% end %>
-      <% else %>
-        <div class="col-md-3 band_button text-center pending_approval">
-          <div class="band_logo">
-            <%= render partial: 'band/logo', locals: { band: contract.band, size: '200' } %>
-          </div>
-          <h3><%= contract.band.name %></h3>
-          <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
-        </div>
-      <% end %>
-    <% end %>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>
