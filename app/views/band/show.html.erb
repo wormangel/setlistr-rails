@@ -34,7 +34,7 @@
   </script>
 <% end %>
 
-<h1 class="page-header text-center"><%= @band.name %></h1>
+<h1 class="page-header"><%= @band.name %></h1>
 
 <div class="band_members row">
 <% @band.contracts.each do |contract| %>
@@ -128,7 +128,7 @@
   </div>
 </div>
 
-<div class="band_summary container">
+<div class="band_summary">
     <p class="lead"><strong><%= @band.setlist.count %></strong> songs in the <%= link_to 'setlist.', band_setlist_path(@band) %></p>
   <% if @band.next_concerts.empty? %>
     <p class="lead">No upcoming <%= link_to 'concerts.', band_concerts_path(@band) %></p>
