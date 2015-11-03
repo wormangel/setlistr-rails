@@ -15,7 +15,7 @@ This project was done so I could get a grasp in BDD in Rails. I've used [rspec-r
 ### Installing and Running
 1. Clone the repository. `git clone git@github.com:wormangel/setlistr-rails.git`
 2. Install dependencies. `bundle install`
-3. Download and install [GraphicsMagick](http://www.graphicsmagick.org/)
+3. Download and install [GraphicsMagick](http://www.graphicsmagick.org/) - (For OSX users: [Yay!](http://macappstore.org/graphicsmagick/))
 4. Configure a Facebook app (for login). Don't forget to allow the app root URL under OAuth authorized callbacks (for example, `http://localhost:3000/` for DEV environment)
 5. Configure a Amazon S3 bucket (for file uploads store - if you don't want to use that the changes you'll need should be simple enough thanks to [carrierwave](https://github.com/carrierwaveuploader/carrierwave)). 
 6. Create a `.env` file in the root of the app with the following variables:
