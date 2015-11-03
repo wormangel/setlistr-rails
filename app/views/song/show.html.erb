@@ -1,0 +1,39 @@
+<h1 class="page-header">
+  Song details
+  <%= link_to edit_band_song_path(@band, @song.id) do %>
+    <button class="btn btn-primary btn-lg pull-right">Edit</button>
+  <% end %>
+</h1>
+
+<div class="song_details row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="lead">Artist</p>
+      </div>
+      <div class="col-sm-6">
+        <p class="lead"><%= @song.artist %></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="lead">Title</p>
+      </div>
+      <div class="col-sm-6">
+        <p class="lead"><%= @song.title %></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="lead">Media URL</p>
+      </div>
+      <div class="col-sm-6">
+        <% if @song.media_url? %>
+          <p class="lead"><%= @song.media_url %></p>
+        <% else %>
+          <p class="lead"><em>None yet. <%= link_to 'Try to find it automatically!', '#' %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

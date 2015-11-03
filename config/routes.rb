@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :band do
     resource :setlist, only: [:show], controller: 'setlist'
     resources :concerts, controller: 'concert'
+    resources :songs, only: [:show, :index, :edit], controller: 'song'
   end
   
   match 'band/:band_id/setlist/add_song', to: 'setlist#add_song', as: :add_song_to_setlist, via: [:post]

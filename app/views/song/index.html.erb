@@ -1,0 +1,22 @@
+<h1 class="page-header">Songs</h1>
+
+<div class="band_songs row">
+  <div class="col-sm-12">
+    <p class="lead">Every song you've ever played, even if it's not on the setlist anymore.</p>
+    
+  <% if @songs.empty? %>
+    <p>
+      No songs yet! Try adding songs to the <%= link_to 'setlist', band_setlist_path(@band) %>.
+    </p>
+  <% else %>
+    <div class="song_list">
+      <ul>
+        <% @songs.order(:artist, :title).each do |s| %>
+          <%= link_to band_song_path(@band.id, s.id) do %>
+            <li><%= s.artist %> - <%= s.title %></li>
+          <% end %>
+        <% end %>
+      </ul>
+  <% end %>
+  </div>
+</div>

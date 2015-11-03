@@ -4,6 +4,7 @@ class Band < ActiveRecord::Base
   has_many :members, :class_name => "User", :through => :contracts, :source => :user
   has_many :setlists
   has_many :concerts
+  has_many :songs
   
   mount_uploader :logo, LogoUploader
   
