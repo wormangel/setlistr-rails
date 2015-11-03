@@ -75,9 +75,8 @@
         <% @setlist.songs.order(:artist, :title).each do |s| %>
           <li class="setlist_song">
             <h3>
-              <%= s.artist %> - <%= s.title %>
-              <% if !s.media_url.blank? %>
-                [<a href="<%= s.media_url %>" target="_blank">Link</a>]
+              <%= link_to band_song_path(@band, s) do %>
+                <%= s.artist %> - <%= s.title %>
               <% end %>
               <span class="glyphicon glyphicon-remove remove-song-hook" data-toggle="modal" 
                 data-target="#confirm_delete_song_div" data-song-id="<%=s.id%>" 
