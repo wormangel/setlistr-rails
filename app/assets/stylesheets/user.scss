@@ -3,7 +3,18 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .band_button {
-  margin-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+.band_logo {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  line-height: 200px;
+}
+
+.band_button > .band_logo img {
+  display:inline-block;
 }
 
 .pending_approval {
