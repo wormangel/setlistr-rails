@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Setlistr</title>
-  <meta name="viewport" content="width=device-width" />
   
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -23,7 +22,7 @@
   
   <% if current_user %>
     <nav class="navbar navbar-inverse navbar-fixed-top" id="setlistr-top-bar">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                   <span class="sr-only">Toggle navigation</span>
@@ -39,9 +38,12 @@
                 <li>
                   <%= link_to "Dashboard", dashboard_path %>
                 </li>
+                <% if content_for?(:top_nav) %>
+                  <%= yield(:top_nav) %>
+                <% end %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <li class="hidden-xs">
                   <p class="navbar-text">Hi, <%= current_user.name %></p>
                   <%= image_tag profile_pic, :class => 'profile_pic' %>
                 </li>

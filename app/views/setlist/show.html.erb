@@ -43,10 +43,9 @@
   </script>
 <% end %>
 
-<div id="setlist_page" class="container" style="padding: 60px 15px 0">
-  <div class="page-header">
-    <h1>Setlist</h1>
-  </div>
+<h1 class="page-header">Setlist</h1>
+
+<div id="setlist_page">
 
   <div class="pull-right text-center">
     <div class="setlist_actions">
@@ -77,6 +76,9 @@
           <li class="setlist_song">
             <h3>
               <%= s.artist %> - <%= s.title %>
+              <% if !s.media_url.blank? %>
+                [<a href="<%= s.media_url %>" target="_blank">Link</a>]
+              <% end %>
               <span class="glyphicon glyphicon-remove remove-song-hook" data-toggle="modal" 
                 data-target="#confirm_delete_song_div" data-song-id="<%=s.id%>" 
                 data-title="<%=s.title%>" aria-hidden="true">
@@ -105,10 +107,11 @@
           <div class="modal-body">
             <%= f.text_field :artist, id: 'artist', tabindex: "1" %>
             <%= f.text_field :title, id: 'title', tabindex: "2" %>
+            <%= f.text_field :media_url, id: 'media_url', tabindex: "3", label: 'Video/Song URL'%>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="4">Close</button>
-            <%= f.button 'Add song', :class=> 'btn btn-primary', :tabindex => "3" %>
+            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="5">Close</button>
+            <%= f.button 'Add song', :class=> 'btn btn-primary', :tabindex => "4" %>
           </div>
         <% end %>
       </div>
@@ -148,7 +151,8 @@
             <p>Insert below the list of songs. Please follow the following rules:</p>
             <ul>
               <li>One song per line</li>
-              <li>Format: <strong>Artist - Title</strong> (don't forget the spaces before and after the dash)</li>
+              <li>Format without media URL: <strong>Artist - Title</strong> (don't forget the spaces before and after the dash)</li>
+              <li>Format with media URL: <strong>Artist - Title - URL</strong> (don't forget the spaces before and after the dashes)</li>
             </ul>
             <%= f.text_area :batch, rows: "10", tabindex: "1" %>
           </div>

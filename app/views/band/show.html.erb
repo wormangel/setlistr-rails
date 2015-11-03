@@ -34,50 +34,70 @@
   </script>
 <% end %>
 
-<div class="container band_page" style="padding: 60px 15px 0">
-  <div class="page-header text-center">
-    <h1><%= @band.name %></h1>
-  </div>
-  
-  <div class="band_members container row">
-  <% @band.contracts.each do |contract| %>
-    <% if contract.approved %>
-      <div class="member_box col-md-2 text-center">
-        <div class="member_pic text-center">
+<h1 class="page-header"><%= @band.name %></h1>
+
+<div class="band_members row">
+<% @band.contracts.each do |contract| %>
+  <% if contract.approved %>
+    <div class="member_box col-xs-6 col-sm-3 col-lg-2 text-center">
+      <div class="row member_pic text-center">
+        <div class="col-sm-12">
           <%= image_tag profile_pic('square', contract.user.uid) %>
         </div>
-        <h3><%= contract.user.first_name %></h3>
-        <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
       </div>
-    <% else %>
-      <div class="member_box pending_box col-md-2 text-center">
-        <div class="pending_mouse_off">
-          <div class="member_pic text-center">
-            <%= image_tag profile_pic('square', contract.user.uid) %>
-          </div>
+      <div clas="row">
+        <div class="col-sm-12">
           <h3><%= contract.user.first_name %></h3>
           <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
         </div>
-        <div class="pending_mouse_on">
-          <div class="pending_box_actions">
-            <%= bootstrap_form_tag url: band_grant_access_path(@band.id) do |f| %>
-              <input type="hidden" name="contract_id" value="<%= contract.id %>">
-              <%= f.button 'Approve', :name => 'decision', :value=>'approve', :class=> 'btn btn-success', :id => 'btn-add-batch' %>
-              <%= f.button 'Reject', :name => 'decision', :value=>'reject', :class=> 'btn btn-danger', :id => 'btn-add-batch' %>
-            <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="member_box pending_box col-xs-6 col-sm-3 col-lg-2 text-center">
+      <div class="pending_mouse_off">
+        <div class="row member_pic text-center">
+          <div class="col-sm-12">
+            <%= image_tag profile_pic('square', contract.user.uid) %>
+          </div>
+        </div>
+        <div clas="row">
+          <div class="col-sm-12">
+            <h3><%= contract.user.first_name %></h3>
+            <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
           </div>
         </div>
       </div>
-    <% end %>
+      <div class="pending_mouse_on">
+        <div class="row pending_box_actions">
+          <%= bootstrap_form_tag url: band_grant_access_path(@band.id) do |f| %>
+            <input type="hidden" name="contract_id" value="<%= contract.id %>">
+            <div class="col-sm-6">
+              <%= f.button 'Approve', :name => 'decision', :value=>'approve', :class=> 'btn btn-success', :id => 'btn-add-batch' %>
+            </div>
+            <div class="col-sm-6">
+              <%= f.button 'Reject', :name => 'decision', :value=>'reject', :class=> 'btn btn-danger', :id => 'btn-add-batch' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
-    
-      <div class="member_box invite_box col-md-2 text-center" data-toggle="modal" data-target="#invite_member_div">
-        <div class="member_pic text-center">
+<% end %>
+  
+    <div class="member_box invite_box col-xs-6 col-sm-3 col-lg-2 text-center" data-toggle="modal" data-target="#invite_member_div">
+      <div class="row">
+        <div class="col-sm-12">
           <div class="invite_mouse_off">
-            <span class="glyphicon glyphicon-user invite_member_hook" aria-hidden="true"></span>
-            <div class="invite_member_text">
-              <p><em>Missing someone?
-              <p>Invite them to join the band!</em></p>
+            <div class="row member_pic text-center">
+              <div class="col-sm-12">
+                <span class="glyphicon glyphicon-user invite_member_hook" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="row invite_member_text">
+              <div class="col-sm-12">
+                <p><em>Missing someone?
+                <p>Invite them to join the band!</em></p>
+              </div>
             </div>
           </div>
           <div class="invite_mouse_on">
@@ -85,40 +105,40 @@
           </div>
         </div>
       </div>
-  </div>
-  
-  <div id="invite_member_div" class="modal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Invite members</h4>
-        </div>
-          <div class="modal-body text-center">
-            <p class="lead">This your band's invite link:</p>
-            <h3 style="margin-bottom: 20px;"><%= link_to invite_url(@band.invite_token), invite_url(@band.invite_token) %></h3>
-            <p class="lead">Tell the other members to visit it.</p>
-            <p><em> Keep it secret! Anyone with that link will be able to join the band.</em></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="3">Close</button>
-          </div>
+    </div>
+</div>
+
+<div id="invite_member_div" class="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Invite members</h4>
       </div>
+        <div class="modal-body text-center">
+          <p class="lead">This your band's invite link:</p>
+          <h3 style="margin-bottom: 20px;"><%= link_to invite_url(@band.invite_token), invite_url(@band.invite_token) %></h3>
+          <p class="lead">Tell the other members to visit it.</p>
+          <p><em> Keep it secret! Anyone with that link will be able to join the band.</em></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="3">Close</button>
+        </div>
     </div>
   </div>
-  
-  <div class="band_summary container">
-      <p class="lead"><strong><%= @band.setlist.count %></strong> songs in the <%= link_to 'setlist.', band_setlist_path(@band) %></p>
-    <% if @band.next_concerts.empty? %>
-      <p class="lead">No upcoming <%= link_to 'concerts.', band_concerts_path(@band) %></p>
-    <% else %>
-      <p class="lead">
-        Next concert: 
-        <%= link_to band_concert_path(@band, @band.next_concerts.first) do %>
-          <strong><%= @band.next_concerts.first.date %></strong> - <%= @band.next_concerts.first.name %> at <%= @band.next_concerts.first.venue %>.
-        <% end %>
-      </p>
-    <% end %>
-      <p class="lead">No upcoming rehearsals.</p>
-  </div>
+</div>
+
+<div class="band_summary">
+    <p class="lead"><strong><%= @band.setlist.count %></strong> songs in the <%= link_to 'setlist.', band_setlist_path(@band) %></p>
+  <% if @band.next_concerts.empty? %>
+    <p class="lead">No upcoming <%= link_to 'concerts.', band_concerts_path(@band) %></p>
+  <% else %>
+    <p class="lead">
+      Next concert: 
+      <%= link_to band_concert_path(@band, @band.next_concerts.first) do %>
+        <strong><%= @band.next_concerts.first.date %></strong> - <%= @band.next_concerts.first.name %> at <%= @band.next_concerts.first.venue %>.
+      <% end %>
+    </p>
+  <% end %>
+    <p class="lead">No upcoming rehearsals.</p>
 </div>
