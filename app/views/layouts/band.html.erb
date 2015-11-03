@@ -6,8 +6,10 @@
   <div class="row">
       <div class="col-sm-3 col-md-2 sidebar text-center">
           <%= link_to @band do %>
-            <div class="band_logo">
-              <%= render partial: 'band/logo', locals: { band: @band, size: '200' } %>
+            <div class="row">
+              <div class="col-sm-12">
+                <%= render partial: 'band/logo', locals: { band: @band, size: '200' } %>
+              </div>
             </div>
           <% end %>
           <ul class="nav nav-sidebar">
@@ -31,5 +33,6 @@
 <% content_for :top_nav do %>
   <li class="visible-xs-block"><%= link_to "Setlist", band_setlist_path(@band) %></li>
   <li class="visible-xs-block"><%= link_to "Concerts", band_concerts_path(@band) %></li>
+  <li class="visible-xs-block"><%= link_to "Edit Band Details", edit_band_path(@band) %></li>
 <% end %>
 <%= render template: "layouts/application" %>

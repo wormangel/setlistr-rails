@@ -1,17 +1,17 @@
 <% if band.logo.url != nil %>
   <% if size == '200' %>
-    <%= image_tag band.logo.small.url %>
+    <%= image_tag band.logo.small.url, class: 'img-responsive center-block' %>
   <% elsif size == '100' %>
     <% puts 'piaa' %>
-    <%= image_tag band.logo.smaller.url %>
+    <%= image_tag band.logo.smaller.url, class: 'img-responsive center-block' %>
   <% else %>
     <% puts size %>
-    <%= image_tag band.logo.url %>
+    <%= image_tag band.logo.url, class: 'img-responsive center-block' %>
   <% end %>
 <% else %>
   <% if size == '200' %>
-    <%= image_tag 'band_logo_placeholder200.png' %>
+    <%= image_tag 'band_logo_placeholder200.png', class: 'img-responsive center-block' %>
   <% else %>
-    <%= image_tag 'band_logo_placeholder100.png' %>
+    <%= image_tag 'band_logo_placeholder100.png', class: 'img-responsive center-block' %>
   <% end %>
 <% end %>
