@@ -9,10 +9,10 @@
       <div id="dashboard text-center">
         <% if @contracts.empty? %>
           <p id="no_bands_msg" class="lead"> 
-            You don't have any bands yet!
-            <span style="text-align: right">
-              <%= link_to "Add new band!", new_band_path, :id => "create_band_btn", :class => "btn btn-primary btn-large" %>
-            </span>
+            You don't have any bands yet.
+          </p>
+          <p class="lead">
+            <%= link_to "Add your band!", new_band_path, :id => "create_band_btn" %>
           </p>
         <% else %>
           <p class="lead">
