@@ -26,6 +26,13 @@ class Band < ActiveRecord::Base
     self.concerts.where("date < ?", DateTime.now).order("date desc")
   end
   
+  def has_songs_with_missing_info
+    # TODO should return true if any of its songs returns true for missing_crawlable_media
+    
+    # test result 
+    true
+  end
+  
   accepts_nested_attributes_for :contracts
   
   def contract_attributes=(contract_attributes)
