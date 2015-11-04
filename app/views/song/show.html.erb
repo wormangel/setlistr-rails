@@ -7,6 +7,15 @@
 
 <div class="song_details row">
   <div class="col-sm-12">
+    <% if @song.missing_crawlable_media %>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-warning" role="alert">There's some information missing for this song that we can 
+          <strong><%= link_to 'try to find automatically!', band_song_find_media_path(@band, @song) %></strong></div>
+        </div>
+      </div>
+    <% end %>
+    
     <div class="row">
       <div class="col-sm-6">
         <p class="lead">Artist</p>
@@ -25,13 +34,25 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
+        <p class="lead">Duration</p>
+      </div>
+      <div class="col-sm-6">
+      <% if @song.duration? %>
+          <p class="lead"><%= @song.duration %></p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=duration' %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
         <p class="lead">Media URL</p>
       </div>
       <div class="col-sm-6">
         <% if @song.media_url? %>
           <p class="lead"><%= @song.media_url %></p>
         <% else %>
-          <p class="lead"><em>None yet. <%= link_to 'Try to find it automatically!', '#' %></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=media_url' %></p>
         <% end %>
       </div>
     </div>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'user/dashboard', as: :dashboard
   
+  match 'band/:band_id/songs/find_media', to: 'song#batch_find_media', as: :band_song_batch_find_media, via: [:get]
+  
   resources :band do
     resource :setlist, only: [:show], controller: 'setlist'
     resources :concerts, controller: 'concert'
@@ -11,6 +13,8 @@ Rails.application.routes.draw do
   match 'band/:band_id/setlist/remove_song/:song_id', to: 'setlist#remove_song', as: :remove_song_from_setlist, via: [:post]
   match 'band/:band_id/setlist/add_batch', to: 'setlist#add_batch', as: :add_batch_to_setlist, via: [:post]
   match 'band/:band_id/setlist/export', to: 'setlist#export', as: :setlist_export_txt, via: [:get]
+  
+  match 'band/:band_id/songs/:id/find_media', to: 'song#find_media', as: :band_song_find_media, via: [:get]
   
   match 'invite/:invite_code', to: 'band#invite', as: :invite, via: [:get]
   match 'band/:band_id/invite/request_access', to: 'band#request_access', as: :band_request_access, via: [:post]
