@@ -22,7 +22,7 @@ class SetlistController < ApplicationController
       flash[:alert] = "The song was not added to the setlist! Maybe it was already there?"
     end
     
-    redirect_to :action => 'show', layout: 'band'
+    redirect_to :action => 'show'
   end
   
   def add_batch
@@ -55,7 +55,7 @@ class SetlistController < ApplicationController
       flash[:alert] = "None of the songs were added to the setlist. Maybe they were all added before?"
     end
   
-    redirect_to :action => 'show', layout: 'band'
+    redirect_to :action => 'show'
   end
   
   def remove_song
@@ -69,7 +69,7 @@ class SetlistController < ApplicationController
       flash[:notice] = "Song removed successfully!"
     end
     
-    redirect_to :action => 'show', layout: 'band'
+    redirect_to :action => 'show'
   end
   
   def export
