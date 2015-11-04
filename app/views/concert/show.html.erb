@@ -5,5 +5,11 @@
   <% end %>
 </h1>
 <div id="concert">
-  <p class="lead">Yay!</p>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="concert_flyer">
+        <%= render partial: 'flyer', locals: { concert: @concert, size: '600' } %>
+      </div>
+    </div>
+  </div>
 </div>

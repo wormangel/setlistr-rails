@@ -1,0 +1,15 @@
+<% if concert.flyer.url != nil %>
+  <% if size == '600' %>
+    <%= image_tag concert.flyer.medium.url, class: 'img-responsive center-block' %>
+  <% elsif size == '200' %>
+    <%= image_tag concert.flyer.small.url, class: 'img-responsive center-block' %>
+  <% else %>
+    <%= image_tag concert.flyer.url, class: 'img-responsive center-block' %>
+  <% end %>
+<% else %>
+  <% if size == '600' %>
+    <%= image_tag 'http://dummyimage.com/400x600/fff/000.png&text=Concert+Flyer', class: 'img-responsive center-block' %>
+  <% else %>
+    <%= image_tag 'http://dummyimage.com/133x200/fff/000.png&text=Concert+Flyer+', class: 'img-responsive center-block' %>
+  <% end %>
+<% end %>
