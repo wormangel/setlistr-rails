@@ -1,0 +1,31 @@
+<% content_for :custom_js do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#time').timepicker({ 'timeFormat': 'H:i', 'scrollDefault': '23:00' });
+      
+      $('#payment_type').on('change', function(){
+        if ($('#payment_type option:selected').val() == 'fixedpay') {
+          $('.payment_label').text('Payment');
+        } else {
+          $('.payment_label').text("Band's %");
+        }
+      });
+    });
+  </script>
+<% end %>
+
+<%= bootstrap_form_for @concert, url: action, method: method, html: { multipart: true } do |f| %>
+  <%= f.text_field :name, label: 'Event name', id: 'name' %>
+  <%= f.text_field :date, id: 'date', 'data-provide'=>'datepicker', 'data-date-format'=>'yyyy-mm-dd', 'data-date-z-index-offset'=>'10000' %>
+  <%= f.text_field :time, id: 'time', :value => time_format(@concert.time) %>
+  <%= f.text_field :venue, id: 'venue' %>
+  <%= f.collection_select :duration, concert_duration_opts, :value, :label, {}, {class: 'form-control', id: 'duration'}%>
+  <%= f.text_area :description, label: 'Description (or any remarks)', id: 'description', rows: 4 %>
+  <%= f.collection_select :payment_type, Concert::PAYMENT_TYPE, :value, :label, {}, {class: 'form-control', id: 'payment_type'}%>
+  <%= f.number_field :payment, label: 'Payment', label_class: 'payment_label', id: 'payment' %>
+  <%= f.number_field :ticket_price, id: 'ticket_price' %>
+  
+  <%= f.file_field :flyer, id: 'logo' %>
+  <br/>
+  <%= f.button 'Save', :class=> 'btn btn-primary' %>
+<% end %>

@@ -1,0 +1,8 @@
+<h1 class="page-header">Edit concert</h1>
+
+<div id="edit_concert">
+  
+  <p class="lead">Fill in the basic information about the concert. After that you'll be able to create its setlist!</p>
+  
+  <%= render 'form', action: band_concert_path(@band, @concert), method: :patch %>
+</div>

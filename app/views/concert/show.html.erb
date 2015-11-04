@@ -1,4 +1,9 @@
-<h1 class="page-header"><%= @concert.name %> at <%= @concert.venue %> - <%= @concert.date %></h1>
+<h1 class="page-header">
+  <%= @concert.name %> at <%= @concert.venue %> - <%= @concert.date %>
+  <%= link_to edit_band_concert_path(@band, @concert) do %>
+    <button class="btn btn-primary btn-lg pull-right">Edit</button>
+  <% end %>
+</h1>
 <div id="concert">
   <p class="lead">Yay!</p>
 </div>

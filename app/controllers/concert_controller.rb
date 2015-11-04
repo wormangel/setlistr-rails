@@ -18,7 +18,7 @@ class ConcertController < ApplicationController
   def create
     @band = Band.find(params[:band_id])
 
-    @concert = Concert.new(new_concert_params)
+    @concert = Concert.new(concert_params)
     if @concert.save
       flash[:notice] = "Concert created successfully!"
       redirect_to band_concert_path(@band.id, @concert.id)
@@ -35,7 +35,26 @@ class ConcertController < ApplicationController
     render 'show', layout: 'band'
   end
   
-  def new_concert_params
+  def edit
+    @band = Band.find(params[:band_id])
+    @concert = Concert.find(params[:id])
+    
+    render 'edit', layout: 'band'
+  end
+  
+  def update
+    @band = Band.find(params[:band_id])
+    @concert = Concert.find(params[:id])
+    
+    if @concert.update(concert_params)
+      flash[:notice] = "Concert updated successfully!"
+      redirect_to band_concert_path(@band.id, @concert.id)
+    else
+      render 'edit', layout: 'band'
+    end
+  end
+  
+  def concert_params
     params[:concert][:band_id] = params[:band_id]
     params.require(:concert).permit(:name, :date, :time, :venue, :duration, :payment_type,
      :payment, :flyer, :description, :ticket_price, :band_id)
