@@ -6,7 +6,7 @@ class Song < ActiveRecord::Base
   validates :title, presence: true
 
   CONST_DURATION = 'duration'
-  CONST_MEDIA = 'youtube_url'
+  CONST_MEDIA = 'spotify_url'
   CONST_PREVIEW = 'preview_url'
   CONST_LYRICS = 'lyrics'
 
