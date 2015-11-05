@@ -77,6 +77,20 @@
         <% end %>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="lead">Youtube URL</p>
+      </div>
+      <div class="col-sm-6">
+        <% if @song.youtube_url? %>
+          <p class="lead">
+            <%= link_to @song.youtube_url do %>
+                <%= image_tag 'YouTube-logo-full_color', class: 'img-responsive', style: 'max-height: 50px;' %>
+              <% end %>
+          </p>
+        <% end %>
+      </div>
+    </div>
 
     <div class="panel panel-default">
       <div class="panel-heading">

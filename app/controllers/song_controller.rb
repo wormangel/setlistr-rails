@@ -24,6 +24,15 @@ class SongController < ApplicationController
   end
   
   def update
+    @band = Band.find(params[:band_id])
+    @song = @band.songs.find(params[:id])
+    
+    if @song.update(song_params)
+      flash[:notice] = "Song updated successfully!"
+      redirect_to band_song_path(@band, @song)
+    else
+      render 'edit', layout: 'band'
+    end
   end
   
   def find_media
@@ -65,6 +74,11 @@ class SongController < ApplicationController
     # TODO do something with the results. Decide a nice way of showing it
     
     redirect_to :action => 'index'
+  end
+  
+  def song_params
+    params[:song][:band_id] = params[:band_id]
+    params.require(:song).permit(:artist, :title, :duration, :spotify_url, :preview_url, :youtube_url)
   end
   
 end

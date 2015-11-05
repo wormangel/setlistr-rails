@@ -1,0 +1,10 @@
+<%= bootstrap_form_for @song, url: action, method: method do |f| %>
+  <%= f.text_field :artist, id: 'artist' %>
+  <%= f.text_field :title, id: 'title' %>
+  <%= f.number_field :duration, id: 'duration', label: label_for_discoverable_field('Duration (in seconds)') %>
+  <%= f.text_field :spotify_url, label: label_for_discoverable_field('Spotify URL'), id: 'spotify_url' %>
+  <%= f.text_field :preview_url, label: label_for_discoverable_field('Spotify Preview'), id: 'preview_url' %>
+  <%= f.text_field :youtube_url, label: label_for_discoverable_field('Youtube URL'), id: 'youtube_url' %>
+  <br/>
+  <%= f.button 'Save', :class=> 'btn btn-primary' %>
+<% end %>

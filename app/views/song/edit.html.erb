@@ -1,3 +1,18 @@
 <h1 class="page-header">Edit song</h1>
 
-<p class="lead"><strong>WIP</strong>. This will be used to manually edit any of the songs' fields</p>
+<div id="edit_song">
+  <div class="row">
+    <div class="col-sm-12">
+      <p class="lead">Here you can manually edit the song information.</p>
+      <div class="alert alert-info" role="alert">
+        Fields marked with <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> can be automatically discovered in the 
+        <strong><%= link_to 'song page!', band_song_path(@band, @song) %></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  
+      <%= render 'form', action: band_song_path(@band, @song), method: :patch %>
+    </div>
+  </div>
+</div>
