@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:javichito/Lyricfy.git
+  remote: git://github.com/javichito/Lyricfy.git
   revision: faf83b940e754823d6f5a209316729b128d57574
   specs:
     lyricfy (0.1.0)

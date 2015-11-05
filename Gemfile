@@ -82,4 +82,4 @@ gem "fog-aws"
 gem "fog"
 gem "rspotify"
 #This is a crawler so we always need the lastest code
-gem 'lyricfy', :git => 'git@github.com:javichito/Lyricfy.git'
+gem 'lyricfy', :git => 'git://github.com/javichito/Lyricfy.git'
