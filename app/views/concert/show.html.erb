@@ -11,12 +11,12 @@
         <%= render partial: 'flyer', locals: { concert: @concert, size: '600' } %>
       </div>
       <% if @concert.flyer.url != nil %>
-      <%= link_to @concert.flyer.url do %>
-        <div class="row">
-          <div class="col-sm-12 text-center">
-            <p>View full size</p>
+        <%= link_to @concert.flyer.url do %>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <p>View full size</p>
+            </div>
           </div>
-        </div>
         <% end %>
       <% end %>
     </div>
