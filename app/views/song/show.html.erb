@@ -79,6 +79,20 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
+        <p class="lead">Spotify Full Song (Requires login)</p>
+      </div>
+      <div class="col-sm-6">
+      <% if @song.spotify_url? %>
+          <p class="lead">
+            <iframe src="https://embed.spotify.com/?uri= <%= @song.spotify_url %>" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+          </p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=preview_url' %></em></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
         <p class="lead">Youtube URL</p>
       </div>
       <div class="col-sm-6">
@@ -90,7 +104,7 @@
           </p>
         <% end %>
       </div>
-    </div>
+    </div>        
 
     <div class="panel panel-default">
       <div class="panel-heading">
