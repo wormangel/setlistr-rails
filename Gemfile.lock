@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:javichito/Lyricfy.git
+  revision: faf83b940e754823d6f5a209316729b128d57574
+  specs:
+    lyricfy (0.1.0)
+      highline
+      nokogiri (>= 1.3.3)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -208,6 +216,7 @@ GEM
       activesupport (>= 4.1.0)
     hashids (1.0.2)
     hashie (3.4.3)
+    highline (1.7.8)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -227,8 +236,6 @@ GEM
     jwt (1.5.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    lyricfy (0.1.0)
-      nokogiri (>= 1.3.3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.6.2)
@@ -396,7 +403,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   js-routes
-  lyricfy
+  lyricfy!
   mini_magick
   omniauth
   omniauth-facebook (~> 2.0.1)

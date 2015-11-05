@@ -5,6 +5,11 @@ class Song < ActiveRecord::Base
   validates :artist, presence: true
   validates :title, presence: true
 
+  CONST_DURATION = 'duration'
+  CONST_MEDIA = 'youtube_url'
+  CONST_PREVIEW = 'preview_url'
+  CONST_LYRICS = 'lyrics'
+
   def ==(o)
     o.class == self.class && 
       o.artist == self.artist && 
@@ -28,8 +33,8 @@ class Song < ActiveRecord::Base
 
     return result unless missing_crawlable_media
 
-    infoFromSpotify = ['duration', 'spotify_url', 'preview_url']
-    infoLyric = ['lyric']
+    infoFromSpotify = [CONST_DURATION, CONST_MEDIA, CONST_PREVIEW]
+    infoLyric = [CONST_LYRICS]
     updatableAttributes = infoFromSpotify + infoLyric
     updatableVariables = only.empty? ? updatableAttributes : [only]
 
@@ -53,30 +58,24 @@ class Song < ActiveRecord::Base
     result
   end
 
-  def get_info_from_spotify()
+  def get_info_from_spotify
     response = {}
 
     query = "track:#{self.title} artist:#{self.artist}"
     track = RSpotify::Track.search(query, limit: 1).first
     if track != nil
-      response["duration"] = track.duration_ms / 1000 unless track.duration_ms == nil
-      response["spotify_url"] = track.external_urls['spotify'] unless track.external_urls['spotify'] == nil or track.external_urls['spotify'].empty? 
-      response["preview_url"] = track.preview_url unless track.preview_url == nil or track.preview_url.empty?
+      response[CONST_DURATION] = track.duration_ms / 1000 unless track.duration_ms == nil
+      response[CONST_MEDIA] = track.external_urls['spotify'] unless track.external_urls['spotify'] == nil or track.external_urls['spotify'].empty? 
+      response[CONST_PREVIEW] = track.preview_url unless track.preview_url == nil or track.preview_url.empty?
     end
     response
   end
 
-  def get_lyric()
+  def get_lyric
     response = {}
-
-    #To supress some bugs on the Lyricfy gem (the bug is fixed on github but the gem does not have the latest code)
-    begin
-      fetcher = Lyricfy::Fetcher.new
-      song = fetcher.search self.artist, self.title
-      response['lyric'] = song.body("<br>") if song != nil and song.body != nil and !song.body.empty?
-    rescue
-      nil
-    end
+    fetcher = Lyricfy::Fetcher.new
+    song = fetcher.search self.artist, self.title
+    response[CONST_LYRICS] = song.body("<br>") if song != nil and song.body != nil and !song.body.empty?
     response
   end
 end
