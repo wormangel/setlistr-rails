@@ -6,7 +6,7 @@ class Song < ActiveRecord::Base
   validates :title, presence: true
 
   CONST_DURATION = 'duration'
-  CONST_MEDIA = 'media_url'
+  CONST_MEDIA = 'youtube_url'
   CONST_PREVIEW = 'preview_url'
   CONST_LYRICS = 'lyrics'
 
@@ -17,11 +17,11 @@ class Song < ActiveRecord::Base
   end
   
   def missing_crawlable_media
-    # TODO returns true if it's missing any of the crawlable info: duration and media_url (later will add lyrics to that)
-    self.media_url = nil if self.media_url != nil and self.media_url.empty?
+    # TODO returns true if it's missing any of the crawlable info: duration and spotify_url (later will add lyrics to that)
+    self.spotify_url = nil if self.spotify_url != nil and self.spotify_url.empty?
     self.preview_url = nil if self.preview_url != nil and self.preview_url.empty?
     self.lyrics = nil if self.lyrics != nil and self.lyrics.empty?
-    self.duration == nil or self.media_url == nil or self.lyrics == nil or self.preview_url == nil
+    self.duration == nil or self.spotify_url == nil or self.lyrics == nil or self.preview_url == nil
   end
   
   def find_media(only: "")

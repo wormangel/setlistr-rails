@@ -40,23 +40,23 @@
       <% if @song.duration? %>
           <p class="lead"><%= @song.duration %></p>
         <% else %>
-          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=duration' %></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=duration' %></em></p>
         <% end %>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <p class="lead">Media URL</p>
+        <p class="lead">Spotify URL</p>
       </div>
       <div class="col-sm-6">
-        <% if @song.media_url? %>
+        <% if @song.spotify_url? %>
           <p class="lead">
-            <%= link_to @song.media_url do %>
+            <%= link_to @song.spotify_url do %>
                 <%= image_tag 'listen_on_spotify-black.png', class: 'img-responsive', style: 'max-height: 29px;' %>
               <% end %>
           </p>
         <% else %>
-          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=media_url' %></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=spotify_url' %></em></p>
         <% end %>
       </div>
     </div>
@@ -73,7 +73,7 @@
             </audio>
           </p>
         <% else %>
-          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=preview_url' %></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=preview_url' %></em></p>
         <% end %>
       </div>
     </div>
@@ -86,7 +86,7 @@
         <% if @song.lyrics? %>
           <p class="lead"><%= @song.lyrics.html_safe %></p>
         <% else %>
-          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyrics' %></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyrics' %></em></p>
         <% end %>
       </div>
     </div> 
