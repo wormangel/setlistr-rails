@@ -5,12 +5,12 @@
     <p class="lead">Every song you've ever played, even if it's not on the setlist anymore.</p>
     
     <% if @band.has_songs_with_missing_info %>
-      <div class="row">
+      <!--<div class="row">
         <div class="col-sm-12">
           <div class="alert alert-warning" role="alert">At least one song here has missing information, like song duration, lyrics or media URLs.
           We can <strong><%= link_to 'try to find this data automatically!', band_song_batch_find_media_path(@band) %></strong></div>
         </div>
-      </div>
+      </div>-->
     <% end %>
     
     <% if @songs.empty? %>
