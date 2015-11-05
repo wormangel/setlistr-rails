@@ -227,6 +227,8 @@ GEM
     jwt (1.5.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
+    lyricfy (0.1.0)
+      nokogiri (>= 1.3.3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.6.2)
@@ -394,6 +396,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   js-routes
+  lyricfy
   mini_magick
   omniauth
   omniauth-facebook (~> 2.0.1)

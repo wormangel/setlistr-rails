@@ -81,3 +81,4 @@ gem "mini_magick"
 gem "fog-aws"
 gem "fog"
 gem "rspotify"
+gem 'lyricfy'

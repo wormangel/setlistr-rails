@@ -56,5 +56,18 @@
         <% end %>
       </div>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lyric</h3>
+      </div>
+      <div class="panel-body">
+        <% if @song.lyric? %>
+          <p class="lead"><%= @song.lyric.html_safe %></p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyric' %></p>
+        <% end %>
+      </div>
+    </div> 
   </div>
 </div>
