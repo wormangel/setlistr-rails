@@ -31,7 +31,6 @@ class ConcertController < ApplicationController
     @band = Band.find(params[:band_id])
     @concert = Concert.find(params[:id])
     
-    puts @concert.date > DateTime.now
     render 'show', layout: 'band'
   end
   

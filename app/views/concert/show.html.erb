@@ -1,5 +1,5 @@
 <h1 class="page-header">
-  <%= @concert.name %> at <%= @concert.venue %> - <%= @concert.date %>
+  <%= @concert.name %>
   <%= link_to edit_band_concert_path(@band, @concert) do %>
     <button class="btn btn-primary btn-lg pull-right">Edit</button>
   <% end %>
@@ -19,6 +19,32 @@
           </div>
         <% end %>
       <% end %>
+    </div>
+    <div class="col-sm-4">
+      <p class="lead">
+        <strong>Event name:</strong> <%= @concert.name %>
+      </p>
+      <p class="lead">
+        <strong>Date:</strong> <%= @concert.date %>
+      </p>
+      <p class="lead">
+        <strong>Venue:</strong> <%= @concert.venue %>
+      </p>
+      <p class="lead">
+        <strong>Time:</strong> <%= time_format(@concert.time) %>
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <p class="lead">
+        <strong>Concert duration:</strong> <%= str_minutes_to_hours(@concert.duration) %>
+      </p>
+      <p class="lead">
+        <strong>Payment:</strong> <%= str_payment_type(@concert) %>
+      </p>
+      <p class="lead">
+        <strong>Ticket Price:</strong> $ <%= @concert.ticket_price %>
+      </p>
+      
     </div>
   </div>
 </div>
