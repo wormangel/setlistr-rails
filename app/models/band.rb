@@ -19,7 +19,7 @@ class Band < ActiveRecord::Base
   end
   
   def next_concerts
-    self.concerts.where("date > ?", DateTime.now).order("date asc")
+    self.concerts.where("date >= ?", DateTime.now).order("date asc")
   end
   
   def past_concerts
