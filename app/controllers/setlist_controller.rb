@@ -36,13 +36,13 @@ class SetlistController < ApplicationController
       splitted_line = line.split(' - ')
       artist = splitted_line[0].strip
       title = splitted_line[1].strip
-      media_url = nil
+      spotify_url = nil
       if splitted_line.length > 2
-        media_url = splitted_line[2]
+        spotify_url = splitted_line[2]
       end
       
       song = Song.where({"artist"=>artist, "title"=>title, "band_id"=>@band.id}).first_or_create
-      song.media_url = media_url
+      song.spotify_url = spotify_url
       song.save
       if @setlist.add_song(song)
         success += 1
@@ -91,8 +91,8 @@ class SetlistController < ApplicationController
     # Trim the artist and title
     params[:song][:artist] = params[:song][:artist].strip
     params[:song][:title] = params[:song][:title].strip
-    params[:song][:media_url] = params[:song][:media_url].strip
-    params.require(:song).permit(:artist, :title, :media_url, :band_id)
+    params[:song][:spotify_url] = params[:song][:spotify_url].strip
+    params.require(:song).permit(:artist, :title, :spotify_url, :band_id)
   end
   
 end
