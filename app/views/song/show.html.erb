@@ -7,6 +7,15 @@
 
 <div class="song_details row">
   <div class="col-sm-12">
+    <% if @song.missing_crawlable_media %>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-warning" role="alert">There's some information missing for this song that we can 
+          <strong><%= link_to 'try to find automatically!', band_song_find_media_path(@band, @song) %></strong></div>
+        </div>
+      </div>
+    <% end %>
+    
     <div class="row">
       <div class="col-sm-6">
         <p class="lead">Artist</p>
@@ -25,15 +34,61 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
+        <p class="lead">Duration</p>
+      </div>
+      <div class="col-sm-6">
+      <% if @song.duration? %>
+          <p class="lead"><%= @song.duration %></p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=duration' %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
         <p class="lead">Media URL</p>
       </div>
       <div class="col-sm-6">
         <% if @song.media_url? %>
-          <p class="lead"><%= @song.media_url %></p>
+          <p class="lead">
+            <%= link_to @song.media_url do %>
+                List on Spotify
+              <% end %>
+          </p>
         <% else %>
-          <p class="lead"><em>None yet. <%= link_to 'Try to find it automatically!', '#' %></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=media_url' %></p>
         <% end %>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="lead">Spotify Preview</p>
+      </div>
+      <div class="col-sm-6">
+      <% if @song.preview_url? %>
+          <p class="lead">
+            <audio controls>
+              <source src=<%= @song.preview_url %> type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+          </p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=preview_url' %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Lyric</h3>
+      </div>
+      <div class="panel-body">
+        <% if @song.lyric? %>
+          <p class="lead"><%= @song.lyric.html_safe %></p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyric' %></p>
+        <% end %>
+      </div>
+    </div> 
   </div>
 </div>
