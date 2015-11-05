@@ -14,8 +14,9 @@ class Song < ActiveRecord::Base
   def missing_crawlable_media
     # TODO returns true if it's missing any of the crawlable info: duration and media_url (later will add lyrics to that)
     self.media_url = nil if self.media_url != nil and self.media_url.empty?
+    self.preview_url = nil if self.preview_url != nil and self.preview_url.empty?
     self.lyric = nil if self.lyric != nil and self.lyric.empty?
-    self.duration == nil or self.media_url == nil or self.lyric == nil
+    self.duration == nil or self.media_url == nil or self.lyric == nil or self.preview_url == nil
   end
   
   def find_media(only: "")
@@ -27,7 +28,7 @@ class Song < ActiveRecord::Base
 
     return result unless missing_crawlable_media
 
-    infoFromSpotify = ['duration', 'media_url']
+    infoFromSpotify = ['duration', 'media_url', 'preview_url']
     infoLyric = ['lyric']
     updatableAttributes = infoFromSpotify + infoLyric
     updatableVariables = only.empty? ? updatableAttributes : [only]
@@ -47,7 +48,7 @@ class Song < ActiveRecord::Base
     self.save
 
     result[:success] = updatableVariables.compact.select { |var| self.attributes[var] != newValues[var] and self.attributes[var] != nil }
-    result[:fail] = updatableVariables.compact.select { |var| self.attributes[var] == newValues[var]}
+    result[:fail] = updatableVariables.compact.select { |var| self.attributes[var] == nil}
 
     result
   end
@@ -60,8 +61,7 @@ class Song < ActiveRecord::Base
     if track != nil
       response["duration"] = track.duration_ms / 1000 unless track.duration_ms == nil
       response["media_url"] = track.external_urls['spotify'] unless track.external_urls['spotify'] == nil or track.external_urls['spotify'].empty? 
-      #30 second preview
-      #newValues["preview"] = track.preview_url
+      response["preview_url"] = track.preview_url unless track.preview_url == nil or track.preview_url.empty?
     end
     response
   end

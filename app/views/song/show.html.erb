@@ -50,9 +50,30 @@
       </div>
       <div class="col-sm-6">
         <% if @song.media_url? %>
-          <p class="lead"><%= @song.media_url %></p>
+          <p class="lead">
+            <%= link_to @song.media_url do %>
+                List on Spotify
+              <% end %>
+          </p>
         <% else %>
           <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=media_url' %></p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p class="lead">Spotify Preview</p>
+      </div>
+      <div class="col-sm-6">
+      <% if @song.preview_url? %>
+          <p class="lead">
+            <audio controls>
+              <source src=<%= @song.preview_url %> type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio>
+          </p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=preview_url' %></p>
         <% end %>
       </div>
     </div>
