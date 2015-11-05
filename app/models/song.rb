@@ -15,8 +15,8 @@ class Song < ActiveRecord::Base
     # TODO returns true if it's missing any of the crawlable info: duration and media_url (later will add lyrics to that)
     self.media_url = nil if self.media_url != nil and self.media_url.empty?
     self.preview_url = nil if self.preview_url != nil and self.preview_url.empty?
-    self.lyric = nil if self.lyric != nil and self.lyric.empty?
-    self.duration == nil or self.media_url == nil or self.lyric == nil or self.preview_url == nil
+    self.lyrics = nil if self.lyrics != nil and self.lyrics.empty?
+    self.duration == nil or self.media_url == nil or self.lyrics == nil or self.preview_url == nil
   end
   
   def find_media(only: "")

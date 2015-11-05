@@ -52,7 +52,7 @@
         <% if @song.media_url? %>
           <p class="lead">
             <%= link_to @song.media_url do %>
-                List on Spotify
+                <%= image_tag 'listen_on_spotify-black.png', class: 'img-responsive', style: 'max-height: 29px;' %>
               <% end %>
           </p>
         <% else %>
@@ -80,13 +80,13 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Lyric</h3>
+        <h3 class="panel-title">Lyrics</h3>
       </div>
       <div class="panel-body">
-        <% if @song.lyric? %>
-          <p class="lead"><%= @song.lyric.html_safe %></p>
+        <% if @song.lyrics? %>
+          <p class="lead"><%= @song.lyrics.html_safe %></p>
         <% else %>
-          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyric' %></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyrics' %></p>
         <% end %>
       </div>
     </div> 
