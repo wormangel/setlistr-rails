@@ -58,7 +58,7 @@ class Song < ActiveRecord::Base
     result
   end
 
-  def get_info_from_spotify()
+  def get_info_from_spotify
     response = {}
 
     query = "track:#{self.title} artist:#{self.artist}"
@@ -71,17 +71,11 @@ class Song < ActiveRecord::Base
     response
   end
 
-  def get_lyric()
+  def get_lyric
     response = {}
-
-    #To supress some bugs on the Lyricfy gem (the bug is fixed on github but the gem does not have the latest code)
-    begin
-      fetcher = Lyricfy::Fetcher.new
-      song = fetcher.search self.artist, self.title
-      response[CONST_LYRICS] = song.body("<br>") if song != nil and song.body != nil and !song.body.empty?
-    rescue
-      nil
-    end
+    fetcher = Lyricfy::Fetcher.new
+    song = fetcher.search self.artist, self.title
+    response[CONST_LYRICS] = song.body("<br>") if song != nil and song.body != nil and !song.body.empty?
     response
   end
 end
