@@ -38,7 +38,7 @@
       </div>
       <div class="col-sm-6">
       <% if @song.duration? %>
-          <p class="lead"><%= @song.duration %></p>
+          <p class="lead"><%= str_seconds_to_minutes(@song.duration) %></p>
         <% else %>
           <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=duration' %></em></p>
         <% end %>
