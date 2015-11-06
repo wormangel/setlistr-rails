@@ -38,7 +38,7 @@ class Song < ActiveRecord::Base
     infoFromSpotify = [CONST_DURATION, CONST_SPOTIFY, CONST_PREVIEW]
     infoLyric = [CONST_LYRICS]
     infoYoutube = [CONST_YOUTUBE]
-    updatableAttributes = infoFromSpotify + infoLyric = infoYoutube
+    updatableAttributes = infoFromSpotify + infoLyric + infoYoutube
     updatableVariables = only.empty? ? updatableAttributes : [only]
 
     newValues = {}
