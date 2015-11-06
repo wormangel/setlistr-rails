@@ -85,3 +85,5 @@ gem "rspotify"
 gem 'lyricfy', :git => 'git://github.com/javichito/Lyricfy.git'
 
 gem 'yourub'
+
+gem "paranoia", "~> 2.0"

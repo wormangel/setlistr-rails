@@ -10,7 +10,7 @@ module SongHelper
       if seconds % 60 == 0
         (seconds/60).to_s + ':00'
       else
-        (seconds/60).to_s + ':' + (seconds%60).to_s
+        (seconds/60).to_s + ':' + "%02d" % (seconds%60).to_s
       end
     end
   end

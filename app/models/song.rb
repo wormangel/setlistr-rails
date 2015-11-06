@@ -1,5 +1,6 @@
 class Song < ActiveRecord::Base
   audited
+  acts_as_paranoid
   belongs_to :band
 
   validates :artist, presence: true

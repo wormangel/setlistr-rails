@@ -76,6 +76,14 @@ class SongController < ApplicationController
     redirect_to :action => 'index'
   end
   
+  def destroy
+    @song = Song.find(params[:id])
+    @song.destroy
+    flash[:notice] = 'Song deleted successfully.'
+    
+    redirect_to :action => 'index'
+  end
+  
   def song_params
     params[:song][:band_id] = params[:band_id]
     params.require(:song).permit(:artist, :title, :duration, :spotify_url, :preview_url, :youtube_url, :lyrics)

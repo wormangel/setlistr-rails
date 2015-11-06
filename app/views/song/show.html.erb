@@ -3,6 +3,9 @@
   <%= link_to edit_band_song_path(@band, @song.id) do %>
     <button class="btn btn-primary btn-lg pull-right">Edit</button>
   <% end %>
+  <%= link_to band_song_path(@band, @song.id), :method => :delete, data: { :confirm => "Are you sure you want to remove this song?" } do %>
+    <button class="btn btn-danger btn-lg pull-right">Delete</button>
+  <% end %>
 </h1>
 
 <div class="song_details row">
