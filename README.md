@@ -29,6 +29,8 @@ This project was done so I could get a grasp in BDD in Rails. I've used [rspec-r
         SETLISTR_S3_SECRET_KEY="" # Self-explanatory
         SETLISTR_S3_REGION="" # Self-explanatory
         SETLISTR_S3_ENDPOINT="" # Self-explanatory - Make sure it matches the S3 region
+        SETLISTR_YOUTUBE_API_KEY="" # Self-explanatory
+        SETLISTR_YOUTUBE_APP_NAME="" # Self-explanatory
 
 7. Install Postgres if you don't have it (or change the db settings to use sqlite3)
 8. Create the db `rake db:create`
