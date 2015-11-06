@@ -64,8 +64,7 @@ class SetlistController < ApplicationController
     @setlist = @band.setlist
     
     if @setlist.contains(@song)
-      @setlist_song = SetlistSong.find_by(:setlist_id => @setlist.id, :song_id => @song.id)
-      @setlist_song.destroy
+      @setlist.remove_song(@song)
       flash[:notice] = "Song removed successfully!"
     end
     

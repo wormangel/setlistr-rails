@@ -24,4 +24,11 @@ class Setlist < ActiveRecord::Base
       true
     end
   end
+  
+  def remove_song(song)
+    if self.contains(song)
+      setlist_song = SetlistSong.find_by(:setlist_id => self.id, :song_id => song.id)
+      setlist_song.destroy
+    end
+  end
 end
