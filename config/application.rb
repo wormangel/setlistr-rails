@@ -26,8 +26,5 @@ module SetlistrRails
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
     config.invite_salt = ENV['SETLISTR_INVITE_SALT']
-    #Yourub - Access youtube API
-    config.youtube_dev_key = ENV['SETLISTR_YOUTUBE_API_KEY']
-    config.youtube_app_name = ENV['SETLISTR_YOUTUBE_APP_NAME']
   end
 end

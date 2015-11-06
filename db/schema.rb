@@ -72,9 +72,9 @@ ActiveRecord::Schema.define(version: 20151106201747) do
     t.string   "instrument"
     t.datetime "date_joined"
     t.datetime "date_left"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.boolean  "approved"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "approved",    default: true
   end
 
   add_index "contracts", ["band_id"], name: "index_contracts_on_band_id", using: :btree

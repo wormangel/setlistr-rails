@@ -117,7 +117,7 @@
       </div>
       <div class="panel-body">
         <% if @song.lyrics? %>
-          <p class="lead"><%= @song.lyrics.html_safe %></p>
+          <p class="lead"><%= simple_format(@song.lyrics).html_safe %></p>
         <% else %>
           <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyrics' %></em></p>
         <% end %>

@@ -1,3 +1,5 @@
+require "vagalume"
+
 class Song < ActiveRecord::Base
   audited
   acts_as_paranoid
@@ -37,15 +39,13 @@ class Song < ActiveRecord::Base
     return result unless missing_crawlable_media
 
     infoFromSpotify = [CONST_DURATION, CONST_SPOTIFY, CONST_PREVIEW]
-    infoLyric = [CONST_LYRICS]
-    infoYoutube = [CONST_YOUTUBE]
-    updatableAttributes = infoFromSpotify + infoLyric + infoYoutube
+    infoVagalume = [CONST_LYRICS, CONST_YOUTUBE]
+    updatableAttributes = infoFromSpotify + infoVagalume
     updatableVariables = only.empty? ? updatableAttributes : [only]
 
     newValues = {}
     newValues = newValues.merge(get_info_from_spotify) if only.empty? or infoFromSpotify.include? only
-    newValues = newValues.merge(get_lyric) if only.empty? or infoLyric.include? only
-    newValues = newValues.merge(get_info_from_youtube) if only.empty? or infoYoutube.include? only
+    newValues = newValues.merge(get_info_from_vagalume) if only.empty? or infoVagalume.include? only
     
     updatableVariables.each do |var|
       if updatableAttributes.include? var 
@@ -76,22 +76,14 @@ class Song < ActiveRecord::Base
     response
   end
 
-  def get_lyric
+  def get_info_from_vagalume
     response = {}
-    fetcher = Lyricfy::Fetcher.new
-    song = fetcher.search self.artist, self.title
-    response[CONST_LYRICS] = song.body("<br>") if song != nil and song.body != nil and !song.body.empty?
-    response
-  end
-
-  def get_info_from_youtube
-    response = {}
-    query = "#{self.artist} #{self.title}"
-    appKey = Rails.application.config.youtube_dev_key
-    appName = Rails.application.config.youtube_app_name
-    client = Yourub::Client.new({ developer_key: appKey, application_name: appName })
-    client.search(query: query, max_results: 1) do |video|
-      response[CONST_YOUTUBE] = "http://www.youtube.com/watch?v=" + video['id'] if video != nil and video['id'] != nil and !video['id'].empty?
+    result = Vagalume.find(art: self.artist, mus: self.title, ytid: true)
+    if !result.not_found?
+      song = result.song
+      puts song
+      response[CONST_LYRICS] = song.lyric if song != nil and song.lyric != nil and !song.lyric.empty?
+      response[CONST_YOUTUBE] = song.youtube_id if song != nil and song.youtube_id != nil and !song.youtube_id.empty?
     end
     response
   end
