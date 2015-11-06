@@ -100,8 +100,10 @@
           <p class="lead">
             <%= link_to @song.youtube_url do %>
                 <%= image_tag 'YouTube-logo-full_color', class: 'img-responsive', style: 'max-height: 50px;' %>
-              <% end %>
+            <% end %>
           </p>
+        <% else %>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=youtube_url' %></em></p>
         <% end %>
       </div>
     </div>        
