@@ -92,8 +92,6 @@ class Song < ActiveRecord::Base
     client.search(query: query, max_results: 1) do |video|
       response[CONST_YOUTUBE] = "http://www.youtube.com/watch?v=" + video['id'] if video != nil and video['id'] != nil and !video['id'].empty?
     end
-    puts "-------------------------------------------------------"
-    puts ENV["SETLISTR_YOUTUBE_APP_NAME"]
     response
   end
 end
