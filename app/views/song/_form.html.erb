@@ -5,6 +5,7 @@
   <%= f.text_field :spotify_url, label: label_for_discoverable_field('Spotify URL'), id: 'spotify_url' %>
   <%= f.text_field :preview_url, label: label_for_discoverable_field('Spotify Preview'), id: 'preview_url' %>
   <%= f.text_field :youtube_url, label: label_for_discoverable_field('Youtube URL'), id: 'youtube_url' %>
+  <%= f.text_area :lyrics, label: label_for_discoverable_field('Lyrics'), id: 'lyrics', rows: '8' %>
   <br/>
   <%= f.button 'Save', :class=> 'btn btn-primary' %>
 <% end %>
