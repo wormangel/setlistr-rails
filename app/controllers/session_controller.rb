@@ -12,7 +12,7 @@ class SessionController < ApplicationController
   end
   
   def auth_failure
-    flash[:alert] = "Ocorreu um erro de autenticação. O Facebook respondeu: \"" + params[:message] + "\""
+    flash[:alert] = "Auth error. Facebook replied: \"" + params[:message] + "\""
     redirect_to root_url
   end
 end
