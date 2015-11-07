@@ -83,6 +83,13 @@ class SetlistController < ApplicationController
     send_data result, :filename => (band.name + ' - Setlist (' + Time.now.strftime('%Y%m%d') + ').txt')
   end
   
+  def setlist_builder
+    @band = Band.find(params[:band_id])
+    @setlist = Setlist.where(band: @band, concert_id: params[:concert_id]).first_or_create
+    
+    render 'setlist_builder', layout: 'band'
+  end
+  
   private
   def song_params
     # Add the band id

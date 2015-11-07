@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   
   match 'band/:band_id/songs/:id/find_media', to: 'song#find_media', as: :band_song_find_media, via: [:get]
   
+  match 'band/:band_id/concerts/:id/setlist_builder', to: 'setlist#setlist_builder', as: :setlist_builder, via: [:get]
+  
   match 'invite/:invite_code', to: 'band#invite', as: :invite, via: [:get]
   match 'band/:band_id/invite/request_access', to: 'band#request_access', as: :band_request_access, via: [:post]
   match 'band/:id/invite/grant_access', to: 'band#grant_access', as: :band_grant_access, via: [:post]

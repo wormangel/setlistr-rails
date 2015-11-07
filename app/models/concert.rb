@@ -1,6 +1,7 @@
 class Concert < ActiveRecord::Base
   audited
   belongs_to :band
+  has_one :setlist
   
   mount_uploader :flyer, FlyerUploader
   

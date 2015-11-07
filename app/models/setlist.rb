@@ -1,6 +1,7 @@
 class Setlist < ActiveRecord::Base
   audited
   belongs_to :band
+  belongs_to :concert
   has_many :setlist_songs
   has_many :songs, :class_name => "Song", :through => :setlist_songs
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106235622) do
+ActiveRecord::Schema.define(version: 20151107074917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,9 +97,11 @@ ActiveRecord::Schema.define(version: 20151106235622) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.boolean  "master",     default: true
+    t.integer  "concert_id"
   end
 
   add_index "setlists", ["band_id"], name: "index_setlists_on_band_id", using: :btree
+  add_index "setlists", ["concert_id"], name: "index_setlists_on_concert_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.string   "artist"
@@ -131,5 +133,6 @@ ActiveRecord::Schema.define(version: 20151106235622) do
   add_foreign_key "setlist_songs", "setlists"
   add_foreign_key "setlist_songs", "songs"
   add_foreign_key "setlists", "bands"
+  add_foreign_key "setlists", "concerts"
   add_foreign_key "songs", "bands"
 end
