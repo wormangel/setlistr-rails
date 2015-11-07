@@ -16,10 +16,10 @@ module SongHelper
   end
   
   def youtube_url(youtube_id)
-    "http://www.youtube.com/watch?v=#{youtube_id}"
+    "https://www.youtube.com/watch?v=#{youtube_id}"
   end
   
   def youtube_embed_url(youtube_id)
-    "http://www.youtube.com/embed/#{youtube_id}?autoplay=0&origin=#{root_path}"
+    "https://www.youtube.com/embed/#{youtube_id}?autoplay=0&origin=#{root_path}"
   end
 end
