@@ -12,7 +12,7 @@ class Song < ActiveRecord::Base
   CONST_SPOTIFY = 'spotify_url'
   CONST_PREVIEW = 'preview_url'
   CONST_LYRICS = 'lyrics'
-  CONST_YOUTUBE = 'youtube_url'
+  CONST_YOUTUBE = 'youtube_id'
 
   def ==(o)
     o.class == self.class && 
@@ -23,10 +23,10 @@ class Song < ActiveRecord::Base
   def missing_crawlable_media
     # TODO returns true if it's missing any of the crawlable info: duration and spotify_url (later will add lyrics to that)
     self.spotify_url = nil if self.spotify_url != nil and self.spotify_url.empty?
-    self.youtube_url = nil if self.youtube_url != nil and self.youtube_url.empty?
+    self.youtube_id = nil if self.youtube_id != nil and self.youtube_id.empty?
     self.preview_url = nil if self.preview_url != nil and self.preview_url.empty?
     self.lyrics = nil if self.lyrics != nil and self.lyrics.empty?
-    self.duration == nil or self.spotify_url == nil or self.lyrics == nil or self.preview_url == nil or self.youtube_url == nil
+    self.duration == nil or self.spotify_url == nil or self.lyrics == nil or self.preview_url == nil or self.youtube_id == nil
   end
   
   def find_media(only: "")

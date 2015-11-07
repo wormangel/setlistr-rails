@@ -87,7 +87,7 @@
       <div class="col-sm-6">
       <% if @song.spotify_url? %>
           <p class="lead">
-            <iframe src="https://embed.spotify.com/?uri= <%= @song.spotify_url %>" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+            <iframe src="https://embed.spotify.com/?uri=<%= @song.spotify_url %>" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
           </p>
         <% else %>
           <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=preview_url' %></em></p>
@@ -99,14 +99,12 @@
         <p class="lead">Youtube URL</p>
       </div>
       <div class="col-sm-6">
-        <% if @song.youtube_url? %>
-          <p class="lead">
-            <%= link_to @song.youtube_url do %>
-                <%= image_tag 'YouTube-logo-full_color', class: 'img-responsive', style: 'max-height: 50px;' %>
-            <% end %>
-          </p>
+        <% if @song.youtube_id? %>
+          <iframe id="ytplayer" type="text/html" width="480" height="270"
+            src="<%= youtube_embed_url(@song.youtube_id) %>"
+            frameborder="0"></iframe>
         <% else %>
-          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=youtube_url' %></em></p>
+          <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=youtube_id' %></em></p>
         <% end %>
       </div>
     </div>        

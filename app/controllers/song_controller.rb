@@ -86,7 +86,7 @@ class SongController < ApplicationController
   
   def song_params
     params[:song][:band_id] = params[:band_id]
-    params.require(:song).permit(:artist, :title, :duration, :spotify_url, :preview_url, :youtube_url, :lyrics)
+    params.require(:song).permit(:artist, :title, :duration, :spotify_url, :preview_url, :youtube_id, :lyrics)
   end
   
 end
