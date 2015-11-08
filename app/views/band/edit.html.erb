@@ -10,6 +10,7 @@
     <%= f.text_field :genre, id: 'genre' %>
     <%= f.text_area :release, id: 'release', rows: 8 %>
     <%= f.file_field :logo, id: 'logo' %>
+    <%= f.check_box :band_complete, id: 'band_complete', label: "The band is complete (if checked, this will hide the invite box from the band's page)" %>
     <br/>
     <%= f.button 'Save', :class=> 'btn btn-primary' %>
   <% end %>

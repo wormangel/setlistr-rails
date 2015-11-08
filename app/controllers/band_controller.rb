@@ -95,7 +95,7 @@ class BandController < ApplicationController
   
   private
   def band_update_params
-    params.require(:band).permit(:name, :genre, :release, :logo)
+    params.require(:band).permit(:name, :genre, :release, :logo, :band_complete)
   end
   
   private
