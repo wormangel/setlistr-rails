@@ -71,7 +71,6 @@ class Song < ActiveRecord::Base
 
   def get_info_from_spotify
     response = {}
-
     query = "track:#{self.title} artist:#{self.artist}"
     track = RSpotify::Track.search(query, limit: 1).first
     if track != nil
