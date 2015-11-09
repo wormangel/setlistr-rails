@@ -8,11 +8,11 @@ class Song < ActiveRecord::Base
   validates :artist, presence: true
   validates :title, presence: true
 
-  CONST_DURATION = 'duration'
-  CONST_SPOTIFY = 'spotify_url'
-  CONST_PREVIEW = 'preview_url'
-  CONST_LYRICS = 'lyrics'
-  CONST_YOUTUBE = 'youtube_id'
+  DURATION_KEY = 'duration'
+  SPOTIFY_KEY = 'spotify_url'
+  PREVIEW_KEY = 'preview_url'
+  LYRICS_KEY = 'lyrics'
+  YOUTUBE_KEY = 'youtube_id'
 
   def ==(o)
     o.class == self.class && 
@@ -38,8 +38,8 @@ class Song < ActiveRecord::Base
 
     return result unless missing_crawlable_media
 
-    infoFromSpotify = [CONST_DURATION, CONST_SPOTIFY, CONST_PREVIEW]
-    infoVagalume = [CONST_LYRICS, CONST_YOUTUBE]
+    infoFromSpotify = [DURATION_KEY, SPOTIFY_KEY, PREVIEW_KEY]
+    infoVagalume = [LYRICS_KEY, YOUTUBE_KEY]
     updatableAttributes = infoFromSpotify + infoVagalume
     updatableVariables = only.empty? ? updatableAttributes : [only]
 
@@ -49,8 +49,7 @@ class Song < ActiveRecord::Base
 
     # If the vagalume API does not have the lyrics it will not send the youtube video ID either.
     # In this case we will use yourub to get the video.
-    if ( only.empty? or infoVagalume.include? only ) and newValues[CONST_YOUTUBE] == nil
-      puts "---------------- YOURUB ----------------"
+    if ( only.empty? or infoVagalume.include? only ) and newValues[YOUTUBE_KEY] == nil
       newValues = newValues.merge(get_info_from_youtube)
     end
     
@@ -76,9 +75,9 @@ class Song < ActiveRecord::Base
     query = "track:#{self.title} artist:#{self.artist}"
     track = RSpotify::Track.search(query, limit: 1).first
     if track != nil
-      response[CONST_DURATION] = track.duration_ms / 1000 unless track.duration_ms == nil
-      response[CONST_SPOTIFY] = track.external_urls['spotify'] unless track.external_urls['spotify'] == nil or track.external_urls['spotify'].empty? 
-      response[CONST_PREVIEW] = track.preview_url unless track.preview_url == nil or track.preview_url.empty?
+      response[DURATION_KEY] = track.duration_ms / 1000 unless track.duration_ms == nil
+      response[SPOTIFY_KEY] = track.external_urls['spotify'] unless track.external_urls['spotify'] == nil or track.external_urls['spotify'].empty? 
+      response[PREVIEW_KEY] = track.preview_url unless track.preview_url == nil or track.preview_url.empty?
     end
     response
   end
@@ -89,8 +88,8 @@ class Song < ActiveRecord::Base
     if !result.not_found?
       song = result.song
       puts song
-      response[CONST_LYRICS] = song.lyric if song != nil and song.lyric != nil and !song.lyric.empty?
-      response[CONST_YOUTUBE] = song.youtube_id if song != nil and song.youtube_id != nil and !song.youtube_id.empty?
+      response[LYRICS_KEY] = song.lyric if song != nil and song.lyric != nil and !song.lyric.empty?
+      response[YOUTUBE_KEY] = song.youtube_id if song != nil and song.youtube_id != nil and !song.youtube_id.empty?
     end
     response
   end
@@ -102,7 +101,7 @@ class Song < ActiveRecord::Base
     appName = Rails.application.config.youtube_app_name
     client = Yourub::Client.new({ developer_key: appKey, application_name: appName })
     client.search(query: query, max_results: 1) do |video|
-      response[CONST_YOUTUBE] = video['id'] if video != nil and video['id'] != nil and !video['id'].empty?
+      response[YOUTUBE_KEY] = video['id'] if video != nil and video['id'] != nil and !video['id'].empty?
     end
     response
   end
