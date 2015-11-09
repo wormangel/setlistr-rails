@@ -46,6 +46,13 @@ class Song < ActiveRecord::Base
     newValues = {}
     newValues = newValues.merge(get_info_from_spotify) if only.empty? or infoFromSpotify.include? only
     newValues = newValues.merge(get_info_from_vagalume) if only.empty? or infoVagalume.include? only
+
+    # If the vagalume API does not have the lyrics it will not send the youtube video ID either.
+    # In this case we will use yourub to get the video.
+    if ( only.empty? or infoVagalume.include? only ) and newValues[CONST_YOUTUBE] == nil
+      puts "---------------- YOURUB ----------------"
+      newValues = newValues.merge(get_info_from_youtube)
+    end
     
     updatableVariables.each do |var|
       if updatableAttributes.include? var 
@@ -87,4 +94,17 @@ class Song < ActiveRecord::Base
     end
     response
   end
+
+  def get_info_from_youtube
+    response = {}
+    query = "#{self.artist} #{self.title}"
+    appKey = Rails.application.config.youtube_dev_key
+    appName = Rails.application.config.youtube_app_name
+    client = Yourub::Client.new({ developer_key: appKey, application_name: appName })
+    client.search(query: query, max_results: 1) do |video|
+      response[CONST_YOUTUBE] = video['id'] if video != nil and video['id'] != nil and !video['id'].empty?
+    end
+    response
+  end
+
 end
