@@ -7,8 +7,19 @@
   
     populateSetlistInfo = function(setlistJson) {  
       $('#base_setlist ul').empty(); // Clear the current songs in the base setlist
-          
-      $.each(setlistJson['setlist_songs'], function(i, setlist_song) {
+      
+      // Hacky method to sort the master setlist, since it comes ordered by pos
+      var songs_json;
+      if (setlistJson['master'] == true) {
+        songs_json = setlistJson['setlist_songs'].sort(
+          firstBy( function(a) { return a.song.artist; }).
+          thenBy( function(a) { return a.song.title; })
+        );
+      } else {
+        songs_json = setlistJson['setlist_songs'];
+      }
+      
+      $.each(songs_json, function(i, setlist_song) {
         var li = $('<li></li>').addClass('base_setlist_song');
         li.attr('data-song-id', setlist_song['song']['id']);
         li.attr('data-song-group', 'base');
