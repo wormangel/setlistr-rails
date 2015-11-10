@@ -4,7 +4,11 @@ class SetlistController < ApplicationController
   
   def show
     @band = Band.find(params[:band_id])
-    @setlist = @band.setlist
+    if params[:id]
+      @setlist = @band.setlists.find(params[:id])
+    else
+      @setlist = @band.setlist
+    end
     
     @new_song = Song.new
     

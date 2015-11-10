@@ -189,6 +189,11 @@
           updates.concert = false;
         }
       });
+      
+      // Init the onChange handler for the base setlist dropdown
+      $('#base_setlist').on('change', function(){
+        loadSelectedSetlist();
+      });
     });
   </script>
 <% end %>
