@@ -123,8 +123,14 @@ class SetlistController < ApplicationController
       else
         flash['alert'] = 'An error has occured.'
       end
+    elsif params[:op] == 'destroy'
+      setlist_song = SetlistSong.find(params[:setlist_song_id])
+      old_value = setlist_song.pos
+      setlist_song.destroy
+      result = setlist_song.id
+      @concert.update_setlist_after_destroy(old_value)
     else
-      flash['alert'] = 'Unsupported action invoked.' and return
+      flash['alert'] = 'Unsupported action invoked. Please reload the page or report if this keeps happening.' and return
     end
     
     respond_to do |format|

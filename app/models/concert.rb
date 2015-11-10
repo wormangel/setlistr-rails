@@ -23,6 +23,13 @@ class Concert < ActiveRecord::Base
     end
   end
   
+  def update_setlist_after_destroy(pos)
+    self.setlist.setlist_songs.where("pos > ?", pos).each do |s|      
+      s.pos -= 1
+      s.save
+    end
+  end
+  
   def update_setlist_after_update(saved_song, old_value)
     if saved_song.pos < old_value
       self.setlist.setlist_songs.where("pos >= ?", saved_song.pos).each do |s|

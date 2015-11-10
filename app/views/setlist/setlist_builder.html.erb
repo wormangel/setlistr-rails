@@ -89,9 +89,12 @@
     
     handlerRemoveSongHookClick = function(hook) {
       var songId = $(hook).closest('li').attr('data-song-id');
+      var setlistSongId = $(hook).closest('li').attr('data-setlist-song-id');
+      var pos = $(hook).closest('li').index();
       $(hook).parent().remove();
       
       removeSongFromSongPresent(songId);
+      saveChange(songId, setlistSongId, pos, 'destroy');
     }
     
     addRemoveSongHook = function(li) {
