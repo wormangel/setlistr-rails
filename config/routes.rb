@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   match 'band/:band_id/songs/find_media', to: 'song#batch_find_media', as: :band_song_batch_find_media, via: [:get]
   
   resources :band do
-    resource :setlist, only: [:show], controller: 'setlist'
+    resources :setlists, controller: 'setlist'
     resources :concerts, controller: 'concert'
     resources :songs, controller: 'song'
   end
+  
+  # Handy path for master setlist
+  match 'band/:band_id/setlist', to: 'setlist#show', as: :band_master_setlist, via: [:get], setlist_id: 1
   
   match 'band/:band_id/setlist/add_song', to: 'setlist#add_song', as: :add_song_to_setlist, via: [:post]
   match 'band/:band_id/setlist/remove_song/:song_id', to: 'setlist#remove_song', as: :remove_song_from_setlist, via: [:post]
@@ -17,6 +20,7 @@ Rails.application.routes.draw do
   match 'band/:band_id/songs/:id/find_media', to: 'song#find_media', as: :band_song_find_media, via: [:get]
   
   match 'band/:band_id/concerts/:id/setlist_builder', to: 'setlist#setlist_builder', as: :setlist_builder, via: [:get]
+  match 'band/:band_id/concerts/:id/setlist', to: 'setlist#update_concert_setlist', as: :update_concert_setlist, via: [:post]
   
   match 'invite/:invite_code', to: 'band#invite', as: :invite, via: [:get]
   match 'band/:band_id/invite/request_access', to: 'band#request_access', as: :band_request_access, via: [:post]

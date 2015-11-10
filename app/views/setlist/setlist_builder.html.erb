@@ -1,0 +1,224 @@
+<% content_for :custom_js do %>
+  <script type="text/javascript">
+    var songMap = {}; // Keeps track of the setlist song order
+    var songPresent = {}; // Keeps track of what songs are present in the setlist
+    // Use this var to detect if a song is being added or only repositioned
+    var updates={ base:false, concert:false };
+  
+    populateSetlistInfo = function(setlistJson) {  
+      $('#base_setlist ul').empty(); // Clear the current songs in the base setlist
+          
+      $.each(setlistJson['setlist_songs'], function(i, setlist_song) {
+        var li = $('<li></li>').addClass('base_setlist_song');
+        li.attr('data-song-id', setlist_song['song']['id']);
+        li.attr('data-song-group', 'base');
+
+        var p = $('<p></p>').text(setlist_song['song']['artist'] + ' - ' + setlist_song['song']['title']);
+        li.append(p);
+
+        $('#base_setlist ul').append(li);
+      });
+      
+      $('#base_setlist ul li').draggable(
+        { helper: 'clone', 
+          opacity: 0.7, 
+          connectToSortable: '#concert_setlist ul',
+          start: function(event, ui) {
+            ui.helper.first().removeClass('already_added'); // Remove the grayed-out aspect from the floating object
+          }
+        });
+    }
+    
+    loadSelectedSetlist = function(){
+      var selectedSetlistId = $('#base_setlist option:selected').attr('value');
+      var baseUrl = "<%= band_setlist_url(@band.id, ':setlist_id', format: 'json') %>";
+      var setlistUrl = baseUrl.replace(':setlist_id', selectedSetlistId);
+
+      $.ajax({
+        url: setlistUrl,
+        dataType: 'json',
+        success: function(data) { 
+          populateSetlistInfo(data); 
+          updateSongPresent();
+          grayOutAlreadyPresentSongs(); // Updates song present list so we can gray out the recently loaded songs that are already there
+        },
+        error: function(data) {
+          displayFlash('An error ocurred while trying to fetch the setlist info.', 'error');
+        } 
+      });
+    }
+    
+    updateSongMap = function() {
+      $.each($('#concert_setlist ul li'), function(i, song){
+        var songId = $(song).attr('data-song-id');
+        var pos = $(song).index()
+        songMap[pos] = songId;
+      });
+    }
+    
+    updateSongPresent = function() {
+      $.each($('#concert_setlist ul li'), function(i, song){
+        var songId = $(song).attr('data-song-id');
+        addSongToSongPresent(songId);
+      });
+    }
+    
+    grayOutAlreadyPresentSongs = function() {
+      $.each($('#base_setlist ul li'), function(i, song){
+        var songId = $(song).attr('data-song-id');
+        if (songPresent[songId]) {
+          $(song).addClass('already_added');
+        }
+      });
+    }
+    
+    addSongToSongPresent = function(songId){
+      if (songPresent[songId] == undefined) {
+        songPresent[songId] = 1;
+      } else {
+        songPresent[songId] += 1;
+      }
+    }
+    
+    removeSongFromSongPresent = function(songId){
+      songPresent[songId] -= 1;
+      if (songPresent[songId] == 0) {
+        $('#base_setlist ul li[data-song-id="' + songId + '"]').removeClass('already_added');
+      }
+    }
+    
+    handlerRemoveSongHookClick = function(hook) {
+      var songId = $(hook).closest('li').attr('data-song-id');
+      $(hook).parent().remove();
+      
+      removeSongFromSongPresent(songId);
+    }
+    
+    addRemoveSongHook = function(li) {
+      var removeHook = $('<span></span>').addClass('glyphicon glyphicon-remove remove-song-hook');
+      $(li).find('p').append(removeHook);
+      removeHook.on('click', function() {
+        handlerRemoveSongHookClick(removeHook);
+      });
+    }
+    
+    saveChange = function(songId, setlistSongId, pos, op) {
+      var url = "<%= update_concert_setlist_url(@band.id, @concert.id, format: 'json') %>";
+
+      var data = {'song_id': songId, 'setlist_song_id': setlistSongId, 'pos': pos, 'op': op};
+    
+      $.ajax({
+        url: url,
+        method: 'POST',
+        dataType: 'json',
+        data: data,
+        success: function(data) { 
+          displayFlash('Changes saved successfully', 'success');
+          
+          // In case of add, we return the new setlist song Id for the song
+          if (op === 'add') {
+            $('#concert_setlist ul li[data-song-id="' + songId + '"]').attr('data-setlist-song-id', data);
+          }
+        },
+        error: function(data) {
+          displayFlash('An error ocurred while saving the concert setlist.', 'error');
+        } 
+      });
+    }
+    
+    $(document).ready(function(){
+      updateSongMap(); // Inits the map containing the song Ids currently on the concert setlist
+    
+      loadSelectedSetlist();
+      
+      // Create the remove song hooks
+      $.each($('#concert_setlist ul li'), function(i, li) {
+        addRemoveSongHook(li)
+      });
+      
+      // Init the sortable behavior
+      $('#concert_setlist ul').sortable(
+      { connectWith: "#base_setlist ul",
+        containment: 'parent' ,
+        receive: function(event, ui) {
+          // undo styling set by jqueryUI
+          ui.helper.first().removeAttr('style');
+          ui.helper.first().removeClass('base_setlist_song').addClass('concert_setlist_song');
+          ui.helper.first().attr('data-song-group', 'concert');
+          
+          // Add the remove hook
+          addRemoveSongHook($(ui.helper.first()));
+          
+          // Gray out the item in base setlist
+          ui.item.first().addClass('already_added');
+          
+          // Update song present map
+          var songId = ui.item.first().attr('data-song-id');
+          addSongToSongPresent(songId);
+          
+          updates.base = true;
+        },
+        update: function(event, ui) {
+          updates.concert = true;
+        },
+        stop: function(event, ui) {
+          var op;
+        
+          // Let's check if the song is being added or updated
+          if (updates.base === true && updates.concert === true) { // Song being added
+            op = 'add';
+          } else if (updates.base === false && updates.concert === true) { // Song being sorted
+            op = 'update';
+          } else { // false and false - moved something in concert setlist that didn't change the order
+            return;
+          }
+          
+          // Essential data
+          var songId = ui.item.attr('data-song-id');
+          var pos = ui.item.index();
+          var setlistSongId = ui.item.attr('data-setlist-song-id'); // only used if it's update
+          
+          // Perform the changes
+          saveChange(songId, setlistSongId, pos, op);
+          
+          // Clear the vars
+          updates.base = false;
+          updates.concert = false;
+        }
+      });
+    });
+  </script>
+<% end %>
+    
+<h1 class="page-header">Setlist for <em><%= @concert.name %></em> at <em><%= @concert.venue %></em> - <em><%= @concert.date %></em></h1>
+
+<div class="setlist_builder_controls_row row">
+  <div class="col-sm-6">
+    <%= collection_select nil, nil, @base_setlists, :id, :title, {}, {class: 'form-control center-block', id: 'base_setlist', style: "width:auto;"}%>
+  </div>
+  <div class="col-sm-6">
+  </div>
+</div>
+
+<div class="setlist_page row">
+  <div class="col-sm-6">
+    <div id="base_setlist" class="setlist_content">
+      <ul class="list-unstyled setlist_paper">
+      </ul>
+    </div>
+  </div>
+  
+  <div class="col-sm-6">
+    <div id="concert_setlist" class="setlist_content">
+      <ul class="list-unstyled setlist_paper">
+        <% @setlist.setlist_songs.order(:pos).each do |s| %>
+          <li class="concert_setlist_song" data-song-id="<%=s.song.id%>" data-song-group="concert" data-setlist-song-id="<%=s.id%>">
+            <p>
+              <%= s.song.artist %> - <%= s.song.title %>
+            </p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

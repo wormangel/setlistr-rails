@@ -7,7 +7,7 @@
 <div id="concert">
   <div id="setlist_page row">
     <div class="col-sm-6">
-      <% if @concert.setlist == nil %>
+      <% if @concert.setlist == nil or @concert.setlist.count == 0 %>
         <div class="row">
           <p class="lead">No setlist for this concert yet.</p>
         </div>
@@ -19,16 +19,10 @@
       <% else %>
         <div class="setlist_content">
           <ul class="list-unstyled setlist_paper">
-            <% @concert.setlist.songs.order(:artist, :title).each do |s| %>
+            <% @concert.setlist.setlist_songs.order(:pos).each do |s| %>
               <li class="setlist_song">
                 <p>
-                  <%= link_to band_song_path(@band, s) do %>
-                    <%= s.artist %> - <%= s.title %>
-                  <% end %>
-                  <span class="glyphicon glyphicon-remove remove-song-hook" data-toggle="modal" 
-                    data-target="#confirm_delete_song_div" data-song-id="<%=s.id%>" 
-                    data-title="<%=s.title%>" aria-hidden="true">
-                  </span>
+                  <%= s.song.artist %> - <%= s.song.title %>
                 </p>
               </li>
             <% end %>
@@ -40,6 +34,12 @@
             <strong style="color: rgb(51, 122, 183)"><%= @concert.setlist.count %></strong> <%= @concert.setlist.count > 1 ? 'songs' : 'song' %>.
           </em>
         </h3>
+        
+        <div class="row text-center"> 
+          <%= link_to setlist_builder_path do %>
+            <button class="btn btn-primary btn-lg">Setlist builder</button>
+          <% end %>
+        </div>
       <% end %>
     </div>
     <div class="col-sm-4 col-sm-offset-2">      

@@ -1,6 +1,8 @@
 <% content_for :custom_js do %>
   <script type="text/javascript">
     $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+      
       $('.remove-song-hook').hide();
     
       $('.setlist_song').hover(
@@ -45,7 +47,7 @@
 
 <h1 class="page-header">Setlist</h1>
 
-<div id="setlist_page row">
+<div id="setlist_page" class="row">
   <div class="col-sm-6">
     <% if @setlist.empty? %>
       <p class="lead" id="empty_setlist_msg">
@@ -55,10 +57,18 @@
       <div class="setlist_content">
         <ul class="list-unstyled setlist_paper">
           <% @setlist.songs.order(:artist, :title).each do |s| %>
-            <li class="setlist_song">
+            <% if s.deleted? %>
+              <li class="setlist_song" data-toggle="tooltip" data-placement="top" title="This song was deleted from the band page.">
+            <% else %>
+              <li class="setlist_song">
+            <% end %>
               <p>
-                <%= link_to band_song_path(@band, s) do %>
+                <% if s.deleted? %>
                   <%= s.artist %> - <%= s.title %>
+                <% else %>
+                  <%= link_to band_song_path(@band, s) do %>
+                    <%= s.artist %> - <%= s.title %>
+                  <% end %>
                 <% end %>
                 <span class="glyphicon glyphicon-remove remove-song-hook" data-toggle="modal" 
                   data-target="#confirm_delete_song_div" data-song-id="<%=s.id%>" 
