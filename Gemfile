@@ -82,5 +82,6 @@ gem "mini_magick"
 gem "fog-aws"
 gem "fog"
 gem "rspotify"
-gem 'vagalume', :git => 'git://github.com/otaciliolacerda/vagalume.git'
+gem "vagalume", :git => 'git://github.com/otaciliolacerda/vagalume.git'
 gem "paranoia", "~> 2.0"
+gem "yourub"

@@ -115,7 +115,12 @@
       </div>
       <div class="panel-body">
         <% if @song.lyrics? %>
-          <p class="lead"><%= simple_format(@song.lyrics).html_safe %></p>
+          <p class="lead">
+            <%= simple_format(@song.lyrics).html_safe %>
+            <%= link_to "http://www.vagalume.com.br/#{@song.artist.strip().split(" ").join('-')}/#{@song.title.strip().split(" ").join('-')}" do %>
+                <%= image_tag 'vagalume_banner.png', class: 'img-responsive' %>
+              <% end %>
+          </p>
         <% else %>
           <p class="lead"><em><%= link_to 'Try to find it automatically!', band_song_find_media_path(@band, @song) + '?only=lyrics' %></em></p>
         <% end %>
