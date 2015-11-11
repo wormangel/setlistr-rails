@@ -34,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
+group :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails'
@@ -53,6 +53,9 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  
+  # For using the Sidekiq monitor (it's a Sinatra app)
+  gem 'sinatra', :require => nil
 end
 
 group :production do
@@ -85,3 +88,4 @@ gem "rspotify"
 gem "vagalume", :git => 'git://github.com/otaciliolacerda/vagalume.git'
 gem "paranoia", "~> 2.0"
 gem "yourub"
+gem 'sidekiq'

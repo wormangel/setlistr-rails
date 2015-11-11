@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    # Sidekiq monitoring app
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   get 'user/dashboard', as: :dashboard
   
   match 'band/:band_id/songs/find_media', to: 'song#batch_find_media', as: :band_song_batch_find_media, via: [:get]

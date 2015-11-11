@@ -27,10 +27,7 @@ class Band < ActiveRecord::Base
   end
   
   def has_songs_with_missing_info
-    # TODO should return true if any of its songs returns true for missing_crawlable_media
-    
-    # test result 
-    true
+    self.songs.any? { |s| s.missing_crawlable_media }
   end
   
   accepts_nested_attributes_for :contracts

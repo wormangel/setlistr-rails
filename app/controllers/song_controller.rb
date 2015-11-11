@@ -59,19 +59,12 @@ class SongController < ApplicationController
   end
   
   def batch_find_media
-    @band = Band.find(params[:band_id])
-    @songs = @band.songs
-    
     # Same as find_media but for all songs that has missing data
-    all_results = []
-    @songs.each do |song|
-      if song.missing_crawlable_media
-        result = song.find_media
-        all_results << result
-      end
-    end
+    # Use a thread for that
+    FindMediaInfoBatchWorker.perform_async params[:band_id]
     
     # TODO do something with the results. Decide a nice way of showing it
+    flash[:notice] = 'We are looking for the missing info in the background. It should finish after a while, check back later!'
     
     redirect_to :action => 'index'
   end
