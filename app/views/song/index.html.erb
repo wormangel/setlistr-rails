@@ -7,8 +7,16 @@
     <% if @band.has_songs_with_missing_info %>
       <div class="row">
         <div class="col-sm-12">
-          <div class="alert alert-warning" role="alert">At least one song here has missing information, like song duration, lyrics or media URLs.
-          We can <strong><%= link_to 'try to find this data automatically!', band_song_batch_find_media_path(@band) %></strong></div>
+          <div class="alert alert-warning" role="alert">
+            <p>
+              At least one song here has missing information, like song duration, lyrics or media URLs.
+              We can <strong><%= link_to 'try to find this data automatically!', band_song_batch_find_media_path(@band) %></strong>
+            </p>
+            <p>
+              If you already tried that and still see this message, you can look for the songs marked with 
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> and fill the missing fields manually. 
+            </p>
+          </div>
         </div>
       </div>
     <% end %>
@@ -22,7 +30,13 @@
         <ul>
           <% @songs.order(:artist, :title).each do |s| %>
             <%= link_to band_song_path(@band.id, s.id) do %>
-              <li><%= s.artist %> - <%= s.title %></li>
+              <li>
+                <% if s.missing_crawlable_media %>
+                  <%= label_for_discoverable_field("#{s.artist} - #{s.title}") %>
+                <% else %>
+                  <%= s.artist %> - <%= s.title %>
+                <% end %>  
+              </li>
             <% end %>
           <% end %>
         </ul>
