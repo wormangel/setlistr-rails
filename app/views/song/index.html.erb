@@ -23,7 +23,7 @@
     
     <% if @songs.empty? %>
       <p>
-        No songs yet! Try adding songs to the <%= link_to 'setlist', band_setlist_path(@band) %>.
+        No songs yet! Try adding songs to the <%= link_to 'setlist', band_master_setlist_path(@band) %>.
       </p>
     <% else %>
       <div class="song_list">
