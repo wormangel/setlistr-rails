@@ -31,11 +31,16 @@ This project was done so I could get a grasp in BDD in Rails. I've used [rspec-r
         SETLISTR_S3_ENDPOINT="" # Self-explanatory - Make sure it matches the S3 region
         SETLISTR_YOUTUBE_API_KEY="" # Self-explanatory
         SETLISTR_YOUTUBE_APP_NAME="" # Self-explanatory
+        REDIS_PROVIDER="REDIS_URL" # Necessary for Sidekiq
+        REDIS_URL="" # The URL for the Redis server
 
 7. Install Postgres if you don't have it (or change the db settings to use sqlite3)
-8. Create the db `rake db:create`
-9. Run migrations `rake db:migrate`
-10. Start app `rails server`
+8. You need a redis server for Sidekiq to work. To install it locally you can use Homebrew `brew install redis`
+9. Create the db `rake db:create`
+10. Run migrations `rake db:migrate`
+11. Make sure redis is running (locally I do `redis-server /usr/local/etc/redis.conf`)
+12. Execute Sidekiq `bundle exec sidekiq`
+13. Start app `rails server`
 
 ### Tests
 Expect tons of feature tests using rspec! Try running ```bundle exec rspec```
