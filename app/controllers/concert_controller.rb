@@ -53,6 +53,25 @@ class ConcertController < ApplicationController
     end
   end
   
+  def export_lyrics
+    band = Band.find(params[:band_id])
+    concert = Concert.find(params[:id])
+    
+    result = ""
+    concert.setlist.setlist_songs.each do |s|
+      if s.song != nil and s.song.lyrics != nil
+        result += "\"" + s.song.title.strip + "\""
+        result += "\n\n"
+        
+        result += s.song.lyrics
+      
+        result += "\n" * 5 # TODO Config?
+      end
+    end
+    
+    send_data result.encode(result.encoding, :universal_newline => true), :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
+  end
+  
   def concert_params
     params[:concert][:band_id] = params[:band_id]
     params.require(:concert).permit(:name, :date, :time, :venue, :duration, :payment_type,

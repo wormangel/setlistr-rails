@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   
   match 'band/:band_id/concerts/:id/setlist_builder', to: 'setlist#setlist_builder', as: :setlist_builder, via: [:get]
   match 'band/:band_id/concerts/:id/setlist', to: 'setlist#update_concert_setlist', as: :update_concert_setlist, via: [:post]
+  match 'band/:band_id/concerts/:id/setlist/export', to: 'concert#export_lyrics', as: :setlist_export_lyrics, via: [:get]
   
   match 'invite/:invite_code', to: 'band#invite', as: :invite, via: [:get]
   match 'band/:band_id/invite/request_access', to: 'band#request_access', as: :band_request_access, via: [:post]
