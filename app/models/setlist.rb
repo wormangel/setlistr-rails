@@ -13,6 +13,10 @@ class Setlist < ActiveRecord::Base
     songs.count
   end
   
+  def running_time
+    setlist_songs.inject(0) { |sum, s| s.song ? (s.song.duration ? sum + s.song.duration : sum) : sum }
+  end
+  
   def contains(song)
     songs.include? song
   end

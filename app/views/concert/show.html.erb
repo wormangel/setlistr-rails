@@ -32,6 +32,9 @@
         <h3 style="margin-top: 25px;">
           <em>
             <strong style="color: rgb(51, 122, 183)"><%= @concert.setlist.count %></strong> <%= @concert.setlist.count > 1 ? 'songs' : 'song' %>.
+          <% if @concert.setlist.running_time > 0 %>
+            <strong style="color: rgb(51, 122, 183)"><%= seconds_to_hms(@concert.setlist.running_time) %></strong>.
+          <% end %>
           </em>
         </h3>
         

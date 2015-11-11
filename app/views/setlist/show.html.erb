@@ -83,6 +83,9 @@
       <h3 style="margin-top: 25px;">
         <em>
           <strong style="color: rgb(51, 122, 183)"><%= @setlist.count %></strong> <%= @setlist.count > 1 ? 'songs' : 'song' %>.
+          <% if @setlist.running_time > 0 %>
+            <strong style="color: rgb(51, 122, 183)"><%= seconds_to_hms(@setlist.running_time) %></strong> of music.
+          <% end %>
         </em>
       </h3>
     <% end %> 

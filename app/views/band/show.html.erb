@@ -131,7 +131,12 @@
 </div>
 
 <div class="band_summary">
-    <p class="lead"><strong><%= @band.setlist.count %></strong> songs in the <%= link_to 'setlist.', band_master_setlist_path(@band) %></p>
+    <p class="lead">
+      <strong><%= @band.setlist.count %></strong> songs in the <%= link_to 'setlist.', band_master_setlist_path(@band) %>&nbsp;
+      <% if @band.setlist.running_time > 0 %>
+        <strong><%= seconds_to_hms(@band.setlist.running_time) %></strong> total running time.
+      <% end %>
+    </p>
   <% if @band.next_concerts.empty? %>
     <p class="lead">No upcoming <%= link_to 'concerts.', band_concerts_path(@band) %></p>
   <% else %>

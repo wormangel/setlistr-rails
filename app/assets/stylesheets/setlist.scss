@@ -66,6 +66,10 @@
 .setlist_paper {
   position: relative;
   font-size: calc(100% + 0.5vw);
+  min-height: 100%;
+}
+
+#concert_setlist .setlist_paper, #base_setlist .setlist_paper {
   min-height: 250%;
 }
 
