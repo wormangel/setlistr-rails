@@ -14,6 +14,10 @@ class Song < ActiveRecord::Base
   LYRICS_KEY = 'lyrics'
   YOUTUBE_KEY = 'youtube_id'
 
+  SPOTIFY_VARS = [DURATION_KEY, SPOTIFY_KEY, PREVIEW_KEY]
+  VAGALUME_VARS = [LYRICS_KEY, YOUTUBE_KEY]
+  UPDATABLE_ATTRIBUTES = SPOTIFY_VARS + VAGALUME_VARS
+
   def ==(o)
     o.class == self.class && 
       o.artist == self.artist && 
@@ -32,41 +36,46 @@ class Song < ActiveRecord::Base
   def find_media(only: "")
     # TODO this should check for missing crawlable info and call the appropriate crawler for each field, saving the song in the end
     # and returning a hash with keys :success and :fail, each with an array of the fields that were found and saved and the ones that weren't found, respectively
-    
     # It may receive an only parameter, specifying which field should be crawled and saved.
     result = {:success => [], :fail => []}
 
-    return result unless missing_crawlable_media
+    # test for invalid input
+    is_only_param_invalid = only.empty? ? false : !UPDATABLE_ATTRIBUTES.include?(only)
 
-    infoFromSpotify = [DURATION_KEY, SPOTIFY_KEY, PREVIEW_KEY]
-    infoVagalume = [LYRICS_KEY, YOUTUBE_KEY]
-    updatableAttributes = infoFromSpotify + infoVagalume
-    updatableVariables = only.empty? ? updatableAttributes : [only]
+    return result unless missing_crawlable_media or is_only_param_invalid
+
+    to_update = get_updatable_variables(only)
 
     newValues = {}
-    newValues = newValues.merge(get_info_from_spotify) if only.empty? or infoFromSpotify.include? only
-    newValues = newValues.merge(get_info_from_vagalume) if only.empty? or infoVagalume.include? only
-
-    # If the vagalume API does not have the lyrics it will not send the youtube video ID either.
-    # In this case we will use yourub to get the video.
-    if ( only.empty? or infoVagalume.include? only ) and newValues[YOUTUBE_KEY] == nil
-      newValues = newValues.merge(get_info_from_youtube)
-    end
+    newValues = newValues.merge(get_info_from_spotify) if (to_update & SPOTIFY_VARS).count > 0
+    newValues = newValues.merge(get_info_from_vagalume(to_update.include? YOUTUBE_KEY)) if (to_update & VAGALUME_VARS).count > 0
     
-    updatableVariables.each do |var|
-      if updatableAttributes.include? var 
-        if self.attributes[var] == nil and newValues[var] != nil
-          self.update_attributes(var => newValues[var]) 
-        end
+    to_update.each do |var|
+      if self.attributes[var] == nil and newValues[var] != nil
+        self.update_attributes(var => newValues[var]) 
       end
     end
 
     self.save
 
-    result[:success] = updatableVariables.compact.select { |var| self.attributes[var] != newValues[var] and self.attributes[var] != nil }
-    result[:fail] = updatableVariables.compact.select { |var| self.attributes[var] == nil}
+    result[:success] = to_update.compact.select { |var| self.attributes[var] != newValues[var] and self.attributes[var] != nil }
+    result[:fail] = to_update.compact.select { |var| self.attributes[var] == nil}
 
     result
+  end
+
+  def get_updatable_variables(only)
+    updatable_vars = []
+    if only.empty?
+      updatable_vars += [DURATION_KEY] if self.attributes[DURATION_KEY] == nil
+      updatable_vars += [SPOTIFY_KEY] if self.attributes[SPOTIFY_KEY] == nil
+      updatable_vars += [PREVIEW_KEY] if self.attributes[PREVIEW_KEY] == nil
+      updatable_vars += [LYRICS_KEY] if self.attributes[LYRICS_KEY] == nil
+      updatable_vars += [YOUTUBE_KEY] if self.attributes[YOUTUBE_KEY] == nil
+    else
+      updatable_vars += [only] if self.attributes[only] == nil
+    end
+    updatable_vars
   end
 
   def get_info_from_spotify
@@ -81,15 +90,21 @@ class Song < ActiveRecord::Base
     response
   end
 
-  def get_info_from_vagalume
+  def get_info_from_vagalume(needs_youtube)
     response = {}
     result = Vagalume.find(art: self.artist, mus: self.title, ytid: true)
     if !result.not_found?
       song = result.song
-      puts song
       response[LYRICS_KEY] = song.lyric if song != nil and song.lyric != nil and !song.lyric.empty?
       response[YOUTUBE_KEY] = song.youtube_id if song != nil and song.youtube_id != nil and !song.youtube_id.empty?
     end
+
+    # YoutubeID is deprecated in VagalumeAPI, in some cases there is no video id for the lyrics
+    # In this case we will use yourub to get the video.
+    if needs_youtube and newValues[YOUTUBE_KEY] == nil
+      newValues = newValues.merge(get_info_from_youtube)
+    end
+
     response
   end
 
