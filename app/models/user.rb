@@ -15,9 +15,6 @@ class User < ActiveRecord::Base
         user.save!
       end
     else
-      puts "-----------------------------------------------------------------"
-      puts auth
-      puts "-----------------------------------------------------------------"
       where(provider: auth.provider, spotify_uri: auth.uri).first_or_initialize.tap do |user|
         user.provider = auth.provider
         user.spotify_uri = auth.info.uri
