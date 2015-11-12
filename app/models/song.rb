@@ -101,8 +101,8 @@ class Song < ActiveRecord::Base
 
     # YoutubeID is deprecated in VagalumeAPI, in some cases there is no video id for the lyrics
     # In this case we will use yourub to get the video.
-    if needs_youtube and newValues[YOUTUBE_KEY] == nil
-      newValues = newValues.merge(get_info_from_youtube)
+    if needs_youtube and response[YOUTUBE_KEY] == nil
+      response = response.merge(get_info_from_youtube)
     end
 
     response
