@@ -29,10 +29,17 @@
           </ul>
         </div>
         
-        <div class="row text-center export_div"> 
-        <%= link_to setlist_export_lyrics_path(@band, @concert) do %>
-          <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics as TXT</p>
-        <% end %>
+        <div class="row text-center export_div">
+          <div class="col-sm-6">
+            <%= link_to setlist_export_lyrics_path(@band, @concert, crlf: true) do %>
+              <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics as TXT (Windows)</p>
+            <% end %>
+          </div> 
+          <div class="col-sm-6">
+            <%= link_to setlist_export_lyrics_path(@band, @concert) do %>
+              <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics as TXT (Unix/OSX)</p>
+            <% end %>
+          </div>
         </div>
           
         <h3 style="margin-top: 25px;">
@@ -86,6 +93,6 @@
           </div>
         <% end %>
       <% end %>
-    </div>    
+    </div>
   </div>
 </div>

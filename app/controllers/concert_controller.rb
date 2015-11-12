@@ -57,19 +57,24 @@ class ConcertController < ApplicationController
     band = Band.find(params[:band_id])
     concert = Concert.find(params[:id])
     
+    # For windows encoding
+    use_crlf = params[:crlf] == "true"
+    
+    newline = use_crlf ? "\r\n" : "\n"
+    
     result = ""
     concert.setlist.setlist_songs.each do |s|
       if s.song != nil and s.song.lyrics != nil
         result += "\"" + s.song.title.strip + "\""
-        result += "\n\n"
+        result += newline * 2
         
         result += s.song.lyrics
       
-        result += "\n" * 5 # TODO Config?
+        result += newline * 5 # TODO Config?
       end
     end
     
-    send_data result.encode(result.encoding, :universal_newline => true), :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
+    send_data result.encode(result.encoding, :universal_newline => !use_crlf), :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
   end
   
   def concert_params
