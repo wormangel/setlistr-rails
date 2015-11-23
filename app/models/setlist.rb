@@ -3,7 +3,7 @@ class Setlist < ActiveRecord::Base
   belongs_to :band
   belongs_to :concert
   has_many :setlist_songs, -> { order('pos ASC') }
-  has_many :songs,  -> { with_deleted }, :class_name => "Song", :through => :setlist_songs
+  has_many :songs, :class_name => "Song", :through => :setlist_songs
   
   def empty?
     songs.count == 0

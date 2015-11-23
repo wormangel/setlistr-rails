@@ -55,6 +55,11 @@ class BandController < ApplicationController
   def request_access
     @band = Band.find(params[:band_id])
     
+    if @band.members.include?(current_user)
+      flash[:alert] = "You're already a member of #{@band.name} or your invitation is still pending."
+      redirect_to :dashboard and return
+    end
+    
     @contract = Contract.new(request_access_params)
     @contract.band = @band
     @contract.approved = false

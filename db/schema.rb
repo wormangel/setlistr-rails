@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108022100) do
+ActiveRecord::Schema.define(version: 20151123045518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,11 +115,9 @@ ActiveRecord::Schema.define(version: 20151108022100) do
     t.string   "lyrics"
     t.string   "preview_url"
     t.string   "youtube_id"
-    t.datetime "deleted_at"
   end
 
   add_index "songs", ["band_id"], name: "index_songs_on_band_id", using: :btree
-  add_index "songs", ["deleted_at"], name: "index_songs_on_deleted_at", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "provider"
