@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path unless band.active_members.include?(current_user)
   end
   
+  protected
+  def require_admin
+    puts current_user.admin
+    redirect_to dashboard_path unless current_user.admin
+  end
+  
   private
   def current_user
     begin

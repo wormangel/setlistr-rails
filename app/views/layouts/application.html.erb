@@ -38,6 +38,13 @@
                 <li>
                   <%= link_to "Dashboard", dashboard_path %>
                 </li>
+                
+                <% if current_user.admin %>
+                <li>
+                  <%= link_to "Admin", admin_toolbox_path %>
+                </li>
+                <% end %>
+                
                 <% if content_for?(:top_nav) %>
                   <%= yield(:top_nav) %>
                 <% end %>
