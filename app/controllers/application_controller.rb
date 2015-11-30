@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
     if request.env['HTTP_USER_AGENT'].downcase.match(/mac|iphone|os x/i)
       :osx
     elsif request.env['HTTP_USER_AGENT'].downcase.match(/windows/i)
-      :osx
+      :windows
     elsif request.env['HTTP_USER_AGENT'].downcase.match(/linux|android/i)
       :linux
     elsif request.env['HTTP_USER_AGENT'].downcase.match(/unix/i)
