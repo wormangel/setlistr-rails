@@ -68,7 +68,7 @@ class ConcertController < ApplicationController
         result += "\"" + s.song.title.strip + "\""
         result += newline * 2
         
-        result += s.song.lyrics
+        result += s.song.lyrics.encode(:crlf_newline => use_crlf)
       
         result += newline * 5 # TODO Config?
       end
