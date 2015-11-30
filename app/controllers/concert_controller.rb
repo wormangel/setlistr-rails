@@ -74,7 +74,7 @@ class ConcertController < ApplicationController
       end
     end
     
-    send_data result.encode(result.encoding, :crlf_newline => use_crlf), :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
+    send_data result, :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
   end
   
   def concert_params
