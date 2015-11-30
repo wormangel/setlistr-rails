@@ -32,14 +32,9 @@
         </div>
         
         <div class="row text-center export_div">
-          <div class="col-sm-6">
-            <%= link_to setlist_export_lyrics_path(@band, @concert, crlf: true) do %>
-              <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics as TXT (Windows)</p>
-            <% end %>
-          </div> 
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <%= link_to setlist_export_lyrics_path(@band, @concert) do %>
-              <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics as TXT (Unix/OSX)</p>
+              <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics</p>
             <% end %>
           </div>
         </div>

@@ -2,5 +2,33 @@
 
 <div class="row">
   <div class="col-sm-12">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingLineFeedNormalizer">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="lineFeed">
+              Lyrics linefeed normalizer
+            </a>
+          </h4>
+        </div>
+        <div id="lineFeed" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingLineFeedNormalizer">
+          <div class="panel-body">
+            <div class="alert alert-info" role="alert">You can run this only once in a lifetime since the system will automatically save
+             the lyrics in the proper format.
+            </div>
+            <p class="lead">
+              Runs for <strong>every</strong> song in the database.<br/>
+              Replaces the linebreaks in the song's lyrics to use the universal newline character: <strong>\n</strong>.
+              
+              <p>
+                <%= link_to admin_tool_lyricsfix_path do %>
+                  <button class="btn btn-primary btn-lg">Execute</button>
+                <% end %>
+              </p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

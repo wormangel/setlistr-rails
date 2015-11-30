@@ -2,6 +2,7 @@ require "vagalume"
 
 class Song < ActiveRecord::Base
   audited
+  before_save :correct_linefeed
   belongs_to :band
   
   # Declare the same relationship here so we can use :dependent => destroy
@@ -25,6 +26,11 @@ class Song < ActiveRecord::Base
     o.class == self.class && 
       o.artist == self.artist && 
       o.title == self.title
+  end
+  
+  def fix_lyrics_linefeeds
+    self.lyrics = self.lyrics.encode(:universal_newline => true)
+    self.save
   end
   
   def missing_crawlable_media
@@ -117,6 +123,13 @@ class Song < ActiveRecord::Base
       response[YOUTUBE_KEY] = video['id'] if video != nil and video['id'] != nil and !video['id'].empty?
     end
     response
+  end
+  
+  private
+  def correct_linefeed
+    if self.lyrics != nil
+      self.lyrics = self.lyrics.encode(:universal_newline => true)
+    end
   end
 
 end

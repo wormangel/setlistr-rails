@@ -32,4 +32,13 @@ class AdminController < ApplicationController
     
     render 'database', layout: 'admin'
   end
+  
+  def lyricsfix
+    FixLyricsLinefeedWorker.perform_async
+    
+    # TODO do something with the results. Decide a nice way of showing it
+    flash[:notice] = "Work begun in the background. In a moment all lyrics should be using the universal linefeed character (\\n)."
+  
+    render 'toolbox', layout: 'admin'
+  end
 end
