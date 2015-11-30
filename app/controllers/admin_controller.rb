@@ -3,6 +3,13 @@ class AdminController < ApplicationController
   before_filter :require_admin
   
   def toolbox
+    @wrong_lf_count = 0
+    Song.find_each do |s|
+      if s.lyrics and s.lyrics.include?("\r")
+        @wrong_lf_count += 1
+      end
+    end
+  
     render 'toolbox', layout: 'admin'
   end
   
@@ -39,6 +46,6 @@ class AdminController < ApplicationController
     # TODO do something with the results. Decide a nice way of showing it
     flash[:notice] = "Work begun in the background. In a moment all lyrics should be using the universal linefeed character (\\n)."
   
-    render 'toolbox', layout: 'admin'
+    redirect_to :admin_toolbox
   end
 end
