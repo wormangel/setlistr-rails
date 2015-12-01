@@ -31,8 +31,8 @@ class Concert < ActiveRecord::Base
   end
   
   def update_setlist_after_update(saved_song, old_value)
-    if saved_song.pos < old_value
-      self.setlist.setlist_songs.where("pos >= ?", saved_song.pos).each do |s|
+    if saved_song.pos < old_value # If we are moving from a higher position to a lower one (e.g. from 4 to 2)
+      self.setlist.setlist_songs.where("pos >= ? and pos < ?", saved_song.pos, old_value).each do |s|
         if s == saved_song
           next
         end
@@ -40,8 +40,8 @@ class Concert < ActiveRecord::Base
         s.pos += 1
         s.save
       end
-    else
-      self.setlist.setlist_songs.where("pos <= ? and pos >  ?", saved_song.pos, old_value).each do |s|
+    else # If we are moving from a lower position to a higher one (e.g. from 2 to 4)
+      self.setlist.setlist_songs.where("pos >  ? and pos <= ?", old_value, saved_song.pos).each do |s|
         if s == saved_song
           next
         end
