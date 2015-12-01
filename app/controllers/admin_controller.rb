@@ -10,6 +10,17 @@ class AdminController < ApplicationController
       end
     end
   
+    @dirty_setlists = []
+    Setlist.where(master: false).each do |setlist|
+      proper_pos = 0
+      setlist.setlist_songs.each do |song|
+        if song.pos != proper_pos
+          @dirty_setlists << "#{setlist.band.name} - #{setlist.concert.name}"
+          break
+        end
+        proper_pos += 1
+      end
+    end
     render 'toolbox', layout: 'admin'
   end
   
@@ -45,6 +56,15 @@ class AdminController < ApplicationController
     
     # TODO do something with the results. Decide a nice way of showing it
     flash[:notice] = "Work begun in the background. In a moment all lyrics should be using the universal linefeed character (\\n)."
+  
+    redirect_to :admin_toolbox
+  end
+  
+  def setlist_order_fix
+    FixSetlistOrderWorker.perform_async
+
+    # TODO do something with the results. Decide a nice way of showing it
+    flash[:notice] = "Work begun in the background. In a moment all setlists should be properly ordered."
   
     redirect_to :admin_toolbox
   end

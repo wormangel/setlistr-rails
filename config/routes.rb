@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   match 'admin/bands', to: 'admin#bands', as: :admin_band_list, via: [:get]
   match 'admin/database', to: 'admin#database', as: :admin_database, via: [:get]
   match 'admin/tools/lyricsfix', to: 'admin#lyricsfix', as: :admin_tool_lyricsfix, via: [:get]
+  match 'admin/tools/setlist_order_fix', to: 'admin#setlist_order_fix', as: :admin_tool_setlist_order_fix, via: [:get]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
