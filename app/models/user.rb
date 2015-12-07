@@ -18,4 +18,12 @@ class User < ActiveRecord::Base
   def first_name
     self.name.split(' ')[0]
   end
+  
+  def next_concerts
+    col = []
+    bands.each do |band|
+      col << band.next_concerts.to_a
+    end
+    col.flatten!.sort_by &:date
+  end
 end
