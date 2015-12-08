@@ -24,6 +24,6 @@ class User < ActiveRecord::Base
     bands.each do |band|
       col << band.next_concerts.to_a
     end
-    col.flatten!.sort_by &:date
+    col.flatten.sort_by &:date
   end
 end
