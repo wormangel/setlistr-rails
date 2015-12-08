@@ -46,6 +46,20 @@ class ApplicationController < ActionController::Base
       :unknown
     end
   end
+  
+  def get_operating_system
+    if request.env['HTTP_USER_AGENT'].downcase.match(/mac|iphone|os x/i)
+      :osx
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/windows/i)
+      :windows
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/linux|android/i)
+      :linux
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/unix/i)
+      :unix
+    else
+      :unknown
+    end
+  end
 
   helper_method :profile_pic
   helper_method :current_user
