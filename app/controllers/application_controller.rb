@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_path unless band.active_members.include?(current_user)
   end
   
+  protected
+  def require_admin
+    puts current_user.admin
+    redirect_to dashboard_path unless current_user.admin
+  end
+  
   private
   def current_user
     begin
@@ -25,6 +31,20 @@ class ApplicationController < ActionController::Base
   
   def profile_pic(user = current_user)
     @profile_pic = user.picture_url
+  end
+  
+  def get_operating_system
+    if request.env['HTTP_USER_AGENT'].downcase.match(/mac|iphone|os x/i)
+      :osx
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/windows/i)
+      :windows
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/linux|android/i)
+      :linux
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/unix/i)
+      :unix
+    else
+      :unknown
+    end
   end
 
   helper_method :profile_pic

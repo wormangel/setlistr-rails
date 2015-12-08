@@ -45,4 +45,20 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <% if not current_user.next_concerts.empty? %>
+        <div class="panel panel-default">
+          <div class="panel-heading text-center">Upcoming concerts!</div>
+          <div class="panel-body">
+            <% current_user.next_concerts.each do |concert| %>
+              <%= link_to band_concert_path(concert.band, concert) do %>
+                <strong><%= concert.date %></strong> - <%= concert.band.name %> - <%= concert.name %> at <%= concert.venue %>.<br/>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

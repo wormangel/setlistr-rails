@@ -2,8 +2,12 @@ require "vagalume"
 
 class Song < ActiveRecord::Base
   audited
-  acts_as_paranoid
+  before_save :correct_linefeed
   belongs_to :band
+  
+  # Declare the same relationship here so we can use :dependent => destroy
+  has_many :setlist_songs
+  has_many :setlists, :class_name => "Setlist", :through => :setlist_songs, :dependent => :destroy
 
   validates :artist, presence: true
   validates :title, presence: true
@@ -24,8 +28,12 @@ class Song < ActiveRecord::Base
       o.title == self.title
   end
   
+  def fix_lyrics_linefeeds
+    self.lyrics = self.lyrics.encode(:universal_newline => true)
+    self.save
+  end
+  
   def missing_crawlable_media
-    # TODO returns true if it's missing any of the crawlable info: duration and spotify_url (later will add lyrics to that)
     self.spotify_url = nil if self.spotify_url != nil and self.spotify_url.empty?
     self.youtube_id = nil if self.youtube_id != nil and self.youtube_id.empty?
     self.preview_url = nil if self.preview_url != nil and self.preview_url.empty?
@@ -34,9 +42,6 @@ class Song < ActiveRecord::Base
   end
   
   def find_media(only: "")
-    # TODO this should check for missing crawlable info and call the appropriate crawler for each field, saving the song in the end
-    # and returning a hash with keys :success and :fail, each with an array of the fields that were found and saved and the ones that weren't found, respectively
-    # It may receive an only parameter, specifying which field should be crawled and saved.
     result = {:success => [], :fail => []}
 
     # test for invalid input
@@ -118,6 +123,13 @@ class Song < ActiveRecord::Base
       response[YOUTUBE_KEY] = video['id'] if video != nil and video['id'] != nil and !video['id'].empty?
     end
     response
+  end
+  
+  private
+  def correct_linefeed
+    if self.lyrics != nil
+      self.lyrics = self.lyrics.encode(:universal_newline => true)
+    end
   end
 
 end

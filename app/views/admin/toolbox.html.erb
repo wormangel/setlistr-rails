@@ -1,0 +1,79 @@
+<h1 class="page-header">Admin Toolbox</h1>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingLineFeedNormalizer">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#lineFeed" aria-expanded="true" aria-controls="lineFeed">
+              Lyrics linefeed normalizer
+            </a>
+          </h4>
+        </div>
+        <div id="lineFeed" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingLineFeedNormalizer">
+          <div class="panel-body">
+            <% if @wrong_lf_count > 0 %>
+              <div class="alert alert-danger" role="alert">There are <strong><%=@wrong_lf_count.to_s%></strong> songs with improper line breaks 
+              in the database. You should probably run this tool.
+              </div>
+            <% else %>
+              <div class="alert alert-success" role="alert">Every song in the databse has correct line breaks, no need to run this for now! :)
+              </div>
+            <% end %>
+            <p class="lead">
+              Runs for <strong>every song</strong> in the database.<br/>
+              Replaces the linebreaks in the song's lyrics to use the universal newline character: <strong>\n</strong>.
+              
+              <p>
+                <%= link_to admin_tool_lyricsfix_path do %>
+                  <button class="btn btn-primary btn-lg">Execute</button>
+                <% end %>
+              </p>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingSetlistSongPositionFix">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#setlistSongPositionFix" aria-expanded="true" aria-controls="setlistSongPositionFix">
+              Concert setlist song positions fix
+            </a>
+          </h4>
+        </div>
+        <div id="setlistSongPositionFix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSetlistSongPositionFix">
+          <div class="panel-body">
+            <% if @dirty_setlists.count > 0 %>
+              <div class="alert alert-danger" role="alert">There are <strong><%=@dirty_setlists.count.to_s %></strong> setlists with weird
+               song positions in the db. You should probably run this tool.
+               <ul>
+                <% @dirty_setlists.each do |s| %>
+                  <li><%= s %></li>
+                <% end%>
+               </ul>
+              </div>
+            <% else %>
+              <div class="alert alert-success" role="alert">Every setlist in the databse is clean! :)
+              </div>
+            <% end %>
+            <p class="lead">
+              Runs for <strong>every concert setlist</strong> in the database.<br/><br/>
+              It checks if the song positions are uniform, meaning 0-based and ending in <code>songs.count - 1.</code><br/>
+              If this is not observed, it means there are probably a bug in the code that sets the position for the rest of the setlist songs after
+              a song was added/reordered/deleted.
+              
+              <p>
+                <%= link_to admin_tool_setlist_order_fix_path do %>
+                  <button class="btn btn-primary btn-lg">Execute</button>
+                <% end %>
+              </p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

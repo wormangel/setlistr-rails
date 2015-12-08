@@ -58,7 +58,7 @@ class ConcertController < ApplicationController
     concert = Concert.find(params[:id])
     
     # For windows encoding
-    use_crlf = params[:crlf] == "true"
+    use_crlf = get_operating_system == :windows
     
     newline = use_crlf ? "\r\n" : "\n"
     
@@ -68,13 +68,13 @@ class ConcertController < ApplicationController
         result += "\"" + s.song.title.strip + "\""
         result += newline * 2
         
-        result += s.song.lyrics
+        result += s.song.lyrics.encode(:crlf_newline => use_crlf)
       
         result += newline * 5 # TODO Config?
       end
     end
     
-    send_data result.encode(result.encoding, :universal_newline => !use_crlf), :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
+    send_data result, :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
   end
   
   def concert_params

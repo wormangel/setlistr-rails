@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h1 class="page-header">Account settings</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="connected_accounts text-center">
+        <h2>Connected accounts</h2>
+        <p class="lead">
+          Connect your account with external services like Facebook and Spotify. <br/>
+          You can then log in to Setlistr using any of the accounts and also unlock certain features like creating playlists from setlists!
+        </p>
+        
+        <div class="providers">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="oauth_provider facebook_provider">
+                <% if current_user.fb_uid %>        
+                  <p class="lead">
+                    Already connected to Facebook account.<span class="glyphicon glyphicon-ok"></span>
+                  </p>
+                <% else %>
+                  <p>
+                    <a href="#" id="fb_login_btn" class="zocial facebook">Connect to Facebook</a>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="oauth_provider spotify_provider">
+                <% if current_user.spotify_uri %>        
+                  <p class="lead">
+                    Already connected to Spotify account.<span class="glyphicon glyphicon-ok"></span>
+                  </p>
+                <% else %>
+                  <p>
+                    <a href="/auth/spotify" id="spotify_login_btn" class="zocial spotify">Connect to Spotify</a>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

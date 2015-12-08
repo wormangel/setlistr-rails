@@ -15,8 +15,10 @@ Rails.application.routes.draw do
     resources :songs, controller: 'song'
   end
   
+  resources :users, only: [:edit], controller: 'user'
+  
   # Handy path for master setlist
-  match 'band/:band_id/setlist', to: 'setlist#show', as: :band_master_setlist, via: [:get], setlist_id: 1
+  match 'band/:band_id/setlist', to: 'setlist#show', as: :band_master_setlist, via: [:get]
   
   match 'band/:band_id/setlist/add_song', to: 'setlist#add_song', as: :add_song_to_setlist, via: [:post]
   match 'band/:band_id/setlist/remove_song/:song_id', to: 'setlist#remove_song', as: :remove_song_from_setlist, via: [:post]
@@ -34,6 +36,15 @@ Rails.application.routes.draw do
   match 'band/:id/invite/grant_access', to: 'band#grant_access', as: :band_grant_access, via: [:post]
 
   get 'welcome/index'
+  
+  # Admin
+  
+  match 'admin', to: 'admin#toolbox', as: :admin_toolbox, via: [:get]
+  match 'admin/users', to: 'admin#users', as: :admin_user_list, via: [:get]
+  match 'admin/bands', to: 'admin#bands', as: :admin_band_list, via: [:get]
+  match 'admin/database', to: 'admin#database', as: :admin_database, via: [:get]
+  match 'admin/tools/lyricsfix', to: 'admin#lyricsfix', as: :admin_tool_lyricsfix, via: [:get]
+  match 'admin/tools/setlist_order_fix', to: 'admin#setlist_order_fix', as: :admin_tool_setlist_order_fix, via: [:get]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

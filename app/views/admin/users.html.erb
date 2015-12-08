@@ -1,0 +1,20 @@
+<h1 class="page-header">User list</h1>
+
+<div class="row">
+  <div class="col-sm-12">
+    <p class="lead">
+      There are <strong><%= @users.size %></strong> users using Setlistr!
+    </p>
+  
+    <ul>
+    <% @users.each do |u| %>
+      <li>
+        <h4>
+          <%= image_tag profile_pic('square', u.uid) %>
+          <%= u.name %>
+        </h4>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+</div>

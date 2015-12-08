@@ -68,7 +68,7 @@ class SetlistController < ApplicationController
   
   def remove_song
     @band = Band.find(params[:band_id])
-    @song = Song.with_deleted.find(params[:song_id])
+    @song = Song.find(params[:song_id])
     @setlist = @band.setlist
     
     if @setlist.contains(@song)

@@ -57,19 +57,12 @@
       <div class="setlist_content">
         <ul class="list-unstyled setlist_paper">
           <% @setlist.songs.order(:artist, :title).each do |s| %>
-            <% if s.deleted? %>
-              <li class="setlist_song" data-toggle="tooltip" data-placement="top" title="This song was deleted from the band page.">
-            <% else %>
               <li class="setlist_song">
-            <% end %>
               <p>
-                <% if s.deleted? %>
+                <%= link_to band_song_path(@band, s) do %>
                   <%= s.artist %> - <%= s.title %>
-                <% else %>
-                  <%= link_to band_song_path(@band, s) do %>
-                    <%= s.artist %> - <%= s.title %>
-                  <% end %>
                 <% end %>
+              
                 <span class="glyphicon glyphicon-remove remove-song-hook" data-toggle="modal" 
                   data-target="#confirm_delete_song_div" data-song-id="<%=s.id%>" 
                   data-title="<%=s.title%>" aria-hidden="true">

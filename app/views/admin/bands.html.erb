@@ -1,0 +1,17 @@
+<h1 class="page-header">Band list</h1>
+
+<div class="row">
+  <div class="col-sm-12">
+    <p class="lead">
+      There are <strong><%= @bands.size %></strong> bands using Setlistr!
+    </p>
+  
+    <ul>
+    <% @bands.each do |band| %>
+      <li>
+        <h4><%= band.name %> <em class="fainter-text">created by <em class="faint-text"><%= User.find(band.audits.where("action" => "create").first.user_id).name %></em></em></h4>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+</div>

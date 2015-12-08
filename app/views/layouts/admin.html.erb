@@ -1,0 +1,28 @@
+
+
+<% content_for :content do %>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar text-center">
+          <ul class="nav nav-sidebar">
+              <li id="nav_toolbox"><%= link_to "Admin Toolbox", admin_toolbox_path %></li>
+              <hr>
+              <li id="nav_band_list"><%= link_to "Band List", admin_band_list_path %></li>
+              <li id="nav_user_list"><%= link_to "User list", admin_user_list_path %></li>
+              <li id="nav_database_stats"><%= link_to "Database stats", admin_database_path %></li>
+          </ul>
+      </div>
+      
+      <div class="col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 main">
+          <%= yield %>
+      </div>
+  </div>
+</div>
+<% end %>
+<% content_for :top_nav do %>
+  <li class="visible-xs-block"><%= link_to "Admin Toolbox", admin_toolbox_path %></li>
+  <li class="visible-xs-block"><%= link_to "Band List", admin_band_list_path %></li>
+  <li class="visible-xs-block"><%= link_to "User list", admin_user_list_path %></li>
+  <li class="visible-xs-block"><%= link_to "Database stats", admin_database_path %></li>
+<% end %>
+<%= render template: "layouts/application" %>

@@ -53,3 +53,11 @@ body {
 .center-block {
   float: none;  
 }
+
+.faint-text {
+  color: gray;
+}
+
+.fainter-text {
+  color: lightgray;
+}

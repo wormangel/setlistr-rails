@@ -3,9 +3,7 @@
   <%= link_to edit_band_song_path(@band, @song.id) do %>
     <button class="btn btn-primary btn-lg pull-right">Edit</button>
   <% end %>
-  <%= link_to band_song_path(@band, @song.id), :method => :delete, data: { :confirm => "Are you sure you want to remove this song?" } do %>
-    <button class="btn btn-danger btn-lg pull-right">Delete</button>
-  <% end %>
+  <button class="btn btn-danger btn-lg pull-right" data-toggle="modal" data-target="#confirm_delete_div">Delete</button>
 </h1>
 
 <div class="song_details row">
@@ -126,5 +124,26 @@
         <% end %>
       </div>
     </div> 
+  </div>
+  
+  <div id="confirm_delete_div" class="modal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Confirm song removal</h4>
+        </div>
+        <div class="modal-body">
+          <p>Deleting a song will also <strong>remove it from every setlist it is currently on</strong>.</p>
+          <p>Are you sure you want to remove <strong><%=@song.artist%> - <%=@song.title%></strong> from all the bands' setlists and delete it from the system?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="2">Cancel</button>
+          <%= link_to band_song_path(@band, @song.id), :method => :delete do %>
+            <button class="btn btn-danger">Delete song</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
