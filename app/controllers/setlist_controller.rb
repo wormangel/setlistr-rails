@@ -42,6 +42,7 @@ class SetlistController < ApplicationController
     success = 0
     @batch.each_line do |line|
       splitted_line = line.split(' - ')
+      next unless splitted_line.length > 1
       artist = splitted_line[0].strip
       title = splitted_line[1].strip
       spotify_url = nil
