@@ -115,7 +115,6 @@
           <div class="modal-body">
             <%= f.text_field :artist, id: 'artist', tabindex: "1" %>
             <%= f.text_field :title, id: 'title', tabindex: "2" %>
-            <%= f.text_field :spotify_url, id: 'spotify_url', tabindex: "3", label: 'Spotify URL (optional)'%>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="5">Close</button>
@@ -159,8 +158,7 @@
             <p>Insert below the list of songs. Please follow the following rules:</p>
             <ul>
               <li>One song per line</li>
-              <li>Format without media URL: <strong>Artist - Title</strong> (don't forget the spaces before and after the dash)</li>
-              <li>Format with media URL: <strong>Artist - Title - URL</strong> (don't forget the spaces before and after the dashes)</li>
+              <li>Format: <strong>Artist - Title</strong> (don't forget the spaces before and after the dash)</li>
             </ul>
             <%= f.text_area :batch, rows: "10", tabindex: "1" %>
           </div>
