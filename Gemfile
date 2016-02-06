@@ -84,7 +84,6 @@ gem 'carrierwave'
 gem "mini_magick"
 gem "fog-aws"
 gem "fog"
-gem 'fog-aliyun', '~> 0.1.0'
 gem "rspotify"
 gem "vagalume", :git => 'git://github.com/otaciliolacerda/vagalume.git'
 gem "paranoia", "~> 2.0"
