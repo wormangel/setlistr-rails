@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     if auth.provider == "facebook"
-      where(provider: auth.provider, fb_uid: auth.uid).first_or_initialize.tap do |user|
+      where(fb_uid: auth.uid).first_or_initialize.tap do |user|
         user.provider = auth.provider
         user.fb_uid = auth.uid
         user.name = auth.info.name
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
         user.save!
       end
     else
-      where(provider: auth.provider, spotify_uri: auth.info.uri).first_or_initialize.tap do |user|
+      where(spotify_uri: auth.info.uri).first_or_initialize.tap do |user|
         user.provider = auth.provider
         user.spotify_uri = auth.info.uri
         user.name = auth.info.display_name
@@ -24,6 +24,22 @@ class User < ActiveRecord::Base
         user.spotify_oauth_expires_at = Time.at(auth.credentials.expires_at)
         user.save!
       end
+    end
+  end
+  
+  def add_omniauth_provider(auth)
+    if auth.provider == "facebook"
+      #self.provider = auth.provider TODO decide what to do here
+      self.fb_uid = auth.uid
+      self.fb_oauth_token = auth.credentials.token
+      self.fb_oauth_expires_at = Time.at(auth.credentials.expires_at)
+      self.save!
+    else
+      #self.provider = auth.provider
+      self.spotify_uri = auth.info.uri
+      self.spotify_oauth_token = auth.credentials.token
+      self.spotify_oauth_expires_at = Time.at(auth.credentials.expires_at)
+      self.save!
     end
   end
   
