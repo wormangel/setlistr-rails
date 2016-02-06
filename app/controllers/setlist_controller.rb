@@ -42,16 +42,12 @@ class SetlistController < ApplicationController
     success = 0
     @batch.each_line do |line|
       splitted_line = line.split(' - ')
+      next unless splitted_line.length > 1
       artist = splitted_line[0].strip
       title = splitted_line[1].strip
-      spotify_url = nil
-      if splitted_line.length > 2
-        spotify_url = splitted_line[2]
-      end
-      
+
       song = Song.where({"artist"=>artist, "title"=>title, "band_id"=>@band.id}).first_or_create
-      song.spotify_url = spotify_url
-      song.save
+
       if @setlist.add_song(song, nil)
         success += 1
       end
@@ -149,8 +145,7 @@ class SetlistController < ApplicationController
     # Trim the artist and title
     params[:song][:artist] = params[:song][:artist].strip
     params[:song][:title] = params[:song][:title].strip
-    params[:song][:spotify_url] = params[:song][:spotify_url].strip
-    params.require(:song).permit(:artist, :title, :spotify_url, :band_id)
+    params.require(:song).permit(:artist, :title, :band_id)
   end
   
 end
