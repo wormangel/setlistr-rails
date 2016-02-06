@@ -82,6 +82,7 @@ gem 'hashids', '~> 1.0.2'
 gem "audited-activerecord", "~> 4.0"
 gem 'carrierwave'
 gem "mini_magick"
+gem 'net-ssh' # required by fog
 gem "fog-aws"
 gem "fog"
 gem "rspotify"
