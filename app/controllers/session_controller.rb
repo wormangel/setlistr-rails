@@ -1,8 +1,13 @@
 class SessionController < ApplicationController
 
   def create
-    user = User.from_omniauth(env["omniauth.auth"])
-    session[:user_id] = user.id
+    if not current_user # new login
+      user = User.from_omniauth(env["omniauth.auth"])
+      session[:user_id] = user.id
+    else # user is already logged in and adds a new login provider
+      current_user.add_omniauth_provider(env["omniauth.auth"])
+    end
+    
     redirect_to request.params['return'] || :dashboard
   end
 
@@ -12,7 +17,7 @@ class SessionController < ApplicationController
   end
   
   def auth_failure
-    flash[:alert] = "Auth error. Facebook replied: \"" + params[:message] + "\""
+    flash[:alert] = "Auth error. Server replied: \"" + params[:message] + "\""
     redirect_to root_url
   end
 end

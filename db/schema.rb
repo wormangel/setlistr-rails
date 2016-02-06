@@ -121,13 +121,17 @@ ActiveRecord::Schema.define(version: 20151123065507) do
 
   create_table "users", force: :cascade do |t|
     t.string   "provider"
-    t.string   "uid"
+    t.string   "fb_uid"
     t.string   "name"
-    t.string   "oauth_token"
-    t.string   "oauth_expires_at"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.boolean  "admin",            default: false
+    t.string   "fb_oauth_token"
+    t.string   "fb_oauth_expires_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "admin",                    default: false
+    t.string   "picture_url"
+    t.string   "spotify_uri"
+    t.string   "spotify_oauth_token"
+    t.string   "spotify_oauth_expires_at"
   end
 
   add_foreign_key "setlist_songs", "setlists"

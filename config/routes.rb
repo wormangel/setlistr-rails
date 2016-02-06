@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resources :songs, controller: 'song'
   end
   
+  resources :users, only: [:edit], controller: 'user'
+  
   # Handy path for master setlist
   match 'band/:band_id/setlist', to: 'setlist#show', as: :band_master_setlist, via: [:get]
   

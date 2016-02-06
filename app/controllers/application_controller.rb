@@ -29,8 +29,22 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def profile_pic(size = 'square', uid = current_user.uid)
-    @profile_pic = 'https://graph.facebook.com/'+ uid + "/picture?type=" + size
+  def profile_pic(user = current_user)
+    @profile_pic = user.picture_url ||= 'https://graph.facebook.com/'+ user.fb_uid + "/picture?type=square"
+  end
+  
+  def get_operating_system
+    if request.env['HTTP_USER_AGENT'].downcase.match(/mac|iphone|os x/i)
+      :osx
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/windows/i)
+      :windows
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/linux|android/i)
+      :linux
+    elsif request.env['HTTP_USER_AGENT'].downcase.match(/unix/i)
+      :unix
+    else
+      :unknown
+    end
   end
   
   def get_operating_system

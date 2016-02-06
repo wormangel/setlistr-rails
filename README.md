@@ -33,6 +33,8 @@ This project was done so I could get a grasp in BDD in Rails. I've used [rspec-r
         SETLISTR_YOUTUBE_APP_NAME="" # Self-explanatory
         REDIS_PROVIDER="REDIS_URL" # Necessary for Sidekiq
         REDIS_URL="" # The URL for the Redis server
+        SETLISTR_SPOTIFY_ID="" # Self-explanatory
+        SETLISTR_SPOTIFY_SECRET="" # Self-explanatory
 
 7. Install Postgres if you don't have it (or change the db settings to use sqlite3)
 8. You need a redis server for Sidekiq to work. To install it locally you can use Homebrew `brew install redis`

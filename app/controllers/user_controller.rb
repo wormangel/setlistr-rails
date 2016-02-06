@@ -4,4 +4,8 @@ class UserController < ApplicationController
   def dashboard
     @contracts = Contract.where(user: current_user).includes(:band)
   end
+  
+  def show
+    render 'show', layout: 'application'
+  end
 end

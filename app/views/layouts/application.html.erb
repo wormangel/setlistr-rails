@@ -38,7 +38,11 @@
                 <li>
                   <%= link_to "Dashboard", dashboard_path %>
                 </li>
-                
+
+                <li>
+                  <%= link_to "Account", edit_user_path(@current_user) %>
+                </li>
+
                 <% if current_user.admin %>
                 <li>
                   <%= link_to "Admin", admin_toolbox_path %>

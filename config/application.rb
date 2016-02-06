@@ -29,5 +29,6 @@ module SetlistrRails
     #Yourub - Access youtube API
     config.youtube_dev_key = ENV['SETLISTR_YOUTUBE_API_KEY']
     config.youtube_app_name = ENV['SETLISTR_YOUTUBE_APP_NAME']
+    RSpotify::authenticate(ENV['SETLISTR_SPOTIFY_ID'], ENV['SETLISTR_SPOTIFY_SECRET'])
   end
 end

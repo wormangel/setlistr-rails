@@ -36,3 +36,23 @@
   border: 1px solid gold;
   line-height:18px;
 }
+
+.fb_already_connected {
+  padding: 2%;
+  color: #456192;
+  border: 1px solid #456192;
+  border-radius: 5px;
+  display: inline;
+}
+
+.oauth_provider {
+  margin-bottom: 1%;
+}
+
+.facebook_provider {
+  color: #456192;
+}
+
+.spotify_provider {
+  color: green;
+}
