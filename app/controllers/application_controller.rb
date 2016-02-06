@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
   
   def profile_pic(user = current_user)
-    @profile_pic = user.picture_url
+    @profile_pic = user.picture_url ||= 'https://graph.facebook.com/'+ user.fb_uid + "/picture?type=square"
   end
   
   def get_operating_system

@@ -10,7 +10,7 @@
     <% @users.each do |u| %>
       <li>
         <h4>
-          <%= image_tag profile_pic('square', u.uid) %>
+          <%= image_tag profile_pic(u), :class => 'profile_pic' %>
           <%= u.name %>
         </h4>
       </li>
