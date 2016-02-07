@@ -76,13 +76,21 @@ $(document).on('page:load ready', function() {
   $(document).on("page:receive", stopSpinner);
   
   // Language selector
-  // First, UI
   $('.lang-option').on('click', function(){
+    // First, UI
     var currentLang = $('#selected-lang span').attr('lang');
     var newLang = $('span', $(this)).attr('lang');
 
     $('#selected-lang span').attr('lang', newLang);
     $('span', $(this)).attr('lang', currentLang);
+    
+    // Now hit the server to change the locale
+    $.post('/change_locale', 
+      {locale: newLang},
+      function(data){
+        window.location = window.location;
+      }
+    );
   });
 });
 

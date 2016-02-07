@@ -3,6 +3,18 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  def change_locale
+    if params["locale"] == 'en'
+      I18n.locale = "en-US"
+    elsif params["locale"] == 'br'
+      I18n.locale = "pt-BR"
+    end
+  
+    respond_to do |format|
+      format.json { render json: true }
+    end
+  end
+  
   protected
   def require_authorization
   	redirect_to (root_url + '?return=' + request.original_url) unless current_user
