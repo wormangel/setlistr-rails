@@ -75,6 +75,17 @@
   <% if content_for?(:custom_js) %>
     <%= yield(:custom_js) %>
   <% end %>  
+
+  <div id="footer">
+    <div class="btn-group dropdown pull-right">
+      <button type="button" id="selected-lang" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="lang-sm lang-lbl" lang="en"></span> <span class="caret"></span>
+      </button>
+      <ul id="lang-dropdown" class="dropdown-menu" role="menu">
+        <li class="lang-option"><span class="lang-sm lang-lbl" lang="br"></span></li>
+      </ul>
+    </div>
+  </div>
 </body>
 
 </html>

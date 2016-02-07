@@ -15,6 +15,7 @@
  *= require animate.css
  *= require bootstrap-datepicker
  *= require jquery-timepicker-jt
+ *= require languages
  *= require_tree .
  *= require_self
  */
@@ -60,4 +61,12 @@ body {
 
 .fainter-text {
   color: lightgray;
+}
+
+.lang-option {
+  padding: 3px 5px;
+}
+
+#footer {
+  margin-right: 5px;
 }

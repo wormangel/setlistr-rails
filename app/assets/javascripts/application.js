@@ -74,6 +74,16 @@ $(document).on('page:load ready', function() {
   
   $(document).on("page:fetch", startSpinner);
   $(document).on("page:receive", stopSpinner);
+  
+  // Language selector
+  // First, UI
+  $('.lang-option').on('click', function(){
+    var currentLang = $('#selected-lang span').attr('lang');
+    var newLang = $('span', $(this)).attr('lang');
+
+    $('#selected-lang span').attr('lang', newLang);
+    $('span', $(this)).attr('lang', currentLang);
+  });
 });
 
 // Helper for sorting JSON
