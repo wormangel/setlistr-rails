@@ -54,4 +54,8 @@ class User < ActiveRecord::Base
     end
     col.flatten.sort_by &:date
   end
+
+  def is_spotify_user
+    !self.spotify_oauth_token.nil?
+  end
 end

@@ -76,7 +76,23 @@ class ConcertController < ApplicationController
     
     send_data result, :filename => (band.name + ' - ' + concert.name + ' - Lyrics (' + Time.now.strftime('%Y%m%d') + ').txt')
   end
-  
+
+  def generate_playlist
+    if !current_user.is_spotify_user
+      flash[:alert] = "You have to connect your account to a Spotify account!"
+      redirect_to edit_user_path
+    else
+      concert = Concert.find(params[:id])
+      playlist_name = concert.name
+      # Use a thread for that
+      CreatePlaylistWorker.perform_async(concert.setlist.id, user_auth, playlist_name)
+
+      flash[:notice] = 'We are creating your playlist in the background. It should finish after a while, check back soon!'
+
+      redirect_to :action => 'show'
+    end
+  end
+
   def concert_params
     params[:concert][:band_id] = params[:band_id]
     params.require(:concert).permit(:name, :date, :time, :venue, :duration, :payment_type,

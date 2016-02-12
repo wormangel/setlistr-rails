@@ -30,15 +30,18 @@
             <% end %>
           </ul>
         </div>
-        
+
         <div class="row text-center export_div">
-          <div class="col-sm-12">
+          <div class="btn-group col-sm-12">
             <%= link_to setlist_export_lyrics_path(@band, @concert) do %>
-              <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics</p>
+              <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export Lyrics
+            <% end %>
+            <%= link_to setlist_concert_generate_playlist_path(@band, @concert) do %>
+              <span class="glyphicon glyphicon-music generate-playlist" aria-hidden="true"></span>  Generate Spotify Playlist
             <% end %>
           </div>
         </div>
-          
+
         <h3 style="margin-top: 25px;">
           <em>
             <strong style="color: rgb(51, 122, 183)"><%= @concert.setlist.count %></strong> <%= @concert.setlist.count > 1 ? 'songs' : 'song' %>.
@@ -47,15 +50,15 @@
           <% end %>
           </em>
         </h3>
-        
-        <div class="row text-center"> 
+
+        <div class="row text-center">
           <%= link_to setlist_builder_path do %>
             <button class="btn btn-primary btn-lg">Setlist builder</button>
           <% end %>
         </div>
       <% end %>
     </div>
-    <div class="col-sm-4 col-sm-offset-2">      
+    <div class="col-sm-4 col-sm-offset-2">
       <p class="lead">
         <strong>Event name:</strong> <%= @concert.name %>
       </p>
@@ -77,7 +80,13 @@
       <p class="lead">
         <strong>Ticket Price:</strong> $ <%= @concert.ticket_price %>
       </p>
-      
+      <% if @concert.setlist.spotify_playlist_url.present? %>
+      <p class="lead">
+      <%= link_to @concert.setlist.spotify_playlist_url, target: '_blank' do %>
+        <strong>Open Spotify Playlist</strong>
+      <% end %>
+      </p>
+      <% end %>
       <div class="concert_flyer">
         <%= render partial: 'flyer', locals: { concert: @concert, size: '200' } %>
       </div>
