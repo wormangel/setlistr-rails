@@ -7,13 +7,11 @@ class SessionController < ApplicationController
     else # user is already logged in and adds a new login provider
       current_user.add_omniauth_provider(env["omniauth.auth"])
     end
-    session[:user_auth] = env["omniauth.auth"]
     redirect_to request.params['return'] || :dashboard
   end
 
   def destroy
     session[:user_id] = nil
-    session[:user_auth] = nil
     redirect_to root_url
   end
   

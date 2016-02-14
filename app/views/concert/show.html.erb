@@ -80,7 +80,7 @@
       <p class="lead">
         <strong>Ticket Price:</strong> $ <%= @concert.ticket_price %>
       </p>
-      <% if @concert.setlist.spotify_playlist_url.present? %>
+      <% if !@concert.setlist.nil? and @concert.setlist.spotify_playlist_url.present? %>
       <p class="lead">
       <%= link_to @concert.setlist.spotify_playlist_url, target: '_blank' do %>
         <strong>Open Spotify Playlist</strong>

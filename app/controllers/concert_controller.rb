@@ -85,7 +85,9 @@ class ConcertController < ApplicationController
       concert = Concert.find(params[:id])
       playlist_name = concert.name
       # Use a thread for that
-      CreatePlaylistWorker.perform_async(concert.setlist.id, user_auth, playlist_name)
+      spotify_auth_token = current_user.spotify_oauth_token
+      spotify_user_id = current_user.spotify_uri.split(":")[-1]
+      CreatePlaylistWorker.perform_async(concert.setlist.id, playlist_name, spotify_auth_token, spotify_user_id)
 
       flash[:notice] = 'We are creating your playlist in the background. It should finish after a while, check back soon!'
 

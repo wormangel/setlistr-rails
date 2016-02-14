@@ -90,14 +90,16 @@ class SetlistController < ApplicationController
   def generate_playlist
     if !current_user.is_spotify_user
       flash[:alert] = "You have to connect your account to a Spotify account!"
-      redirect_to edit_user_path
+      redirect_to edit_user_path(:id=>current_user.id)
     else
       band = Band.find(params[:band_id])
       setlist = band.setlist
       playlist_name = "#{band.name} Setlist"
-      # Use a thread for that
-      CreatePlaylistWorker.perform_async(setlist.id, user_auth, playlist_name)
+      spotify_auth_token = current_user.spotify_oauth_token
+      spotify_user_id = current_user.spotify_uri.split(":")[-1]
+      CreatePlaylistWorker.perform_async(setlist.id, playlist_name, spotify_auth_token, spotify_user_id)
 
+      # Use a thread for that
       flash[:notice] = 'We are creating your playlist in the background. It should finish after a while, check back soon!'
 
       redirect_to :action => 'show'

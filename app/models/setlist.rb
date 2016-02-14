@@ -63,8 +63,9 @@ class Setlist < ActiveRecord::Base
     )
   end
 
-  def generate_playlist_with_songs(playlist_name, user_auth)
-    spotify_user = RSpotify::User.new(user_auth)
+  def generate_playlist_with_songs(playlist_name, spotify_token, spotify_user_id)
+    spotify_user_hash = {"provider"=>"spotify", "id"=>spotify_user_id, "credentials" => {"token" => spotify_token}}
+    spotify_user = RSpotify::User.new(spotify_user_hash)
     playlist = spotify_user.create_playlist!(playlist_name)
     playlist_tracks = []
     songs.each do |song|

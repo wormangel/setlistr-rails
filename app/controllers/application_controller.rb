@@ -61,15 +61,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def user_auth
-    begin
-      @user_auth = session[:user_auth]
-    rescue Exception => e
-      nil
-    end
-  end
-
-  helper_method :user_auth
   helper_method :profile_pic
   helper_method :current_user
 end
