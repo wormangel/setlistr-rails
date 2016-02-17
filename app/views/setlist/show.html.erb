@@ -81,6 +81,9 @@
           <% end %>
         </em>
       </h3>
+        <%= link_to setlist_generate_playlist_path(@band) do %>
+            <p><span class="glyphicon glyphicon-music" aria-hidden="true"></span>  Generate Spotify Playlist</p>
+          <% end %>
     <% end %> 
   </div>
 
@@ -98,6 +101,11 @@
         <div class="export_div">
           <%= link_to setlist_export_txt_path(@band) do %>
             <p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>  Export as TXT</p>
+          <% end %>
+          <% if @band.setlist.spotify_playlist_url.present? %>
+            <%= link_to @band.setlist.spotify_playlist_url, target: '_blank' do %>
+              <p><span class="glyphicon glyphicon-music" aria-hidden="true"></span> Open Spotify Playlist</p>
+           <% end %>
           <% end %>
         </div>
       <% end %>

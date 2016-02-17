@@ -7,7 +7,6 @@ class SessionController < ApplicationController
     else # user is already logged in and adds a new login provider
       current_user.add_omniauth_provider(env["omniauth.auth"])
     end
-    
     redirect_to request.params['return'] || :dashboard
   end
 

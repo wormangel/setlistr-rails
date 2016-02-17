@@ -50,7 +50,7 @@ class Setlist < ActiveRecord::Base
       setlist_song.destroy
     end
   end
-  
+
   def as_json(options={})
     super(
       :except => [:created_at,:updated_at],
@@ -61,5 +61,22 @@ class Setlist < ActiveRecord::Base
         }
       }
     )
+  end
+
+  def generate_playlist_with_songs(playlist_name, spotify_token, spotify_user_id)
+    spotify_user_hash = {"id"=>spotify_user_id, "credentials" => {"token" => spotify_token}}
+    spotify_user = RSpotify::User.new(spotify_user_hash)
+    playlist = spotify_user.create_playlist!(playlist_name)
+    playlist_tracks = []
+    songs.each do |song|
+      if song.spotify_url.present?
+        track_id = song.spotify_url.split("/")[-1]
+        spotify_track = RSpotify::Track.find(track_id)
+        playlist_tracks.push(spotify_track)
+      end
+    end
+    playlist.add_tracks!(playlist_tracks)
+    playlist_url = playlist.external_urls['spotify'] unless playlist.external_urls['spotify'] == nil or playlist.external_urls['spotify'].empty?
+    self.update_attributes(:spotify_playlist_url => playlist_url)
   end
 end

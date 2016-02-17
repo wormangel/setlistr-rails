@@ -24,13 +24,15 @@ Rails.application.routes.draw do
   match 'band/:band_id/setlist/remove_song/:song_id', to: 'setlist#remove_song', as: :remove_song_from_setlist, via: [:post]
   match 'band/:band_id/setlist/add_batch', to: 'setlist#add_batch', as: :add_batch_to_setlist, via: [:post]
   match 'band/:band_id/setlist/export', to: 'setlist#export', as: :setlist_export_txt, via: [:get]
-  
+  match 'band/:band_id/setlist/generate_playlist', to: 'setlist#generate_playlist', as: :setlist_generate_playlist, via: [:get]
+
   match 'band/:band_id/songs/:id/find_media', to: 'song#find_media', as: :band_song_find_media, via: [:get]
   
   match 'band/:band_id/concerts/:id/setlist_builder', to: 'setlist#setlist_builder', as: :setlist_builder, via: [:get]
   match 'band/:band_id/concerts/:id/setlist', to: 'setlist#update_concert_setlist', as: :update_concert_setlist, via: [:post]
   match 'band/:band_id/concerts/:id/setlist/export', to: 'concert#export_lyrics', as: :setlist_export_lyrics, via: [:get]
-  
+  match 'band/:band_id/concerts/:id/setlist/generate_playlist', to: 'concert#generate_playlist', as: :setlist_concert_generate_playlist, via: [:get]
+
   match 'invite/:invite_code', to: 'band#invite', as: :invite, via: [:get]
   match 'band/:band_id/invite/request_access', to: 'band#request_access', as: :band_request_access, via: [:post]
   match 'band/:id/invite/grant_access', to: 'band#grant_access', as: :band_grant_access, via: [:post]

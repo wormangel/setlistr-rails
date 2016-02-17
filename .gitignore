@@ -40,3 +40,5 @@ bower.json
 .env
 
 model_sketch.txt
+.ruby-gemset
+.ruby-version

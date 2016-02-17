@@ -1,4 +1,6 @@
 class SetlistController < ApplicationController
+  include CreatePlaylistHelper
+
   before_filter :require_authorization
   before_filter { require_band_member(params[:band_id]) }
   
@@ -86,7 +88,14 @@ class SetlistController < ApplicationController
     
     send_data result, :filename => (band.name + ' - Setlist (' + Time.now.strftime('%Y%m%d') + ').txt')
   end
-  
+
+  def generate_playlist
+    band = Band.find(params[:band_id])
+    setlist = band.setlist
+    playlist_name = "#{band.name} Setlist"
+    generate_playlist_for_setlist(setlist.id, playlist_name)
+  end
+
   def setlist_builder
     @band = Band.find(params[:band_id])
     @concert = Concert.find(params[:id])
