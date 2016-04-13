@@ -48,7 +48,7 @@
         <div clas="row">
           <div class="col-sm-12">
             <h3><%= contract.user.first_name %></h3>
-            <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
+            <p style="color: green;"><em><%= t Contract.human_attribute_name("instrument." + contract.instrument) %></em></p>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
           <div clas="row">
             <div class="col-sm-12">
               <h3><%= contract.user.first_name %></h3>
-              <p style="color: green;"><em><%= Contract::INSTRUMENTS[contract.instrument] %></em></p>
+              <p style="color: green;"><em><%= t Contract.human_attribute_name("instrument." + contract.instrument) %></em></p>
             </div>
           </div>
         </div>
