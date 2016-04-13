@@ -55,12 +55,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden-xs">
-                  <p class="navbar-text">Hi, <%= current_user.name %></p>
+                  <p class="navbar-text"><%= t :greeting, username: current_user.name %></p>
                   <%= image_tag profile_pic, :class => 'profile_pic' %>
                 </li>
                 <li>
                   <%= link_to signout_path, id: "logout_btn" do %>
-                    Logout
+                    <%= t :logout %>
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                   <% end %>
                 </li>

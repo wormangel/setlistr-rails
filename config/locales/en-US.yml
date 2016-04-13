@@ -3,3 +3,21 @@ en-US:
   landing_login_text:  "To begin, please login by using your Facebook or Spotify account."
   facebook_btn_text: "Login with Facebook"
   spotify_btn_text: "Login with Spotify"
+
+  logout: "Logout"
+  greeting: "Hi, %{username}!"
+
+  band_list_empty: "You don't have any bands yet."
+  band_list_add_your_band: "Add your band!"
+  band_list_text: "Here is a list of your bands. You can also %{new_band_path:add a new band!}"
+
+  dashboard_upcoming_concerts: "Upcoming concerts!"
+
+  activerecord:
+    attributes:
+      contract/instrument:
+        guitar: "Guitar"
+        bass: "Bass"
+        vocals: "Vocals"
+        drums: "Drums"
+        keyboard: "Keyboard"

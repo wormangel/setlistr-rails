@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 text-center">
-      <h1 class="page-header">Hi, <%= current_user.name %>!</h1>
+      <h1 class="page-header"><%= t :greeting, username: current_user.name %></h1>
     </div>
   </div>
   <div class="row">
@@ -9,14 +9,14 @@
       <div id="dashboard text-center">
         <% if @contracts.empty? %>
           <p id="no_bands_msg" class="lead"> 
-            You don't have any bands yet.
+            <% t :band_list_empty %>
           </p>
           <p class="lead">
-            <%= link_to "Add your band!", new_band_path, :id => "create_band_btn" %>
+            <%= it :band_list_add_your_band, new_band_path: It.link(new_band_path, id: 'create_band_btn') %>
           </p>
         <% else %>
           <p class="lead">
-            Here is a list of your bands. You can also <%= link_to "add a new band!", new_band_path, :id => "create_band_btn" %>
+            <%= it :band_list_text, new_band_path: It.link(new_band_path, id: 'create_band_btn') %>
           </p>
           <div id="band_list" class="row">
           <% @contracts.each do |contract| %>
@@ -27,7 +27,7 @@
                     <%= render partial: 'band/logo', locals: { band: contract.band, size: '200' } %>
                   </div>
                   <h3><%= contract.band.name %></h3>
-                  <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
+                  <p><%= t Contract.human_attribute_name("instrument." + contract.instrument) %></p>
                 </div>
               <% end %>
             <% else %>
@@ -36,7 +36,7 @@
                   <%= render partial: 'band/logo', locals: { band: contract.band, size: '200' } %>
                 </div>
                 <h3><%= contract.band.name %></h3>
-                <p><%= Contract::INSTRUMENTS[contract.instrument] %></p>
+                <p><%= t Contract.human_attribute_name("instrument." + contract.instrument) %></p>
               </div>
             <% end %>
           <% end %>
@@ -49,11 +49,11 @@
     <div class="col-sm-8 col-sm-offset-2">
       <% if not current_user.next_concerts.empty? %>
         <div class="panel panel-default">
-          <div class="panel-heading text-center">Upcoming concerts!</div>
+          <div class="panel-heading text-center"><%= t :dashboard_upcoming_concerts %></div>
           <div class="panel-body">
             <% current_user.next_concerts.each do |concert| %>
               <%= link_to band_concert_path(concert.band, concert) do %>
-                <strong><%= concert.date %></strong> - <%= concert.band.name %> - <%= concert.name %> at <%= concert.venue %>.<br/>
+                <strong><%= concert.date %></strong> - <%= concert.band.name %> - <%= concert.name %> - <%= concert.venue %>.<br/>
               <% end %>
             <% end %>
           </div>

@@ -91,3 +91,4 @@ gem "paranoia", "~> 2.0"
 gem "yourub"
 gem 'sidekiq'
 gem 'rails-i18n', '~> 4.0.0'
+gem 'it'
