@@ -4,6 +4,14 @@ pt-BR:
   facebook_btn_text: "Login com Facebook"
   spotify_btn_text: "Login com Spotify"
 
+  menu_optn_dashboard: "Painél"
+  menu_optn_account: "Conta"
+  menu_optn_admin: "Admin"
+  menu_optn_setlist: "Setlist"
+  menu_optn_concerts: "Shows"
+  menu_optn_songs: "Músicas"
+  menu_optn_edit_band: "Editar Dados da Banda"
+
   logout: "Sair"
   greeting: "Olá, %{username}!"
 

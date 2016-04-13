@@ -14,14 +14,14 @@
           <% end %>
           <ul class="nav nav-sidebar">
               <hr>
-              <li id="nav_setlist"><%= link_to "Setlist", band_master_setlist_path(@band) %></li>
-              <li id="nav_concerts"><%= link_to "Concerts", band_concerts_path(@band) %></li>
-              <li id="nav_songs"><%= link_to "Songs", band_songs_path(@band) %></li>
+              <li id="nav_setlist"><%= link_to t(:menu_optn_setlist), band_master_setlist_path(@band) %></li>
+              <li id="nav_concerts"><%= link_to t(:menu_optn_concerts), band_concerts_path(@band) %></li>
+              <li id="nav_songs"><%= link_to t(:menu_optn_songs), band_songs_path(@band) %></li>
 <!--              <li id="nav_concerts"><%= link_to "Rehearsals", '#' %></li>
               <li id="nav_concerts"><%= link_to "Members", '#' %></li>
               <li id="nav_concerts"><%= link_to "Stats", '#' %></li>-->
               <hr>
-              <li id="nav_band_details"><%= link_to "Edit Band Details", edit_band_path(@band) %></li>
+              <li id="nav_band_details"><%= link_to t(:menu_optn_edit_band), edit_band_path(@band) %></li>
           </ul>
       </div>
       
@@ -32,9 +32,9 @@
 </div>
 <% end %>
 <% content_for :top_nav do %>
-  <li class="visible-xs-block"><%= link_to "Setlist", band_master_setlist_path(@band) %></li>
-  <li class="visible-xs-block"><%= link_to "Concerts", band_concerts_path(@band) %></li>
-  <li class="visible-xs-block"><%= link_to "Edit Band Details", edit_band_path(@band) %></li>
-  <li class="visible-xs-block"><%= link_to "Songs", band_songs_path(@band) %></li>
+  <li class="visible-xs-block"><%= link_to t(:menu_optn_setlist), band_master_setlist_path(@band) %></li>
+  <li class="visible-xs-block"><%= link_to t(:menu_optn_concerts), band_concerts_path(@band) %></li>
+  <li class="visible-xs-block"><%= link_to t(:menu_optn_edit_band), edit_band_path(@band) %></li>
+  <li class="visible-xs-block"><%= link_to t(:menu_optn_songs), band_songs_path(@band) %></li>
 <% end %>
 <%= render template: "layouts/application" %>

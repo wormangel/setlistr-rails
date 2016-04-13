@@ -4,6 +4,14 @@ en-US:
   facebook_btn_text: "Login with Facebook"
   spotify_btn_text: "Login with Spotify"
 
+  menu_optn_dashboard: "Dashboard"
+  menu_optn_account: "Account"
+  menu_optn_admin: "Admin"
+  menu_optn_setlist: "Setlist"
+  menu_optn_concerts: "Concerts"
+  menu_optn_songs: "Songs"
+  menu_optn_edit_band: "Edit Band Details"
+
   logout: "Logout"
   greeting: "Hi, %{username}!"
 
