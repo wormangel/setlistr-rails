@@ -11,14 +11,14 @@
     <h1>Setlistr</h1>
   </div>
   <p class="lead">
-    Manage your bands' setlists! Easily decide songs for concerts and store lyrics, tabs, audio and more to the songs!
-    <p>To begin, please login by using your Facebook or Spotify account</p>
+    <%= t :landing_text %>
+    <p><%= t :landing_login_text %></p>
     
     <p style="text-align:center">
-      <a href="#" id="fb_login_btn" class="zocial facebook">Login with Facebook</a>
+      <a href="#" id="fb_login_btn" class="zocial facebook"><%= t :facebook_btn_text %></a>
     </p>
     <p style="text-align:center">
-      <a href="/auth/spotify" id="spotify_login_btn" class="zocial spotify">Login with Spotify</a>
+      <a href="/auth/spotify" id="spotify_login_btn" class="zocial spotify"><%= t :spotify_btn_text %></a>
     </p>
   </p>
 </div>
