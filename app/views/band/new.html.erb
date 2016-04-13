@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 text-center">
-      <h1 class="page-header">Create a new band</h1>
+      <h1 class="page-header"><%= t :create_band_title %></h1>
     </div>
   </div>
 
   <div class="row text-center">
     <div class="col-md-offset-4 col-md-4">
       <p class="lead">
-      Tell us the name of your band and what instrument do you play in it.
+      <%= t :create_band_lead %>
       </p>
 
       <%= bootstrap_form_for @band, url: band_index_path do |f| %>
@@ -16,11 +16,11 @@
         <% for contract in @band.contracts %>
           <%= fields_for "band[contract_attributes][]", contract do |c| %>
               <%= c.label :instrument %>
-              <%= c.collection_select :instrument, Contract::INSTRUMENTS, :value, :label, {}, {class: 'form-control center-block', id: 'instrument', style: "width:auto;"}%>
+              <%= c.collection_select :instrument, instruments_dropdown, :value, :label, {}, {class: 'form-control center-block', id: 'instrument', style: "width:auto;"}%>
           <% end %>
         <% end %>
         <br/>
-        <%= f.button 'Create band', :class=> 'btn btn-primary' %>
+        <%= f.button t(:create_band_btn), :class=> 'btn btn-primary' %>
       <% end %>
     </div>
   </div>

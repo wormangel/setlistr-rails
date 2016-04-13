@@ -13,8 +13,17 @@ en-US:
 
   dashboard_upcoming_concerts: "Upcoming concerts!"
 
+  create_band_title: "Create a new band"
+  create_band_lead: "Tell us the name of your band and what instrument do you play in it."
+  create_band_btn: "Create band"
+
   activerecord:
     attributes:
+      band:
+        name: "Name"
+      contract:
+        instrument: "Instrument"
+
       contract/instrument:
         guitar: "Guitar"
         bass: "Bass"
