@@ -71,6 +71,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-datepicker'
   gem 'rails-assets-jquery-timepicker-jt'
   gem 'rails-assets-jqueryui'
+  gem 'rails-assets-sprintf'
 end
 
 gem 'omniauth'

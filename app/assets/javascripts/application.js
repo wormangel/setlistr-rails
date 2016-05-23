@@ -20,6 +20,7 @@
 //= require routes
 //= require bootstrap-datepicker
 //= require jquery-timepicker-jt
+//= require sprintf
 
 // Common code for all pages
 
@@ -70,6 +71,30 @@ $(document).on('page:load ready', function() {
   
   stopSpinner = function() {
     $("html").css("cursor", "auto");
+  }
+
+  seconds_to_hms = function(seconds) {
+    seconds = parseInt(seconds);
+    if (seconds < 60) {
+      return seconds + 's';
+    }
+    else if (seconds < 3600) {
+      if (seconds % 60 == 0) {
+        return Math.floor(seconds/60) + 'min';
+      } else {
+        return Math.floor(seconds/60) + 'min' + sprintf("%02d", (seconds%60)) + 's';
+      }
+    } else {
+      if (seconds % 3600 == 0) {
+        return Math.floor(seconds/3600)+ 'h';
+      } else {
+        if (Math.floor(seconds/3600) % 60 == 0) {
+          return Math.floor(seconds/3600) + 'h' + sprintf("%02d", Math.floor((seconds%3600) / 60)) + 'min';
+        } else {
+          return Math.floor(seconds/3600) + 'h' + sprintf("%02d", Math.floor((seconds%3600) / 60)) + 'min' + sprintf("%02d", ( (seconds%3600) % 60 )) + 's';
+        }
+      }
+    }
   }
   
   $(document).on("page:fetch", startSpinner);

@@ -342,6 +342,7 @@ GEM
     rails-assets-jqueryui (1.11.4)
       rails-assets-jquery (>= 1.6)
     rails-assets-noty (2.3.7)
+    rails-assets-sprintf (1.0.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -500,6 +501,7 @@ DEPENDENCIES
   rails-assets-jquery-timepicker-jt!
   rails-assets-jqueryui!
   rails-assets-noty!
+  rails-assets-sprintf!
   rails_12factor
   rspec-autotest
   rspec-rails

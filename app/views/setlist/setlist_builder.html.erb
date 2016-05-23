@@ -23,6 +23,7 @@
         var li = $('<li></li>').addClass('base_setlist_song');
         li.attr('data-song-id', setlist_song['song']['id']);
         li.attr('data-song-group', 'base');
+        li.attr('data-setlist-song-duration', setlist_song['song']['duration']);
 
         var p = $('<p></p>').text(setlist_song['song']['artist'] + ' - ' + setlist_song['song']['title']);
         li.append(p);
@@ -133,11 +134,31 @@
           if (op === 'add') {
             $('#concert_setlist ul li[data-song-id="' + songId + '"]').attr('data-setlist-song-id', data);
           }
+
+          updateRunningTimeAndCount(songId, op);
         },
         error: function(data) {
           displayFlash('An error ocurred while saving the concert setlist.', 'error');
         } 
       });
+    }
+
+    updateRunningTimeAndCount = function(songId, op) {
+      var curDuration = parseInt($('#concert_setlist_running_time').attr('data-concert-setlist-duration'));
+      var duration = parseInt($('#base_setlist ul li[data-song-id="' + songId + '"]').attr('data-setlist-song-duration'));
+      var curCount = parseInt($('#concert_setlist_count').text());
+      
+      if (op == 'destroy') {
+        curCount = curCount - 1;
+        curDuration = curDuration - duration;
+      } else if (op == 'add') {
+        curCount = curCount + 1;
+        curDuration = curDuration + duration;
+      }
+
+      $('#concert_setlist_count').text(curCount);
+      $('#concert_setlist_running_time').attr('data-concert-setlist-duration', curDuration);
+      $('#concert_setlist_running_time').text(seconds_to_hms(curDuration));
     }
     
     $(document).ready(function(){
@@ -231,13 +252,24 @@
     <div id="concert_setlist" class="setlist_content">
       <ul class="list-unstyled setlist_paper">
         <% @setlist.setlist_songs.order(:pos).each do |s| %>
-          <li class="concert_setlist_song" data-song-id="<%=s.song.id%>" data-song-group="concert" data-setlist-song-id="<%=s.id%>">
+          <li class="concert_setlist_song" data-song-id="<%=s.song.id%>" data-song-group="concert" data-setlist-song-id="<%=s.id%>" data-setlist-song-duration="<%=s.song.duration%>">
             <p>
               <%= s.song.artist %> - <%= s.song.title %>
             </p>
           </li>
         <% end %>
       </ul>
+    </div>
+    <div id="concert_setlist_stats">
+      <h3 style="margin-top: 25px;">
+        <em>
+          <strong style="color: rgb(51, 122, 183)" id="concert_setlist_count"><%= @setlist.count %></strong> <%= @setlist.count != 1 ? 'songs' : 'song' %>.
+          <% if @setlist.running_time > 0 %>
+            <strong style="color: rgb(51, 122, 183)" id="concert_setlist_running_time" 
+              data-concert-setlist-duration="<%=@setlist.running_time%>"><%= seconds_to_hms(@setlist.running_time) %></strong>.
+          <% end %>
+        </em>
+      </h3>
     </div>
   </div>
 </div>
