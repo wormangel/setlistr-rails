@@ -264,10 +264,8 @@
       <h3 style="margin-top: 25px;">
         <em>
           <strong style="color: rgb(51, 122, 183)" id="concert_setlist_count"><%= @setlist.count %></strong> <%= @setlist.count != 1 ? 'songs' : 'song' %>.
-          <% if @setlist.running_time > 0 %>
-            <strong style="color: rgb(51, 122, 183)" id="concert_setlist_running_time" 
-              data-concert-setlist-duration="<%=@setlist.running_time%>"><%= seconds_to_hms(@setlist.running_time) %></strong>.
-          <% end %>
+          <strong style="color: rgb(51, 122, 183)" id="concert_setlist_running_time" 
+            data-concert-setlist-duration="<%=@setlist.running_time%>"><%= seconds_to_hms(@setlist.running_time) %></strong>.
         </em>
       </h3>
     </div>
