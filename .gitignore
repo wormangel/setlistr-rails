@@ -37,7 +37,7 @@ bower.json
 .powenv
 
 # Ignore dotenv environment settings
-.env
+.env*
 
 model_sketch.txt
 .ruby-gemset

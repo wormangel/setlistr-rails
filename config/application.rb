@@ -12,6 +12,9 @@ module SetlistrRails
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    #config.log_level = :debug
+    #config.log_tags  = [:subdomain, :uuid]
+    #config.logger    = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'

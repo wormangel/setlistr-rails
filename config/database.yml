@@ -6,6 +6,9 @@
 #
 default: &default
   adapter: postgresql
+  username: postgres
+  host: <%= ENV['SETLISTRRAILS_DB_1_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['SETLISTRRAILS_DB_1_PORT_5432_TCP_PORT'] %>
   pool: 5
   timeout: 5000
 

@@ -1,0 +1,35 @@
+db:
+  image: postgres:9.4.5
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+  ports:
+    - '5432:5432'
+  volumes:
+    - setlistr-db:/var/lib/postgresql/data
+
+redis:
+  image: redis:3.0.5
+  ports:
+    - '6379:6379'
+  volumes:
+    - setlistr-redis:/var/lib/redis/data
+
+setlistr:
+  image: setlistr:0.1
+  links:
+    - db
+    - redis
+  volumes:
+    - .:/setlistr
+  ports:
+    - '3000:3000'
+
+sidekiq:
+  image: setlistr:0.1
+  command: bundle exec sidekiq
+  links:
+    - db
+    - redis
+  volumes:
+    - .:/setlistr

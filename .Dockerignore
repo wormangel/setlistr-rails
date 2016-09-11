@@ -1,0 +1,5 @@
+.git
+.dockerignore
+Gemfile.lock
+.env.prod
+.env.dev
