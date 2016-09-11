@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   match 'band/:id/invite/grant_access', to: 'band#grant_access', as: :band_grant_access, via: [:post]
 
   get 'welcome/index'
+
+  get '/.well-known/acme-challenge/:id' => 'welcome#letsencrypt'
   
   # Admin
   
