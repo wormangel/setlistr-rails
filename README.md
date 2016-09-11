@@ -18,7 +18,7 @@ Setlistr uses:
 - Youtube and Vagalume for metadata discovery
 - Amazon S3 for file storage
  
-### Setting up - External services
+### Setting up external services
 1. Configure a Facebook app (for login). Don't forget to allow the app root URL under OAuth authorized callbacks (for example, `http://localhost:3000/` for DEV environment)
 2. Configure a Amazon S3 bucket (for file uploads store - if you don't want to use that the changes you'll need should be simple enough thanks to [carrierwave](https://github.com/carrierwaveuploader/carrierwave)). 
 3. Configure a Spotify app (for login and API access). Don't forget to allow the app root URL under OAuth authorized callbacks (for example, `http://localhost:3000/` for DEV environment)
@@ -28,7 +28,7 @@ Setlistr uses:
 1. Clone the repository. `git clone git@github.com:wormangel/setlistr-rails.git`
 2. Setup the `.env` file (template below).
 
-### Running the Dockerized version
+### A) Running the Dockerized version
 #### Installing dependencies
 
 1. Build the Docker image. `docker build -t setlistr:0.1 .`
@@ -40,7 +40,7 @@ Setlistr uses:
 
 All done. Hit `http://localhost:3000` to access the website.
 
-### Running manually
+### B) Running manually
 #### Installing dependencies
 1. Install dependencies. `bundle install`
 2. Download and install [GraphicsMagick](http://www.graphicsmagick.org/) - (For OSX users: [Yay!](http://macappstore.org/graphicsmagick/))
