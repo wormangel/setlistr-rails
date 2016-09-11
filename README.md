@@ -28,6 +28,24 @@ Setlistr uses:
 1. Clone the repository. `git clone git@github.com:wormangel/setlistr-rails.git`
 2. Setup the `.env` file (template below).
 
+```
+SETLISTR_FB_APP_ID="" # Self-explanatory
+SETLISTR_FB_APP_SECRET="" # Self-explanatory
+SETLISTR_FB_REDIRECT_URL="" # This should be the rails root path of the application
+SETLISTR_INVITE_SALT="" # Any string you want, to make the band invite codes unique to your setup
+SETLISTR_S3_BUCKET="" # Self-explanatory
+SETLISTR_S3_ACCESS_KEY="" # Self-explanatory
+SETLISTR_S3_SECRET_KEY="" # Self-explanatory
+SETLISTR_S3_REGION="" # Self-explanatory
+SETLISTR_S3_ENDPOINT="" # Self-explanatory - Make sure it matches the S3 region
+SETLISTR_YOUTUBE_API_KEY="" # Self-explanatory
+SETLISTR_YOUTUBE_APP_NAME="" # Self-explanatory
+REDIS_PROVIDER="REDIS_URL" # Necessary for Sidekiq
+REDIS_URL="" # The URL for the Redis server
+SETLISTR_SPOTIFY_ID="" # Self-explanatory
+SETLISTR_SPOTIFY_SECRET="" # Self-explanatory
+```
+
 ### A) Running the Dockerized version
 #### Installing dependencies
 
@@ -56,21 +74,3 @@ All done. Hit `http://localhost:3000` to access the website.
 4. Start app `rails server`
 
 All done. Hit `http://localhost:3000` to access the website.
-
-### .env file template
-```
-SETLISTR_FB_APP_ID="" # Self-explanatory
-SETLISTR_FB_APP_SECRET="" # Self-explanatory
-SETLISTR_FB_REDIRECT_URL="" # This should be the rails root path of the application
-SETLISTR_INVITE_SALT="" # Any string you want, to make the band invite codes unique to your setup
-SETLISTR_S3_BUCKET="" # Self-explanatory
-SETLISTR_S3_ACCESS_KEY="" # Self-explanatory
-SETLISTR_S3_SECRET_KEY="" # Self-explanatory
-SETLISTR_S3_REGION="" # Self-explanatory
-SETLISTR_S3_ENDPOINT="" # Self-explanatory - Make sure it matches the S3 region
-SETLISTR_YOUTUBE_API_KEY="" # Self-explanatory
-SETLISTR_YOUTUBE_APP_NAME="" # Self-explanatory
-REDIS_PROVIDER="REDIS_URL" # Necessary for Sidekiq
-REDIS_URL="" # The URL for the Redis server
-SETLISTR_SPOTIFY_ID="" # Self-explanatory
-SETLISTR_SPOTIFY_SECRET="" # Self-explanatory```
