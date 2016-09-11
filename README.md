@@ -7,42 +7,70 @@ statistics to help the band stay dynamic.
 ### Versions
 The app was developed using Ruby 2.1.1 and Rails 4.2.4.
 
-### System dependencies
-Dependencies are managed by Bundler. Among the great stuff used there's [rails-assets](https://github.com/rails-assets/rails-assets/), [bootstrap](twitter.github.com/bootstrap/), [zocial](https://github.com/smcllns/css-social-buttons) and [omniauth-facebook](https://github.com/mkdynamic/omniauth-facebook).
+### System dependencies overview
+Setlistr uses:
+- Postgres as a database
+- Sidekiq to process concurrent jobs
+- Redis as the datastore for sidekiq
+- Graphicsmagick for some image processing
+- Facebook for logging in
+- Spotify for logging in and metadata discovery
+- Youtube and Vagalume for metadata discovery
+- Amazon S3 for file storage
+ 
+### Setting up - External services
+1. Configure a Facebook app (for login). Don't forget to allow the app root URL under OAuth authorized callbacks (for example, `http://localhost:3000/` for DEV environment)
+2. Configure a Amazon S3 bucket (for file uploads store - if you don't want to use that the changes you'll need should be simple enough thanks to [carrierwave](https://github.com/carrierwaveuploader/carrierwave)). 
+3. Configure a Spotify app (for login and API access). Don't forget to allow the app root URL under OAuth authorized callbacks (for example, `http://localhost:3000/` for DEV environment)
+4. Configure a Vagalume app (for API access).
 
-This project was done so I could get a grasp in BDD in Rails. I've used [rspec-rails](https://github.com/rspec/rspec-rails), [factory-girl](https://github.com/thoughtbot/factory_girl), [rspec-autotest](https://github.com/rspec/rspec-autotest) and [capybara](https://github.com/jnicklas/capybara).
-
-### Installing and Running
+### Installing - Common steps
 1. Clone the repository. `git clone git@github.com:wormangel/setlistr-rails.git`
-2. Install dependencies. `bundle install`
-3. Download and install [GraphicsMagick](http://www.graphicsmagick.org/) - (For OSX users: [Yay!](http://macappstore.org/graphicsmagick/))
-4. Configure a Facebook app (for login). Don't forget to allow the app root URL under OAuth authorized callbacks (for example, `http://localhost:3000/` for DEV environment)
-5. Configure a Amazon S3 bucket (for file uploads store - if you don't want to use that the changes you'll need should be simple enough thanks to [carrierwave](https://github.com/carrierwaveuploader/carrierwave)). 
-6. Create a `.env` file in the root of the app with the following variables:
+2. Setup the `.env` file (template below).
 
-        SETLISTR_FB_APP_ID="" # Self-explanatory
-        SETLISTR_FB_APP_SECRET="" # Self-explanatory
-        SETLISTR_FB_REDIRECT_URL="" # This should be the rails root path of the application
-        SETLISTR_INVITE_SALT="" # Any string you want, to make the band invite codes unique to your setup
-        SETLISTR_S3_BUCKET="" # Self-explanatory
-        SETLISTR_S3_ACCESS_KEY="" # Self-explanatory
-        SETLISTR_S3_SECRET_KEY="" # Self-explanatory
-        SETLISTR_S3_REGION="" # Self-explanatory
-        SETLISTR_S3_ENDPOINT="" # Self-explanatory - Make sure it matches the S3 region
-        SETLISTR_YOUTUBE_API_KEY="" # Self-explanatory
-        SETLISTR_YOUTUBE_APP_NAME="" # Self-explanatory
-        REDIS_PROVIDER="REDIS_URL" # Necessary for Sidekiq
-        REDIS_URL="" # The URL for the Redis server
-        SETLISTR_SPOTIFY_ID="" # Self-explanatory
-        SETLISTR_SPOTIFY_SECRET="" # Self-explanatory
+### Running the Dockerized version
+#### Installing dependencies
 
-7. Install Postgres if you don't have it (or change the db settings to use sqlite3)
-8. You need a redis server for Sidekiq to work. To install it locally you can use Homebrew `brew install redis`
-9. Create the db `rake db:create`
-10. Run migrations `rake db:migrate`
-11. Make sure redis is running (locally I do `redis-server /usr/local/etc/redis.conf`)
-12. Execute Sidekiq `bundle exec sidekiq`
-13. Start app `rails server`
+1. Build the Docker image. `docker build -t setlistr:0.1 .`
+2. Init the db. `docker-compose run setlistr rake db:create` and `docker-compose run setlistr rake db:migrate`
 
-### Tests
-Expect tons of feature tests using rspec! Try running ```bundle exec rspec```
+#### Running
+
+1. Start all containers. `docker-compose up`
+
+All done. Hit `http://localhost:3000` to access the website.
+
+### Running manually
+#### Installing dependencies
+1. Install dependencies. `bundle install`
+2. Download and install [GraphicsMagick](http://www.graphicsmagick.org/) - (For OSX users: [Yay!](http://macappstore.org/graphicsmagick/))
+3. Install Postgres if you don't have it (or change the db settings to use sqlite3)
+4. You need a redis server for Sidekiq to work. To install it locally you can use Homebrew `brew install redis`
+5. Create the db `rake db:create`
+6. Run migrations `rake db:migrate`
+
+#### Running
+1. Make sure redis is running (locally I do `redis-server /usr/local/etc/redis.conf`)
+2. Execute Sidekiq `bundle exec sidekiq`
+3. Make sure Postgres is running.
+4. Start app `rails server`
+
+All done. Hit `http://localhost:3000` to access the website.
+
+### .env file template
+```
+SETLISTR_FB_APP_ID="" # Self-explanatory
+SETLISTR_FB_APP_SECRET="" # Self-explanatory
+SETLISTR_FB_REDIRECT_URL="" # This should be the rails root path of the application
+SETLISTR_INVITE_SALT="" # Any string you want, to make the band invite codes unique to your setup
+SETLISTR_S3_BUCKET="" # Self-explanatory
+SETLISTR_S3_ACCESS_KEY="" # Self-explanatory
+SETLISTR_S3_SECRET_KEY="" # Self-explanatory
+SETLISTR_S3_REGION="" # Self-explanatory
+SETLISTR_S3_ENDPOINT="" # Self-explanatory - Make sure it matches the S3 region
+SETLISTR_YOUTUBE_API_KEY="" # Self-explanatory
+SETLISTR_YOUTUBE_APP_NAME="" # Self-explanatory
+REDIS_PROVIDER="REDIS_URL" # Necessary for Sidekiq
+REDIS_URL="" # The URL for the Redis server
+SETLISTR_SPOTIFY_ID="" # Self-explanatory
+SETLISTR_SPOTIFY_SECRET="" # Self-explanatory```
