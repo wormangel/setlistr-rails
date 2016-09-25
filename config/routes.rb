@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   match 'band/:band_id/invite/request_access', to: 'band#request_access', as: :band_request_access, via: [:post]
   match 'band/:id/invite/grant_access', to: 'band#grant_access', as: :band_grant_access, via: [:post]
 
+  match 'user/:user_id', to: 'user#overview', as: :overview, via: [:get]
+
   get 'welcome/index'
   
   # Admin

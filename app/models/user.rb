@@ -55,6 +55,14 @@ class User < ActiveRecord::Base
     col.flatten.sort_by &:date
   end
 
+  def all_concerts
+    col = []
+    bands.each do |band|
+      col << band.concerts.to_a
+    end
+    col.flatten.sort_by &:date
+  end
+
   def is_spotify_user
     !self.spotify_oauth_token.nil?
   end
