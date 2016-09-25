@@ -9,7 +9,7 @@
     <ul>
     <% @bands.each do |band| %>
       <li>
-        <h4><%= band.name %> <em class="fainter-text">created by <em class="faint-text"><%= User.find(band.audits.where("action" => "create").first.user_id).name %></em></em></h4>
+        <h4><%= band.name %></h4>
       </li>
     <% end %>
     </ul>
