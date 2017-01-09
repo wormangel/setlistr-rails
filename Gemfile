@@ -91,3 +91,4 @@ gem "vagalume", :git => 'git://github.com/wormangel/vagalume.git'
 gem "paranoia", "~> 2.0"
 gem "yourub"
 gem 'sidekiq'
+gem 'open_uri_redirections'
