@@ -58,21 +58,21 @@ class Song < ActiveRecord::Base
     begin
       newValues = newValues.merge(get_info_from_spotify) if (to_update & SPOTIFY_VARS).count > 0
     rescue Exception => e
-      puts "Error fetching media info from Spotify!"
+      puts "Error fetching media info from Spotify! Exception:" + e
     end
 
     # Vagalume info - might find youtube info as well
     begin
       newValues = newValues.merge(get_info_from_vagalume(to_update.include? YOUTUBE_KEY)) if (to_update & VAGALUME_VARS).count > 0
     rescue Exception => e
-      puts "Error fetching media info from Vagalume!"
+      puts "Error fetching media info from Vagalume! Exception:" + e
     end
 
     # Youtube only info
     begin
       newValues = newValues.merge(get_info_from_youtube) if (to_update & YOUTUBE_VARS).count > 0
     rescue Exception => e
-      puts "Error fetching media info from Youtube!"
+      puts "Error fetching media info from Youtube! Exception:" + e
     end
     
     to_update.each do |var|
