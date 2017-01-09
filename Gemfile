@@ -87,7 +87,7 @@ gem 'net-ssh' # required by fog
 gem "fog-aws"
 gem "fog"
 gem "rspotify"
-gem "vagalume", :git => 'git://github.com/otaciliolacerda/vagalume.git'
+gem "vagalume", :git => 'git://github.com/wormangel/vagalume.git'
 gem "paranoia", "~> 2.0"
 gem "yourub"
 gem 'sidekiq'
