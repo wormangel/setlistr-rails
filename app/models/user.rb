@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
         user.name = auth.info.display_name
         user.picture_url = auth.info.images.first.url
         user.spotify_oauth_token = auth.credentials.token
+        user.spotify_refresh_token = auth.credentials.refresh_token
         user.spotify_oauth_expires_at = Time.at(auth.credentials.expires_at)
         user.save!
       end
@@ -39,6 +40,7 @@ class User < ActiveRecord::Base
       #self.provider = auth.provider
       self.spotify_uri = auth.info.uri
       self.spotify_oauth_token = auth.credentials.token
+      self.spotify_refresh_token = auth.credentials.refresh_token
       self.spotify_oauth_expires_at = Time.at(auth.credentials.expires_at)
       self.save!
     end
