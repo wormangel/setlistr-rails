@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212215307) do
+ActiveRecord::Schema.define(version: 20170109132639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,11 +128,12 @@ ActiveRecord::Schema.define(version: 20160212215307) do
     t.string   "fb_oauth_expires_at"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.boolean  "admin",                    default: false
     t.string   "picture_url"
     t.string   "spotify_uri"
     t.string   "spotify_oauth_token"
     t.string   "spotify_oauth_expires_at"
+    t.boolean  "admin",                    default: false
+    t.string   "spotify_refresh_token"
   end
 
   add_foreign_key "setlist_songs", "setlists"
