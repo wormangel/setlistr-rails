@@ -21,7 +21,7 @@ class Song < ActiveRecord::Base
   SPOTIFY_VARS = [DURATION_KEY, SPOTIFY_KEY, PREVIEW_KEY]
   VAGALUME_VARS = [LYRICS_KEY, YOUTUBE_KEY]
   YOUTUBE_VARS = [YOUTUBE_KEY]
-  UPDATABLE_ATTRIBUTES = SPOTIFY_VARS + VAGALUME_VARS
+  UPDATABLE_ATTRIBUTES = SPOTIFY_VARS + VAGALUME_VARS + YOUTUBE_VARS
 
   def ==(o)
     o.class == self.class && 
@@ -107,6 +107,7 @@ class Song < ActiveRecord::Base
     response = {}
     query = "track:#{self.title} artist:#{self.artist}"
     track = RSpotify::Track.search(query, limit: 1).first
+    puts "DEBUG: Result from Spotify track search: " + track
     if track != nil
       response[DURATION_KEY] = track.duration_ms / 1000 unless track.duration_ms == nil
       response[SPOTIFY_KEY] = track.external_urls['spotify'] unless track.external_urls['spotify'] == nil or track.external_urls['spotify'].empty? 
