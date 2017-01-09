@@ -20,6 +20,7 @@ class Song < ActiveRecord::Base
 
   SPOTIFY_VARS = [DURATION_KEY, SPOTIFY_KEY, PREVIEW_KEY]
   VAGALUME_VARS = [LYRICS_KEY, YOUTUBE_KEY]
+  YOUTUBE_VARS = [YOUTUBE_KEY]
   UPDATABLE_ATTRIBUTES = SPOTIFY_VARS + VAGALUME_VARS
 
   def ==(o)
@@ -52,8 +53,27 @@ class Song < ActiveRecord::Base
     to_update = get_updatable_variables(only)
 
     newValues = {}
-    newValues = newValues.merge(get_info_from_spotify) if (to_update & SPOTIFY_VARS).count > 0
-    newValues = newValues.merge(get_info_from_vagalume(to_update.include? YOUTUBE_KEY)) if (to_update & VAGALUME_VARS).count > 0
+
+    # Spotify info
+    begin
+      newValues = newValues.merge(get_info_from_spotify) if (to_update & SPOTIFY_VARS).count > 0
+    rescue Exception => e
+      puts "Error fetching media info from Spotify!"
+    end
+
+    # Vagalume info - might find youtube info as well
+    begin
+      newValues = newValues.merge(get_info_from_vagalume(to_update.include? YOUTUBE_KEY)) if (to_update & VAGALUME_VARS).count > 0
+    rescue Exception => e
+      puts "Error fetching media info from Vagalume!"
+    end
+
+    # Youtube only info
+    begin
+      newValues = newValues.merge(get_info_from_youtube) if (to_update & YOUTUBE_VARS).count > 0
+    rescue Exception => e
+      puts "Error fetching media info from Youtube!"
+    end
     
     to_update.each do |var|
       if self.attributes[var] == nil and newValues[var] != nil

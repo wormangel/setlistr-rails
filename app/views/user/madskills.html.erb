@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h1 class="page-header">madskills</h1>
+      <p class="lead">
+        List of every song played by <%= user.name %>'s bands (Total: )
+      </p>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <% @contracts.each do |contract| %>
+        <h2><%= @contract.band.name %></h2>
+        <% contract.band.setlist.songs.order(:artist, :title).each do |song|  %>
+          <p><%= s.artist %> - <%= s.title %></p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
