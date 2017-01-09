@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
       end
     else
       where(spotify_uri: auth.info.uri).first_or_initialize.tap do |user|
+        puts auth
         user.provider = auth.provider
         user.spotify_uri = auth.info.uri
         user.name = auth.info.display_name
