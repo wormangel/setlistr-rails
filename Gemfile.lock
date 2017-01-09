@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/otaciliolacerda/vagalume.git
-  revision: 416b0de5565ba70f0f74998df2120f91a77a7605
+  remote: git://github.com/wormangel/vagalume.git
+  revision: 618c0baaf77d821c93a75b98d1fba02c22184230
   specs:
     vagalume (0.1.6)
       multi_json (~> 1.9)
@@ -518,4 +518,4 @@ DEPENDENCIES
   yourub
 
 BUNDLED WITH
-   1.10.6
+   1.13.0
