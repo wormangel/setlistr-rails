@@ -107,7 +107,7 @@ class Song < ActiveRecord::Base
     response = {}
     query = "track:#{self.title} artist:#{self.artist}"
     track = RSpotify::Track.search(query, limit: 1).first
-    puts "DEBUG: Result from Spotify track search: " + track
+    puts "DEBUG: Spotify track search: " + query
     if track != nil
       response[DURATION_KEY] = track.duration_ms / 1000 unless track.duration_ms == nil
       response[SPOTIFY_KEY] = track.external_urls['spotify'] unless track.external_urls['spotify'] == nil or track.external_urls['spotify'].empty? 
