@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
         user.provider = auth.provider
         user.spotify_uri = auth.info.uri
         user.name = auth.info.display_name
-        user.picture_url = auth.info.images.first.url
+        user.picture_url = auth.info.images.first.url if not auth.info.images.first.nil?
         user.spotify_oauth_token = auth.credentials.token
         user.spotify_refresh_token = auth.credentials.refresh_token
         user.spotify_oauth_expires_at = Time.at(auth.credentials.expires_at)
