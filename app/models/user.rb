@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
   
   def first_name
-    self.name.split(' ')[0]
+    self.name.split(' ')[0] unless self.name.nil?
   end
   
   def next_concerts
