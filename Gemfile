@@ -43,7 +43,7 @@ group :test do
   gem 'ZenTest'
   gem "autotest-rails"
   gem "rspec-autotest"
-  gem "autotest-fsevent"
+  gem "autotest-fsevent", "~> 0.2.13"
   gem "autotest-growl"
 end
 
@@ -75,7 +75,7 @@ source 'https://rails-assets.org' do
 end
 
 gem 'omniauth'
-gem 'omniauth-facebook', '~> 2.0.1'
+gem 'omniauth-facebook', '~> 4.0.0'
 gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'bootstrap_form'
 gem 'js-routes'
